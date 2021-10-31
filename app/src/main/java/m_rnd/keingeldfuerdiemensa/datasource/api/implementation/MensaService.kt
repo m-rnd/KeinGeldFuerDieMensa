@@ -1,4 +1,4 @@
-package m_rnd.keingeldfuerdiemensa.datasource.api
+package m_rnd.keingeldfuerdiemensa.datasource.api.implementation
 
 import m_rnd.keingeldfuerdiemensa.datasource.api.model.ApiMeal
 import retrofit2.Response

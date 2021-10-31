@@ -1,5 +1,7 @@
 package m_rnd.keingeldfuerdiemensa.entities
 
+import java.io.Serializable
+
 
 data class Meal(
     val id: Int,
@@ -7,4 +9,4 @@ data class Meal(
     val notes: List<String>,
     val prices: PriceInfo,
     val category: String
-)
+): Serializable

@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import m_rnd.keingeldfuerdiemensa.datasource.api.MensaService
+import m_rnd.keingeldfuerdiemensa.datasource.api.implementation.MensaService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
