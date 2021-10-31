@@ -2,10 +2,9 @@ package m_rnd.keingeldfuerdiemensa.datasource.api.mapper
 
 import m_rnd.keingeldfuerdiemensa.datasource.api.model.ApiMeal
 import m_rnd.keingeldfuerdiemensa.datasource.api.model.ApiPriceInfo
+import m_rnd.keingeldfuerdiemensa.datasource.common.util.generateMappingError
 import m_rnd.keingeldfuerdiemensa.entities.Meal
 import m_rnd.keingeldfuerdiemensa.entities.PriceInfo
-import timber.log.Timber
-import kotlin.reflect.KProperty0
 
 fun List<ApiMeal>.toEntity(): List<Meal> = mapNotNull { it.toEntity() }
 
@@ -34,9 +33,3 @@ fun ApiPriceInfo.toEntity() = PriceInfo(
     pupils = pupils,
     others = others
 )
-
-
-fun generateMappingError(property: KProperty0<Any?>): Nothing? {
-    Timber.e("Mapping error in ${property.name}")
-    return null
-}

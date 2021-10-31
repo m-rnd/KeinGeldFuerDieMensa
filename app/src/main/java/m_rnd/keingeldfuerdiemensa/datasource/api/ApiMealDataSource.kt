@@ -1,9 +1,11 @@
-package m_rnd.keingeldfuerdiemensa.repository
+package m_rnd.keingeldfuerdiemensa.datasource.api
 
 import kotlinx.coroutines.flow.Flow
 import m_rnd.keingeldfuerdiemensa.entities.Meal
 import m_rnd.keingeldfuerdiemensa.entities.util.AppResult
 
-interface MealRepository {
+interface ApiMealDataSource {
     fun getMeals(canteenId: Int, date: String): Flow<AppResult<List<Meal>>>
+
+    suspend fun getMealsAsync(canteenId: Int, date: String): AppResult<List<Meal>>
 }
