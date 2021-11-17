@@ -30,7 +30,7 @@ import m_rnd.keingeldfuerdiemensa.ui.screen.main.components.meallist.PageLayout
 fun MainScreen(viewModel: MainViewModel, navController: NavController) {
 
     val days = remember {
-        viewModel.getMensasForNextDays()
+        viewModel.getCanteensForNextDays()
     }
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState(pageCount = days.size)
@@ -48,16 +48,17 @@ fun MainScreen(viewModel: MainViewModel, navController: NavController) {
                             .pagerTabIndicatorOffset(pagerState, tabPositions)
                             .padding(8.dp)
                             .clip(
-                                RoundedCornerShape(4.dp)),
+                                RoundedCornerShape(4.dp)
+                            ),
                         height = 72.dp
                     )
                 }
             ) {
-                days.forEachIndexed { index, mensa ->
+                days.forEachIndexed { index, canteen ->
                     Tab(
                         modifier = Modifier.fillMaxHeight(),
                         text = {
-                            DayItem(mensa.day)
+                            DayItem(canteen.day)
                         },
                         selected = pagerState.currentPage == index,
                         selectedContentColor = MaterialTheme.colors.onSurface,
@@ -85,7 +86,12 @@ fun MainScreen(viewModel: MainViewModel, navController: NavController) {
         }
     }) {
         HorizontalPager(modifier = Modifier.padding(it), state = pagerState) { page ->
-            PageLayout(mensaflow = days[page].mensas)
+            PageLayout(
+                canteenFlow = days[page].canteens,
+                onAddMensaClick = {
+                    navController.navigate(NavigationDestination.ADD_CANTEEN.name)
+                }
+            )
         }
     }
 }

@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import m_rnd.keingeldfuerdiemensa.datasource.api.implementation.MensaService
+import m_rnd.keingeldfuerdiemensa.datasource.api.implementation.OpenMensaService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -52,9 +52,9 @@ object ApiModule {
     @Singleton
     fun provideMensaService(
         retrofit: Retrofit,
-    ): MensaService {
+    ): OpenMensaService {
         return retrofit.create(
-            MensaService::class.java
+            OpenMensaService::class.java
         )
     }
 }

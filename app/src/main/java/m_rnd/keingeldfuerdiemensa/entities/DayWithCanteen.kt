@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import m_rnd.keingeldfuerdiemensa.entities.util.AppResult
 import java.io.Serializable
 
-data class DayWithMensas(
+data class DayWithCanteens(
     val day: Long,
-    val mensas: Flow<AppResult<List<Mensa>>>
+    val canteens: Flow<AppResult<List<Canteen>>>
 ): Serializable

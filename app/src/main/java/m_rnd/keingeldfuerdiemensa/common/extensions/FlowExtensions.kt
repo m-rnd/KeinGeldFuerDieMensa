@@ -11,3 +11,13 @@ fun <T : List<R>, R> Flow<AppResult<T>>.filterSuccess(function: (R) -> Boolean):
         } else appResult
     }
 }
+
+fun <T, R> Flow<AppResult<T>>.mapSuccess(function: suspend (T) -> R): Flow<AppResult<R>> {
+    return map { appResult ->
+        when (appResult) {
+            is AppResult.Success -> AppResult.Success(function(appResult.data))
+            is AppResult.Error -> appResult
+            is AppResult.Loading -> appResult
+        }
+    }
+}

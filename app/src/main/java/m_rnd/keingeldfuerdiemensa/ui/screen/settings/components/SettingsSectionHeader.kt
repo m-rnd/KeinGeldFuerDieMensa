@@ -1,4 +1,4 @@
-package m_rnd.keingeldfuerdiemensa.ui.screen.main.components.meallist
+package m_rnd.keingeldfuerdiemensa.ui.screen.settings.components
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
@@ -9,10 +9,10 @@ import androidx.compose.ui.unit.dp
 import m_rnd.keingeldfuerdiemensa.ui.theme.Typography
 
 @Composable
-fun MealListTitle(modifier: Modifier = Modifier, canteenName: String) {
+fun SettingsSectionHeader(modifier: Modifier = Modifier, text: String) {
     Text(
-        modifier = modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp),
+        modifier = modifier.padding(vertical = 8.dp),
         style = Typography.h5,
         color = MaterialTheme.colors.primary,
-        text = canteenName)
+        text = text)
 }
