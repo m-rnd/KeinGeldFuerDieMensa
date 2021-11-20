@@ -15,13 +15,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import m_rnd.keingeldfuerdiemensa.R
 import m_rnd.keingeldfuerdiemensa.entities.Canteen
-import m_rnd.keingeldfuerdiemensa.entities.util.AppResult
+import m_rnd.keingeldfuerdiemensa.entities.util.FlowState
 import m_rnd.keingeldfuerdiemensa.ui.screen.settings.components.SettingsSectionHeader
 
 @Composable
 fun SettingsSectionCanteen(
     onAddCanteenClick: () -> Unit,
-    canteenResult: AppResult<List<Canteen>>
+    canteenResult: FlowState<List<Canteen>>
 ) {
     Column {
         Row(
@@ -37,7 +37,7 @@ fun SettingsSectionCanteen(
             )
         }
         when (canteenResult) {
-            is AppResult.Success -> {
+            is FlowState.Success -> {
                 LazyColumn(modifier = Modifier.fillMaxWidth(), content = {
                     canteenResult.data.forEach { mensa ->
                         item {
@@ -46,10 +46,10 @@ fun SettingsSectionCanteen(
                     }
                 })
             }
-            is AppResult.Error -> {
+            is FlowState.Error -> {
                 Text(text = canteenResult.reason.additionalInfo)
             }
-            is AppResult.Loading -> {
+            is FlowState.Loading -> {
                 Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                     CircularProgressIndicator()
                 }
@@ -61,5 +61,5 @@ fun SettingsSectionCanteen(
 @Preview
 @Composable
 fun SettingsSectionCanteenPreview() {
-    SettingsSectionCanteen(onAddCanteenClick = {}, canteenResult = AppResult.Loading)
+    SettingsSectionCanteen(onAddCanteenClick = {}, canteenResult = FlowState.Loading)
 }

@@ -6,8 +6,8 @@ import m_rnd.keingeldfuerdiemensa.datasource.db.implementation.CanteenDao
 import m_rnd.keingeldfuerdiemensa.datasource.db.mapper.toDbEntity
 import m_rnd.keingeldfuerdiemensa.datasource.db.mapper.toEntity
 import m_rnd.keingeldfuerdiemensa.entities.Canteen
-import m_rnd.keingeldfuerdiemensa.entities.util.AppResult
 import m_rnd.keingeldfuerdiemensa.entities.util.ErrorReason
+import m_rnd.keingeldfuerdiemensa.entities.util.FlowState
 import javax.inject.Inject
 
 
@@ -27,11 +27,11 @@ class DbCanteenDataSourceImpl @Inject constructor(
     }
 
 
-    override fun getCanteens(): Flow<AppResult<List<Canteen>>> {
+    override fun getCanteens(): Flow<FlowState<List<Canteen>>> {
         return canteenDao.getAllCanteens().map {
             when {
-                it.isEmpty() -> AppResult.Error(ErrorReason.Db.EmptyResult)
-                else -> AppResult.Success(it.toEntity())
+                it.isEmpty() -> FlowState.Error(ErrorReason.Db.EmptyResult)
+                else -> FlowState.Success(it.toEntity())
             }
         }
     }

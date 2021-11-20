@@ -9,8 +9,7 @@ class GetCanteenSearchResultsUseCase @Inject constructor(
     private val canteenRepository: CanteenRepository
 ) : SuspendUseCase<Unit, List<CanteenSearchResult>>() {
 
-    override val call: suspend (Unit) -> AppResult<List<CanteenSearchResult>>
-        get() = {
-            canteenRepository.getCanteenSearchResults()
-        }
+    override suspend fun call(input: Unit): AppResult<List<CanteenSearchResult>> {
+        return canteenRepository.getCanteenSearchResults()
+    }
 }

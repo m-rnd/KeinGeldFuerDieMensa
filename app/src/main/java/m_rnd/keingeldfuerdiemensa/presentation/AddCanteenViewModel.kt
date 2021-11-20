@@ -5,13 +5,11 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import m_rnd.keingeldfuerdiemensa.entities.CanteenSearchResult
 import m_rnd.keingeldfuerdiemensa.entities.util.AppResult
 import m_rnd.keingeldfuerdiemensa.usecase.GetCanteenSearchResultsUseCase
 import m_rnd.keingeldfuerdiemensa.usecase.SaveCanteenFromSearchResultUseCase
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -43,7 +41,6 @@ class AddCanteenViewModel @Inject constructor(
         isLoading.value = true
         when (val canteenResult = getCanteenSearchResultsUseCase(Unit)) {
             is AppResult.Error -> isLoading.value = false
-            is AppResult.Loading -> isLoading.value = true
             is AppResult.Success -> {
                 isLoading.value = false
                 availableCanteens = canteenResult.data

@@ -19,7 +19,7 @@ import androidx.navigation.NavController
 import m_rnd.keingeldfuerdiemensa.NavigationDestination
 import m_rnd.keingeldfuerdiemensa.R
 import m_rnd.keingeldfuerdiemensa.entities.Canteen
-import m_rnd.keingeldfuerdiemensa.entities.util.AppResult
+import m_rnd.keingeldfuerdiemensa.entities.util.FlowState
 import m_rnd.keingeldfuerdiemensa.presentation.SettingsViewModel
 import m_rnd.keingeldfuerdiemensa.ui.components.toolbar.SettingsToolbar
 import m_rnd.keingeldfuerdiemensa.ui.screen.settings.components.SettingsSectionHeader
@@ -30,7 +30,7 @@ fun SettingsScreen(viewModel: SettingsViewModel, navController: NavController) {
     Content(
         onNavigateUp = { navController.navigateUp() },
         onAddCanteenClick = { navController.navigate(NavigationDestination.ADD_CANTEEN.name) },
-        canteenResult = viewModel.getCanteens().collectAsState(initial = AppResult.Loading).value
+        canteenResult = viewModel.getCanteens().collectAsState(initial = FlowState.Loading).value
     )
     Scaffold(topBar = {
         SettingsToolbar(
@@ -49,12 +49,13 @@ fun SettingsScreen(viewModel: SettingsViewModel, navController: NavController) {
                     Icon(imageVector = Icons.Default.Add, contentDescription = "add")
                 }
             }
-            val mensas = viewModel.getCanteens().collectAsState(initial = AppResult.Loading)
+            val mensas = viewModel.getCanteens().collectAsState(initial = FlowState.Loading)
+            //TODO add loading state
             when (val v = mensas.value) {
-                is AppResult.Error -> {
+                is FlowState.Error -> {
                     Text(text = v.reason.additionalInfo)
                 }
-                is AppResult.Success -> {
+                is FlowState.Success -> {
                     LazyColumn(modifier = Modifier.fillMaxWidth(), content = {
                         v.data.forEach { mensa ->
                             item {
@@ -72,7 +73,7 @@ fun SettingsScreen(viewModel: SettingsViewModel, navController: NavController) {
 private fun Content(
     onNavigateUp: () -> Unit,
     onAddCanteenClick: () -> Unit,
-    canteenResult: AppResult<List<Canteen>>
+    canteenResult: FlowState<List<Canteen>>
 ){
     Scaffold(topBar = {
         SettingsToolbar(
@@ -101,6 +102,6 @@ fun SettingsScreenPreview() {
     Content(
         onNavigateUp = {},
         onAddCanteenClick = {},
-        canteenResult = AppResult.Loading
+        canteenResult = FlowState.Loading
     )
 }

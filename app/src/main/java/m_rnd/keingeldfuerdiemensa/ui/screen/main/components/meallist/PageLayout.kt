@@ -15,25 +15,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.Flow
 import m_rnd.keingeldfuerdiemensa.entities.Canteen
-import m_rnd.keingeldfuerdiemensa.entities.util.AppResult
 import m_rnd.keingeldfuerdiemensa.entities.util.ErrorReason
+import m_rnd.keingeldfuerdiemensa.entities.util.FlowState
 
 
 @Composable
 fun PageLayout(
-    canteenFlow: Flow<AppResult<List<Canteen>>>,
+    canteenFlow: Flow<FlowState<List<Canteen>>>,
     onAddMensaClick: () -> Unit
 ) {
-    val canteens = canteenFlow.collectAsState(initial = AppResult.Loading)
+    val canteens = canteenFlow.collectAsState(initial = FlowState.Loading)
 
     Column(modifier = Modifier.fillMaxSize()) {
         when (val v = canteens.value) {
-            is AppResult.Error -> {
+            is FlowState.Error -> {
                 if (v.reason == ErrorReason.Db.EmptyResult) {
                     PageLayoutEmptyCanteenList(onAddMensaClick)
                 }
             }
-            is AppResult.Loading -> {
+            is FlowState.Loading -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -42,7 +42,7 @@ fun PageLayout(
                 }
 
             }
-            is AppResult.Success -> {
+            is FlowState.Success -> {
                 LazyColumn(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {

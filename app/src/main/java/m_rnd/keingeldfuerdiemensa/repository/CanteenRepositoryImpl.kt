@@ -7,6 +7,7 @@ import m_rnd.keingeldfuerdiemensa.entities.Canteen
 import m_rnd.keingeldfuerdiemensa.entities.CanteenSearchResult
 import m_rnd.keingeldfuerdiemensa.entities.util.AppResult
 import m_rnd.keingeldfuerdiemensa.entities.util.ErrorReason
+import m_rnd.keingeldfuerdiemensa.entities.util.FlowState
 import m_rnd.keingeldfuerdiemensa.entities.util.extensions.mapSuccess
 import javax.inject.Inject
 
@@ -15,11 +16,11 @@ class CanteenRepositoryImpl @Inject constructor(
     private val dbCanteenDataSource: DbCanteenDataSource,
 ) : CanteenRepository {
 
-    override fun getCanteensWithMealsForDay(date: String): Flow<AppResult<List<Canteen>>> {
+    override fun getCanteensWithMealsForDay(date: String): Flow<FlowState<List<Canteen>>> {
         return dbCanteenDataSource.getCanteens()
             .mapSuccess {
                 it.mapNotNull { mensa ->
-                    when (val meals = openMensaDataSource.getMealsAsync(mensa.id, date)) {
+                    when (val meals = openMensaDataSource.getMealsForCanteen(mensa.id, date)) {
                         is AppResult.Success -> mensa.copy(meals = meals.data)
                         else -> null
                     }
@@ -27,12 +28,12 @@ class CanteenRepositoryImpl @Inject constructor(
             }
     }
 
-    override fun getCanteens(): Flow<AppResult<List<Canteen>>> {
+    override fun getCanteens(): Flow<FlowState<List<Canteen>>> {
         return dbCanteenDataSource.getCanteens()
     }
 
     override suspend fun getCanteenSearchResults(): AppResult<List<CanteenSearchResult>> {
-        return openMensaDataSource.getCanteensAsync()
+        return openMensaDataSource.getCanteens()
     }
 
     override suspend fun saveCanteen(canteen: Canteen): AppResult<Unit> {

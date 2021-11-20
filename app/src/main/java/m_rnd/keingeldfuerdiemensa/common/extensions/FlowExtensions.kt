@@ -2,22 +2,22 @@ package m_rnd.keingeldfuerdiemensa.entities.util.extensions
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import m_rnd.keingeldfuerdiemensa.entities.util.AppResult
+import m_rnd.keingeldfuerdiemensa.entities.util.FlowState
 
-fun <T : List<R>, R> Flow<AppResult<T>>.filterSuccess(function: (R) -> Boolean): Flow<AppResult<List<R>>> {
+fun <T : List<R>, R> Flow<FlowState<T>>.filterSuccess(function: (R) -> Boolean): Flow<FlowState<List<R>>> {
     return map { appResult ->
-        if (appResult is AppResult.Success) {
-            AppResult.Success(appResult.data.filter(function))
+        if (appResult is FlowState.Success) {
+            FlowState.Success(appResult.data.filter(function))
         } else appResult
     }
 }
 
-fun <T, R> Flow<AppResult<T>>.mapSuccess(function: suspend (T) -> R): Flow<AppResult<R>> {
+fun <T, R> Flow<FlowState<T>>.mapSuccess(function: suspend (T) -> R): Flow<FlowState<R>> {
     return map { appResult ->
         when (appResult) {
-            is AppResult.Success -> AppResult.Success(function(appResult.data))
-            is AppResult.Error -> appResult
-            is AppResult.Loading -> appResult
+            is FlowState.Success -> FlowState.Success(function(appResult.data))
+            is FlowState.Error -> appResult
+            is FlowState.Loading -> appResult
         }
     }
 }
