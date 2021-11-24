@@ -3,8 +3,7 @@
 
     <string name="main_add_mensa_text">Hier sieht es ziemlich leer aus! Füge eine Mensa hinzu, von der du den Speiseplan anzeigen lassen willst. Du kannst später in den Einstellungen auch weitere Mensen hinzufügen.</string>
     <string name="main_add_mensa_button">Mensa hinzufügen</string>
-    <string name="settings_title">Einstellungen</string>
-    <string name="settings_section_header_canteens">Mensen</string>
+    <string name="canteen_settings_title">Mensen</string>
 
     <string name="add_canteen_title">Mensa hinzufügen</string>
     <string name="add_canteen_search_text_field_placeholder">Suchtext eingeben</string>

@@ -9,10 +9,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.dialog
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import dagger.hilt.android.AndroidEntryPoint
 import m_rnd.keingeldfuerdiemensa.presentation.MainViewModel
+import m_rnd.keingeldfuerdiemensa.ui.dialog.canteendetail.CanteenDetailDialog
 import m_rnd.keingeldfuerdiemensa.ui.screen.addcanteen.AddCanteenScreen
 import m_rnd.keingeldfuerdiemensa.ui.screen.main.MainScreen
 import m_rnd.keingeldfuerdiemensa.ui.screen.settings.SettingsScreen
@@ -23,7 +25,8 @@ import timber.log.Timber.DebugTree
 enum class NavigationDestination {
     MAIN,
     SETTINGS,
-    ADD_CANTEEN
+    ADD_CANTEEN,
+    DIALOG_CANTEEN_DETAIL
 }
 
 @AndroidEntryPoint
@@ -58,6 +61,11 @@ class MainActivity : ComponentActivity() {
                         AddCanteenScreen(
                             viewModel = hiltViewModel(),
                             navController = navController
+                        )
+                    }
+                    dialog(NavigationDestination.DIALOG_CANTEEN_DETAIL.name) {
+                        CanteenDetailDialog(
+                            viewModel = hiltViewModel()
                         )
                     }
                 }

@@ -12,4 +12,12 @@ sealed class FlowState<out T> : Serializable {
     data class Error(val reason: ErrorReason) : FlowState<Nothing>() {
         constructor() : this(ErrorReason.Unknown)
     }
+
+    suspend fun <R> mapSuccess( transform: suspend (T) -> R): FlowState<R> {
+        return when (this) {
+            is Success -> Success(transform(data))
+            is Error -> this
+            is Loading -> this
+        }
+    }
 }
