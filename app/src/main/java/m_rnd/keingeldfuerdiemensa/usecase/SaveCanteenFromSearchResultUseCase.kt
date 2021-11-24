@@ -13,8 +13,7 @@ class SaveCanteenFromSearchResultUseCase @Inject constructor(
     override suspend fun call(input: CanteenSearchResult): AppResult<Unit> {
         val canteen = Canteen(
             id = input.id,
-            name = input.name,
-            meals = emptyList()
+            name = input.name
         )
         return canteenRepository.saveCanteen(canteen)
     }

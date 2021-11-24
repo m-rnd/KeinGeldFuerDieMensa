@@ -30,8 +30,8 @@ fun DismissibleCanteenListItem(
 ) {
     val state = rememberDismissState(
         confirmStateChange = {
-            if (it == DismissValue.DismissedToEnd) { onCanteenDelete(canteen) }
-            it != DismissValue.DismissedToEnd
+            if (it == DismissValue.DismissedToStart) { onCanteenDelete(canteen) }
+            it != DismissValue.DismissedToStart
         }
     )
     SwipeToDismiss(
@@ -99,7 +99,7 @@ fun DismissibleCanteenListItem(
                 )
 
                 val icon =
-                    if (canteen.visible) R.drawable.ic_visibility else R.drawable.ic_visibility_off
+                    if (canteen.isVisible) R.drawable.ic_visibility else R.drawable.ic_visibility_off
                 IconButton(onClick = { onCanteenVisibilityChange(canteen) }) {
                     Icon(
                         painter = painterResource(icon),

@@ -8,4 +8,6 @@ data class DbCanteen(
     @PrimaryKey(autoGenerate = false)
     val id: Int,
     val name: String,
+    val priority: Int,
+    val isVisible: Boolean
 )

@@ -7,9 +7,9 @@ fun List<DbCanteen>.toEntity(): List<Canteen> = mapNotNull { it.toEntity() }
 fun List<Canteen>.toDbEntity(): List<DbCanteen> = mapNotNull { it.toDbEntity() }
 
 fun DbCanteen.toEntity(): Canteen {
-    return Canteen(id = id, name = name, meals = listOf())
+    return Canteen(id = id, name = name, meals = listOf(), isVisible = isVisible, priority = priority)
 }
 
 fun Canteen.toDbEntity(): DbCanteen {
-    return DbCanteen(id = id, name = name)
+    return DbCanteen(id = id, name = name, priority = priority, isVisible = isVisible)
 }

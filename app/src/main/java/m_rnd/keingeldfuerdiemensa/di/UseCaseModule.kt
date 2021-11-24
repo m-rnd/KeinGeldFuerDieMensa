@@ -4,10 +4,7 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import m_rnd.keingeldfuerdiemensa.repository.CanteenRepository
-import m_rnd.keingeldfuerdiemensa.usecase.GetCanteenSearchResultsUseCase
-import m_rnd.keingeldfuerdiemensa.usecase.GetCanteensUseCase
-import m_rnd.keingeldfuerdiemensa.usecase.GetCanteensWithMealsUseCase
-import m_rnd.keingeldfuerdiemensa.usecase.SaveCanteenFromSearchResultUseCase
+import m_rnd.keingeldfuerdiemensa.usecase.*
 
 @InstallIn(ViewModelComponent::class)
 @Module
@@ -24,4 +21,13 @@ object UseCaseModule {
 
     fun provideSaveCanteenFromSearchResultUseCase(canteenRepository: CanteenRepository) =
         SaveCanteenFromSearchResultUseCase(canteenRepository)
+
+    fun provideSetCanteenPriorityUseCase(canteenRepository: CanteenRepository) =
+        SetCanteenPriorityUseCase(canteenRepository)
+
+    fun provideSetCanteenVisibleUseCase(canteenRepository: CanteenRepository) =
+        SetCanteenVisibleUseCase(canteenRepository)
+
+    fun provideDeleteCanteenUseCase(canteenRepository: CanteenRepository) =
+        DeleteCanteenUseCase(canteenRepository)
 }

@@ -6,7 +6,6 @@ import m_rnd.keingeldfuerdiemensa.datasource.db.DbCanteenDataSource
 import m_rnd.keingeldfuerdiemensa.entities.Canteen
 import m_rnd.keingeldfuerdiemensa.entities.CanteenSearchResult
 import m_rnd.keingeldfuerdiemensa.entities.util.AppResult
-import m_rnd.keingeldfuerdiemensa.entities.util.ErrorReason
 import m_rnd.keingeldfuerdiemensa.entities.util.FlowState
 import m_rnd.keingeldfuerdiemensa.entities.util.extensions.mapSuccess
 import javax.inject.Inject
@@ -17,7 +16,7 @@ class CanteenRepositoryImpl @Inject constructor(
 ) : CanteenRepository {
 
     override fun getCanteensWithMealsForDay(date: String): Flow<FlowState<List<Canteen>>> {
-        return dbCanteenDataSource.getCanteens()
+        return dbCanteenDataSource.getVisibleCanteens()
             .mapSuccess {
                 it.mapNotNull { mensa ->
                     when (val meals = openMensaDataSource.getMealsForCanteen(mensa.id, date)) {
@@ -37,8 +36,18 @@ class CanteenRepositoryImpl @Inject constructor(
     }
 
     override suspend fun saveCanteen(canteen: Canteen): AppResult<Unit> {
-        return affectedRowsToResult(dbCanteenDataSource.insertCanteen(canteen))
+        return dbCanteenDataSource.insertCanteen(canteen)
     }
 
-    fun affectedRowsToResult(rows: Long): AppResult<Unit> = rows.takeIf { it > 0 }?.let { AppResult.Success(Unit) } ?: AppResult.Error(ErrorReason.Db.EmptyResult)
+    override suspend fun deleteCanteen(canteen: Canteen): AppResult<Unit> {
+        return dbCanteenDataSource.deleteCanteen(canteen)
+    }
+
+    override suspend fun setCanteenPriority(canteen: Canteen, priority: Int): AppResult<Unit> {
+        return dbCanteenDataSource.setCanteenPriority(canteen, priority)
+    }
+
+    override suspend fun setCanteenVisible(canteen: Canteen, isVisible: Boolean): AppResult<Unit> {
+        return dbCanteenDataSource.setCanteenVisible(canteen, isVisible)
+    }
 }

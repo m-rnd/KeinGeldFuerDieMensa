@@ -5,6 +5,7 @@ import java.io.Serializable
 data class Canteen(
   val id: Int,
   val name: String,
-  val meals: List<Meal>,
-  var visible: Boolean = true
+  val meals: List<Meal> = emptyList(),
+  val isVisible: Boolean = true,
+  var priority: Int = 0
 ): Serializable
