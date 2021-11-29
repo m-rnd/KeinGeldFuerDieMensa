@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Kein Geld für die Mensa</string>
 
+    <string name="common_save">Speichern</string>
+
     <string name="main_add_mensa_text">Hier sieht es ziemlich leer aus! Füge eine Mensa hinzu, von der du den Speiseplan anzeigen lassen willst. Du kannst später in den Einstellungen auch weitere Mensen hinzufügen.</string>
     <string name="main_add_mensa_button">Mensa hinzufügen</string>
     <string name="canteen_settings_title">Mensen</string>
@@ -11,4 +13,7 @@
         <item quantity="one">%d Mensa wurde gefunden</item>
         <item quantity="other">%d Mensen wurden gefunden</item>
     </plurals>
+
+    <string name="dialog_canteen_name_header">Name ändern</string>
+    <string name="dialog_canteen_name_text_field_placeholder">Mensa-Name</string>
 </resources>

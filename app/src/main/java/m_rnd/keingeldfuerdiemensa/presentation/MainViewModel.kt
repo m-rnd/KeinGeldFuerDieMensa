@@ -3,12 +3,15 @@ package m_rnd.keingeldfuerdiemensa.presentation
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import m_rnd.keingeldfuerdiemensa.entities.DayWithCanteens
+import m_rnd.keingeldfuerdiemensa.entities.util.NavigationTarget
+import m_rnd.keingeldfuerdiemensa.ui.navigation.Navigator
 import m_rnd.keingeldfuerdiemensa.usecase.GetCanteensWithMealsUseCase
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor() : ViewModel() {
+class MainViewModel @Inject constructor(
+    private val navigator: Navigator
+) : ViewModel() {
 
     @Inject
     lateinit var getCanteensWithMealsUseCase: GetCanteensWithMealsUseCase
@@ -28,5 +31,13 @@ class MainViewModel @Inject constructor() : ViewModel() {
             )
         }
         return canteens
+    }
+
+    fun navigateToSettingsScreen() {
+        navigator.navigateTo(NavigationTarget.Settings.Canteen)
+    }
+
+    fun navigateToAddCanteenScreen() {
+        navigator.navigateTo(NavigationTarget.AddCanteen)
     }
 }

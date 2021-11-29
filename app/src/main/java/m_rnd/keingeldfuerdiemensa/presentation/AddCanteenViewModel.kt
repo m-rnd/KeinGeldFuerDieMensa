@@ -1,21 +1,27 @@
 package m_rnd.keingeldfuerdiemensa.presentation
 
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import m_rnd.keingeldfuerdiemensa.entities.Canteen
 import m_rnd.keingeldfuerdiemensa.entities.CanteenSearchResult
 import m_rnd.keingeldfuerdiemensa.entities.util.AppResult
+import m_rnd.keingeldfuerdiemensa.entities.util.DialogResult
+import m_rnd.keingeldfuerdiemensa.ui.navigation.Navigator
 import m_rnd.keingeldfuerdiemensa.usecase.GetCanteenSearchResultsUseCase
 import m_rnd.keingeldfuerdiemensa.usecase.SaveCanteenFromSearchResultUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class AddCanteenViewModel @Inject constructor(
-    private val getCanteenSearchResultsUseCase: GetCanteenSearchResultsUseCase,
-    private val saveCanteenFromSearchResultUseCase: SaveCanteenFromSearchResultUseCase
+    private val navigator: Navigator,
+    private val saveCanteenFromSearchResultUseCase: SaveCanteenFromSearchResultUseCase,
+    private val getCanteenSearchResultsUseCase: GetCanteenSearchResultsUseCase
 ) : ViewModel() {
 
     var canteenSearchInput = mutableStateOf(TextFieldValue(""))
@@ -24,8 +30,13 @@ class AddCanteenViewModel @Inject constructor(
     var isLoading = mutableStateOf(false)
         private set
 
+    var nameDialogShowing by mutableStateOf(false)
+        private set
 
     private var availableCanteens = listOf<CanteenSearchResult>()
+
+    var selectedCanteen: CanteenSearchResult? = null
+        private set
 
     var filteredCanteens = mutableStateOf(listOf<CanteenSearchResult>())
         private set
@@ -57,8 +68,9 @@ class AddCanteenViewModel @Inject constructor(
                 var subStringsFound = 0
                 subStrings.forEach {
                     if (canteen.name.contains(it, true)
-                            || canteen.city.contains(it, true)
-                            || canteen.address.contains(it, true)) {
+                        || canteen.city.contains(it, true)
+                        || canteen.address.contains(it, true)
+                    ) {
                         subStringsFound++
                     }
                 }
@@ -68,8 +80,26 @@ class AddCanteenViewModel @Inject constructor(
     }
 
     fun onCanteenClicked(canteen: CanteenSearchResult) {
-        viewModelScope.launch {
-            saveCanteenFromSearchResultUseCase(canteen)
+        selectedCanteen = canteen
+        nameDialogShowing = true
+    }
+
+    fun onNameDialogResult(result: DialogResult) = viewModelScope.launch {
+        nameDialogShowing = false
+        if (result is DialogResult.Positive.CanteenName) {
+            selectedCanteen?.let { canteen ->
+
+                val newCanteen = Canteen(
+                    id = canteen.id,
+                    name = result.value
+                )
+                saveCanteenFromSearchResultUseCase(newCanteen)
+                navigator.navigateUp()
+            }
         }
+    }
+
+    fun navigateUp() {
+        navigator.navigateUp()
     }
 }

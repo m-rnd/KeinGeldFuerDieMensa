@@ -13,13 +13,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.pagerTabIndicatorOffset
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
-import m_rnd.keingeldfuerdiemensa.NavigationDestination
 import m_rnd.keingeldfuerdiemensa.presentation.MainViewModel
 import m_rnd.keingeldfuerdiemensa.ui.screen.main.components.daybar.DayItem
 import m_rnd.keingeldfuerdiemensa.ui.screen.main.components.daybar.SettingsItem
@@ -27,7 +25,7 @@ import m_rnd.keingeldfuerdiemensa.ui.screen.main.components.meallist.PageLayout
 
 @ExperimentalPagerApi
 @Composable
-fun MainScreen(viewModel: MainViewModel, navController: NavController) {
+fun MainScreen(viewModel: MainViewModel) {
 
     val days = remember {
         viewModel.getCanteensForNextDays()
@@ -79,7 +77,7 @@ fun MainScreen(viewModel: MainViewModel, navController: NavController) {
                     selectedContentColor = MaterialTheme.colors.onSurface,
                     unselectedContentColor = MaterialTheme.colors.onSurface.copy(alpha = 0.8f),
                     onClick = {
-                        navController.navigate(NavigationDestination.SETTINGS.name)
+                        viewModel.navigateToSettingsScreen()
                     },
                 )
             }
@@ -89,7 +87,7 @@ fun MainScreen(viewModel: MainViewModel, navController: NavController) {
             PageLayout(
                 canteenFlow = days[page].canteens,
                 onAddMensaClick = {
-                    navController.navigate(NavigationDestination.ADD_CANTEEN.name)
+                    viewModel.navigateToAddCanteenScreen()
                 }
             )
         }

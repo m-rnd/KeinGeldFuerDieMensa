@@ -12,8 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import m_rnd.keingeldfuerdiemensa.NavigationDestination
 import m_rnd.keingeldfuerdiemensa.R
 import m_rnd.keingeldfuerdiemensa.entities.Canteen
 import m_rnd.keingeldfuerdiemensa.presentation.settings.CanteenList
@@ -24,10 +22,10 @@ import m_rnd.keingeldfuerdiemensa.ui.screen.settings.canteen.components.list.Dis
 import m_rnd.keingeldfuerdiemensa.ui.screen.settings.canteen.components.list.ReorderableCanteenList
 
 @Composable
-fun SettingsScreen(viewModel: CanteenSettingsViewModel, navController: NavController) {
+fun SettingsScreen(viewModel: CanteenSettingsViewModel) {
     Content(
-        onNavigateUp = { navController.navigateUp() },
-        onAddCanteenClick = { navController.navigate(NavigationDestination.ADD_CANTEEN.name) },
+        onNavigateUp = { viewModel.navigateUp() },
+        onAddCanteenClick = { viewModel.navigateToAddCanteenScreen() },
         onCanteenDelete = { viewModel.deleteCanteen(it) },
         onCanteenVisibilityChange = { viewModel.toggleCanteenVisibility(it) },
         canteenResult = viewModel.canteensFlow.collectAsState(initial = CanteenList.EmptyList).value,

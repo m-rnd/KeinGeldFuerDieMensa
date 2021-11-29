@@ -11,6 +11,8 @@ import kotlinx.coroutines.launch
 import m_rnd.keingeldfuerdiemensa.entities.Canteen
 import m_rnd.keingeldfuerdiemensa.entities.util.ErrorReason
 import m_rnd.keingeldfuerdiemensa.entities.util.FlowState
+import m_rnd.keingeldfuerdiemensa.entities.util.NavigationTarget
+import m_rnd.keingeldfuerdiemensa.ui.navigation.Navigator
 import m_rnd.keingeldfuerdiemensa.usecase.DeleteCanteenUseCase
 import m_rnd.keingeldfuerdiemensa.usecase.GetCanteensUseCase
 import m_rnd.keingeldfuerdiemensa.usecase.SetCanteenPriorityUseCase
@@ -33,6 +35,7 @@ sealed class CanteenList {
 @HiltViewModel
 class CanteenSettingsViewModel @Inject constructor(
     getCanteensUseCase: GetCanteensUseCase,
+    private val navigator: Navigator,
     private val setCanteenVisibleUseCase: SetCanteenVisibleUseCase,
     private val setCanteenPriorityUseCase: SetCanteenPriorityUseCase,
     private val deleteCanteenUseCase: DeleteCanteenUseCase
@@ -98,5 +101,13 @@ class CanteenSettingsViewModel @Inject constructor(
         val current = sortedCanteens.value
         current.move(from,to)
         sortedCanteens.emit(current)
+    }
+
+    fun navigateToAddCanteenScreen() {
+        navigator.navigateTo(NavigationTarget.AddCanteen)
+    }
+
+    fun navigateUp() {
+        navigator.navigateUp()
     }
 }
