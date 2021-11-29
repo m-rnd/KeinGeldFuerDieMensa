@@ -31,7 +31,7 @@ fun DismissibleCanteenListItem(
     val state = rememberDismissState(
         confirmStateChange = {
             if (it == DismissValue.DismissedToStart) { onCanteenDelete(canteen) }
-            it != DismissValue.DismissedToStart
+            it == DismissValue.DismissedToStart
         }
     )
     SwipeToDismiss(

@@ -15,7 +15,7 @@ fun DismissibleCanteenList(
     canteenResult: CanteenList.Dismissible
 ) {
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
-        items(canteenResult.canteens) { canteen ->
+        items(canteenResult.canteens, {canteen -> canteen.id}) { canteen ->
             DismissibleCanteenListItem(
                 canteen = canteen,
                 onCanteenDelete = onCanteenDelete,
