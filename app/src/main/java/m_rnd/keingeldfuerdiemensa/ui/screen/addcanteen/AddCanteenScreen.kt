@@ -13,7 +13,9 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import m_rnd.keingeldfuerdiemensa.entities.CanteenSearchResult
+import m_rnd.keingeldfuerdiemensa.entities.util.UiState
 import m_rnd.keingeldfuerdiemensa.presentation.AddCanteenViewModel
+import m_rnd.keingeldfuerdiemensa.ui.components.banner.ErrorBanner
 import m_rnd.keingeldfuerdiemensa.ui.screen.addcanteen.components.AddCanteenToolbar
 import m_rnd.keingeldfuerdiemensa.ui.screen.addcanteen.components.CanteenSearchResultList
 import m_rnd.keingeldfuerdiemensa.ui.screen.addcanteen.namedialog.CanteenNameDialog
@@ -26,7 +28,7 @@ fun AddCanteenScreen(viewModel: AddCanteenViewModel) {
         onCanteenClicked = {
             viewModel.onCanteenClicked(it)
         },
-        isLoading = viewModel.isLoading.value,
+        uiState = viewModel.uiState,
         canteenSearchInput = viewModel.canteenSearchInput.value,
         filteredCanteens = viewModel.filteredCanteens.value
     )
@@ -44,7 +46,7 @@ private fun Content(
     onNavigateUp: () -> Unit,
     onCanteenInputChanged: (TextFieldValue) -> Unit,
     onCanteenClicked: (CanteenSearchResult) -> Unit,
-    isLoading: Boolean,
+    uiState: UiState,
     canteenSearchInput: TextFieldValue,
     filteredCanteens: List<CanteenSearchResult>
 ) {
@@ -53,26 +55,32 @@ private fun Content(
             onNavigateUp = onNavigateUp,
             onCanteenInputChanged = onCanteenInputChanged,
             canteenSearchInput = canteenSearchInput,
-            isLoading = isLoading
+            isLoading = uiState == UiState.Loading
         )
     }) {
         Column(
             modifier = Modifier.padding(it)
         ) {
 
-            if (isLoading) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator()
+            when(uiState) {
+                is UiState.Loading -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
                 }
-            } else {
-                CanteenSearchResultList(
-                    onCanteenClicked = onCanteenClicked,
-                    showResultCount = canteenSearchInput.text.length > 1,
-                    filteredCanteens = filteredCanteens
-                )
+                is UiState.Error -> {
+                    ErrorBanner(errorReason = uiState.reason)
+                }
+                is UiState.Ready -> {
+                    CanteenSearchResultList(
+                        onCanteenClicked = onCanteenClicked,
+                        showResultCount = canteenSearchInput.text.length > 1,
+                        filteredCanteens = filteredCanteens
+                    )
+                }
             }
         }
     }
@@ -85,7 +93,7 @@ fun AddCanteenScreenPreview() {
         onNavigateUp = { },
         onCanteenInputChanged = { },
         onCanteenClicked = { },
-        isLoading = false,
+        uiState = UiState.Ready,
         canteenSearchInput = TextFieldValue("asdf"),
         filteredCanteens = listOf(
             CanteenSearchResult(

@@ -2,6 +2,8 @@
     <string name="app_name">Kein Geld für die Mensa</string>
 
     <string name="common_save">Speichern</string>
+    <string name="common_error">Fehler</string>
+    <string name="common_info">Information</string>
 
     <string name="main_add_mensa_text">Hier sieht es ziemlich leer aus! Füge eine Mensa hinzu, von der du den Speiseplan anzeigen lassen willst. Du kannst später in den Einstellungen auch weitere Mensen hinzufügen.</string>
     <string name="main_add_mensa_button">Mensa hinzufügen</string>
@@ -16,4 +18,9 @@
 
     <string name="dialog_canteen_name_header">Name ändern</string>
     <string name="dialog_canteen_name_text_field_placeholder">Mensa-Name</string>
+
+    <string name="error_reason_unknown">unbekannter Fehler</string>
+    <string name="error_reason_api">Netzwerk-Fehler: %s</string>
+    <string name="error_reason_db_empty_result">Es wurden keine Daten gefunden.</string>
+    <string name="error_reason_app">App-Fehler: %s</string>
 </resources>

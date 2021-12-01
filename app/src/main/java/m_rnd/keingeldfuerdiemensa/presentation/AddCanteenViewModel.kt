@@ -12,10 +12,13 @@ import m_rnd.keingeldfuerdiemensa.entities.Canteen
 import m_rnd.keingeldfuerdiemensa.entities.CanteenSearchResult
 import m_rnd.keingeldfuerdiemensa.entities.util.AppResult
 import m_rnd.keingeldfuerdiemensa.entities.util.DialogResult
+import m_rnd.keingeldfuerdiemensa.entities.util.UiState
 import m_rnd.keingeldfuerdiemensa.ui.navigation.Navigator
 import m_rnd.keingeldfuerdiemensa.usecase.GetCanteenSearchResultsUseCase
 import m_rnd.keingeldfuerdiemensa.usecase.SaveCanteenFromSearchResultUseCase
 import javax.inject.Inject
+
+
 
 @HiltViewModel
 class AddCanteenViewModel @Inject constructor(
@@ -27,7 +30,7 @@ class AddCanteenViewModel @Inject constructor(
     var canteenSearchInput = mutableStateOf(TextFieldValue(""))
         private set
 
-    var isLoading = mutableStateOf(false)
+    var uiState by mutableStateOf<UiState>(UiState.Loading)
         private set
 
     var nameDialogShowing by mutableStateOf(false)
@@ -49,11 +52,10 @@ class AddCanteenViewModel @Inject constructor(
     }
 
     private suspend fun loadCanteensForSearchResult() {
-        isLoading.value = true
         when (val canteenResult = getCanteenSearchResultsUseCase(Unit)) {
-            is AppResult.Error -> isLoading.value = false
+            is AppResult.Error -> uiState = UiState.Error(canteenResult.reason)
             is AppResult.Success -> {
-                isLoading.value = false
+                uiState = UiState.Ready
                 availableCanteens = canteenResult.data
             }
         }
