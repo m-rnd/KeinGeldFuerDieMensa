@@ -7,7 +7,7 @@ import m_rnd.keingeldfuerdiemensa.entities.Canteen
 import m_rnd.keingeldfuerdiemensa.entities.CanteenSearchResult
 import m_rnd.keingeldfuerdiemensa.entities.util.AppResult
 import m_rnd.keingeldfuerdiemensa.entities.util.FlowState
-import m_rnd.keingeldfuerdiemensa.entities.util.extensions.mapSuccess
+import m_rnd.keingeldfuerdiemensa.entities.util.mapSuccess
 import javax.inject.Inject
 
 class CanteenRepositoryImpl @Inject constructor(
