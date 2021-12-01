@@ -15,14 +15,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import m_rnd.keingeldfuerdiemensa.R
-import m_rnd.keingeldfuerdiemensa.entities.CanteenSearchResult
 import m_rnd.keingeldfuerdiemensa.ui.theme.Typography
 
 @Composable
 fun AddCanteenToolbar(
     onNavigateUp: () -> Unit,
     onCanteenInputChanged: (TextFieldValue) -> Unit,
-    isLoading: Boolean,
+    isReady: Boolean,
     canteenSearchInput: TextFieldValue,
 ){
     Surface(
@@ -49,7 +48,7 @@ fun AddCanteenToolbar(
                     .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
                 maxLines = 1,
                 singleLine = true,
-                enabled = isLoading.not(),
+                enabled = isReady,
                 trailingIcon = { Icon(imageVector = Icons.Outlined.Search, "search") },
                 value = canteenSearchInput,
                 placeholder = { Text(stringResource(R.string.add_canteen_search_text_field_placeholder)) },

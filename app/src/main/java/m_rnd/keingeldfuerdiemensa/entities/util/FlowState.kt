@@ -30,8 +30,17 @@ suspend fun <T, R> Flow<FlowState<T>>.onFirstSuccess(call: suspend (T) -> AppRes
     val firstResult = this.filter { it !is FlowState.Loading }.first()
     return when(firstResult) {
         is FlowState.Success -> call(firstResult.data)
-        is FlowState.Loading -> AppResult.Error()
+        is FlowState.Loading -> error("invalid state")
         is FlowState.Error -> AppResult.Error()
+    }
+}
+
+suspend fun <T> Flow<FlowState<T>>.getFirstSuccessOr(default: T): T {
+    val firstResult = this.filter { it !is FlowState.Loading }.first()
+    return when(firstResult) {
+        is FlowState.Success -> firstResult.data
+        is FlowState.Error -> default
+        FlowState.Loading -> error("invalid state")
     }
 }
 

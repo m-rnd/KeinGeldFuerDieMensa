@@ -55,7 +55,7 @@ private fun Content(
             onNavigateUp = onNavigateUp,
             onCanteenInputChanged = onCanteenInputChanged,
             canteenSearchInput = canteenSearchInput,
-            isLoading = uiState == UiState.Loading
+            isReady = uiState == UiState.Ready
         )
     }) {
         Column(
