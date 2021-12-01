@@ -23,4 +23,6 @@
     <string name="error_reason_api">Netzwerk-Fehler: %s</string>
     <string name="error_reason_db_empty_result">Es wurden keine Daten gefunden.</string>
     <string name="error_reason_app">App-Fehler: %s</string>
+    <string name="canteen_list_info_banner">Du kannst Mensen einzeln aus dem Speiseplan ein/ausblenden und neu sortieren. Lösche eine Mensa, indem du sie zur Seite wischst.</string>
+    <string name="canteen_list_info_banner_no_canteens">Füge eine Mensa hinzu, indem du auf den (+) Button klickst.</string>
 </resources>

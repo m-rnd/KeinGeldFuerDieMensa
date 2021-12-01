@@ -3,7 +3,6 @@ package m_rnd.keingeldfuerdiemensa.ui.screen.settings
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
@@ -16,13 +15,14 @@ import m_rnd.keingeldfuerdiemensa.R
 import m_rnd.keingeldfuerdiemensa.entities.Canteen
 import m_rnd.keingeldfuerdiemensa.presentation.settings.CanteenList
 import m_rnd.keingeldfuerdiemensa.presentation.settings.CanteenSettingsViewModel
+import m_rnd.keingeldfuerdiemensa.ui.components.banner.InfoBanner
 import m_rnd.keingeldfuerdiemensa.ui.components.toolbar.CanteenSettingsToolbar
 import m_rnd.keingeldfuerdiemensa.ui.screen.settings.canteen.components.AddCanteenFAB
 import m_rnd.keingeldfuerdiemensa.ui.screen.settings.canteen.components.list.DismissibleCanteenList
 import m_rnd.keingeldfuerdiemensa.ui.screen.settings.canteen.components.list.ReorderableCanteenList
 
 @Composable
-fun SettingsScreen(viewModel: CanteenSettingsViewModel) {
+fun CanteenSettingsScreen(viewModel: CanteenSettingsViewModel) {
     Content(
         onNavigateUp = { viewModel.navigateUp() },
         onAddCanteenClick = { viewModel.navigateToAddCanteenScreen() },
@@ -80,9 +80,11 @@ private fun Content(
                     )
                 }
                 is CanteenList.EmptyList -> {
-                    //Todo add info box
-                    Text("leere Liste")
+                    InfoBanner(contentText = stringResource(R.string.canteen_list_info_banner_no_canteens))
                 }
+            }
+            if (canteenResult !is CanteenList.EmptyList) {
+                InfoBanner(contentText = stringResource(R.string.canteen_list_info_banner))
             }
         }
     }
@@ -95,7 +97,7 @@ fun SettingsScreenPreview() {
     Content(
         onNavigateUp = {},
         onAddCanteenClick = {},
-        canteenResult = CanteenList.EmptyList,
+        canteenResult = CanteenList.Dismissible(listOf()),
         onCanteenDelete = {},
         onCanteenVisibilityChange = {},
         isSortMode = false,

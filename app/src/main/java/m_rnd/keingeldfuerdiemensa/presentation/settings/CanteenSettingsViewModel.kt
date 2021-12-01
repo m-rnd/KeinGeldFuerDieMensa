@@ -62,9 +62,9 @@ class CanteenSettingsViewModel @Inject constructor(
 
     var canteensFlow = combine(dbCanteens, _isSortEnabled, sortedCanteens) { canteens, isSortEnabled, sorted ->
         if (isSortEnabled) {
-            CanteenList.Reorderable(sorted)
+            if (sorted.isNotEmpty()) CanteenList.Reorderable(sorted) else CanteenList.EmptyList
         } else {
-            CanteenList.Dismissible(canteens)
+            if (canteens.isNotEmpty()) CanteenList.Dismissible(canteens) else CanteenList.EmptyList
         }
     }.stateIn(
         viewModelScope,
