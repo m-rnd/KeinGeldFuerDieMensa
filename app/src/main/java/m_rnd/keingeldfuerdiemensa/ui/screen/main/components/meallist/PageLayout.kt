@@ -8,27 +8,32 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.Flow
-import m_rnd.keingeldfuerdiemensa.entities.Mensa
-import m_rnd.keingeldfuerdiemensa.entities.util.AppResult
+import m_rnd.keingeldfuerdiemensa.entities.Canteen
+import m_rnd.keingeldfuerdiemensa.entities.util.ErrorReason
+import m_rnd.keingeldfuerdiemensa.entities.util.FlowState
 
 
 @Composable
-fun PageLayout(mensaflow: Flow<AppResult<List<Mensa>>>) {
-    val mensas = mensaflow.collectAsState(initial = AppResult.Loading)
+fun PageLayout(
+    canteenFlow: Flow<FlowState<List<Canteen>>>,
+    onAddMensaClick: () -> Unit
+) {
+    val canteens = canteenFlow.collectAsState(initial = FlowState.Loading)
 
     Column(modifier = Modifier.fillMaxSize()) {
-        when (val v = mensas.value) {
-            is AppResult.Error -> {
-                Text(text = v.reason.additionalInfo)
+        when (val v = canteens.value) {
+            is FlowState.Error -> {
+                if (v.reason == ErrorReason.Db.EmptyResult) {
+                    PageLayoutEmptyCanteenList(onAddMensaClick)
+                }
             }
-            is AppResult.Loading -> {
+            is FlowState.Loading -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
@@ -37,14 +42,14 @@ fun PageLayout(mensaflow: Flow<AppResult<List<Mensa>>>) {
                 }
 
             }
-            is AppResult.Success -> {
+            is FlowState.Success -> {
                 LazyColumn(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    v.data.forEach { mensa ->
-                        item { MealListTitle(mensaName = mensa.name) }
+                    v.data.forEach { canteen ->
+                        item { MealListTitle(canteenName = canteen.name) }
 
-                        val mealsByCategory  = mensa.meals.groupBy { it.category }
+                        val mealsByCategory  = canteen.meals.groupBy { it.category }
 
                         mealsByCategory.forEach { (category, meals) ->
                             item { MealCategoryTitle(categoryName = category) }

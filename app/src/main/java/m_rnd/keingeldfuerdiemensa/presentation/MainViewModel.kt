@@ -2,31 +2,42 @@ package m_rnd.keingeldfuerdiemensa.presentation
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import m_rnd.keingeldfuerdiemensa.entities.DayWithMensas
-import m_rnd.keingeldfuerdiemensa.usecase.GetMensaUseCase
+import m_rnd.keingeldfuerdiemensa.entities.DayWithCanteens
+import m_rnd.keingeldfuerdiemensa.entities.util.NavigationTarget
+import m_rnd.keingeldfuerdiemensa.ui.navigation.Navigator
+import m_rnd.keingeldfuerdiemensa.usecase.GetCanteensWithMealsUseCase
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor() : ViewModel() {
+class MainViewModel @Inject constructor(
+    private val navigator: Navigator
+) : ViewModel() {
 
     @Inject
-    lateinit var getMensaUseCase: GetMensaUseCase
+    lateinit var getCanteensWithMealsUseCase: GetCanteensWithMealsUseCase
 
+    private fun getCanteensForDay(timestamp: Long) = getCanteensWithMealsUseCase(timestamp)
 
-    private fun getMensasForDay(timestamp: Long) = getMensaUseCase(timestamp)
-
-    fun getMensasForNextDays(): List<DayWithMensas> {
+    fun getCanteensForNextDays(): List<DayWithCanteens> {
         val dayInMs: Long = 1000 * 60 * 60 * 24
         val currentTs = System.currentTimeMillis()
-        val mensas = mutableListOf<DayWithMensas>()
+        val canteens = mutableListOf<DayWithCanteens>()
         for (ts in currentTs..currentTs + 7 * dayInMs step dayInMs) {
-            mensas.add(
-                DayWithMensas(
+            canteens.add(
+                DayWithCanteens(
                     ts,
-                    getMensasForDay(ts)
+                    getCanteensForDay(ts)
                 )
             )
         }
-        return mensas
+        return canteens
+    }
+
+    fun navigateToSettingsScreen() {
+        navigator.navigateTo(NavigationTarget.Settings.Canteen)
+    }
+
+    fun navigateToAddCanteenScreen() {
+        navigator.navigateTo(NavigationTarget.AddCanteen)
     }
 }

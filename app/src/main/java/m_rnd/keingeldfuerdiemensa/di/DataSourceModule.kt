@@ -4,12 +4,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import m_rnd.keingeldfuerdiemensa.datasource.api.ApiMealDataSource
-import m_rnd.keingeldfuerdiemensa.datasource.api.ApiMealDataSourceImpl
-import m_rnd.keingeldfuerdiemensa.datasource.api.implementation.MensaService
-import m_rnd.keingeldfuerdiemensa.datasource.db.DbMensaDataSource
-import m_rnd.keingeldfuerdiemensa.datasource.db.DbMensaDataSourceImpl
-import m_rnd.keingeldfuerdiemensa.datasource.db.implementation.MensaDao
+import m_rnd.keingeldfuerdiemensa.datasource.api.OpenMensaDataSource
+import m_rnd.keingeldfuerdiemensa.datasource.api.OpenMensaDataSourceImpl
+import m_rnd.keingeldfuerdiemensa.datasource.api.implementation.OpenMensaService
+import m_rnd.keingeldfuerdiemensa.datasource.db.DbCanteenDataSource
+import m_rnd.keingeldfuerdiemensa.datasource.db.DbCanteenDataSourceImpl
+import m_rnd.keingeldfuerdiemensa.datasource.db.implementation.CanteenDao
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -17,9 +17,9 @@ import javax.inject.Singleton
 object DataSourceModule {
     @Provides
     @Singleton
-    fun provideApiMealDatasource(mensaService: MensaService): ApiMealDataSource = ApiMealDataSourceImpl(mensaService)
+    fun provideApiMealDatasource(openMensaService: OpenMensaService): OpenMensaDataSource = OpenMensaDataSourceImpl(openMensaService)
 
     @Provides
     @Singleton
-    fun provideDbMensaDatasource(mensaDao: MensaDao): DbMensaDataSource = DbMensaDataSourceImpl(mensaDao)
+    fun provideDbCanteenDatasource(canteenDao: CanteenDao): DbCanteenDataSource = DbCanteenDataSourceImpl(canteenDao)
 }

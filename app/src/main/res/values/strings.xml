@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">Kein Geld für die Mensa</string>
+
+    <string name="common_save">Speichern</string>
+    <string name="common_error">Fehler</string>
+    <string name="common_info">Information</string>
+
+    <string name="main_add_canteen_text">Hier sieht es ziemlich leer aus! Füge eine Mensa hinzu, von der du den Speiseplan anzeigen lassen willst. Du kannst später in den Einstellungen auch weitere Mensen hinzufügen.</string>
+    <string name="main_add_canteen_button">Mensa hinzufügen</string>
+    <string name="canteen_settings_title">Mensen</string>
+
+    <string name="add_canteen_title">Mensa hinzufügen</string>
+    <string name="add_canteen_search_text_field_placeholder">Suchtext eingeben</string>
+    <plurals name="add_canteen_search_result_amount">
+        <item quantity="one">%d Mensa wurde gefunden</item>
+        <item quantity="other">%d Mensen wurden gefunden</item>
+    </plurals>
+
+    <string name="dialog_canteen_name_header">Name ändern</string>
+    <string name="dialog_canteen_name_text_field_placeholder">Mensa-Name</string>
+
+    <string name="error_reason_unknown">unbekannter Fehler</string>
+    <string name="error_reason_api">Netzwerk-Fehler: %s</string>
+    <string name="error_reason_db_empty_result">Es wurden keine Daten gefunden.</string>
+    <string name="error_reason_app">App-Fehler: %s</string>
+    <string name="canteen_list_info_banner">Du kannst Mensen einzeln aus dem Speiseplan ein/ausblenden und neu sortieren. Lösche eine Mensa, indem du sie zur Seite wischst.</string>
+    <string name="canteen_list_info_banner_no_canteens">Füge eine Mensa hinzu, indem du auf den (+) Button klickst.</string>
 </resources>

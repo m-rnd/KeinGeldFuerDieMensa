@@ -13,13 +13,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.pagerTabIndicatorOffset
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
-import m_rnd.keingeldfuerdiemensa.NavigationDestination
 import m_rnd.keingeldfuerdiemensa.presentation.MainViewModel
 import m_rnd.keingeldfuerdiemensa.ui.screen.main.components.daybar.DayItem
 import m_rnd.keingeldfuerdiemensa.ui.screen.main.components.daybar.SettingsItem
@@ -27,10 +25,10 @@ import m_rnd.keingeldfuerdiemensa.ui.screen.main.components.meallist.PageLayout
 
 @ExperimentalPagerApi
 @Composable
-fun MainScreen(viewModel: MainViewModel, navController: NavController) {
+fun MainScreen(viewModel: MainViewModel) {
 
     val days = remember {
-        viewModel.getMensasForNextDays()
+        viewModel.getCanteensForNextDays()
     }
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState(pageCount = days.size)
@@ -48,16 +46,17 @@ fun MainScreen(viewModel: MainViewModel, navController: NavController) {
                             .pagerTabIndicatorOffset(pagerState, tabPositions)
                             .padding(8.dp)
                             .clip(
-                                RoundedCornerShape(4.dp)),
+                                RoundedCornerShape(4.dp)
+                            ),
                         height = 72.dp
                     )
                 }
             ) {
-                days.forEachIndexed { index, mensa ->
+                days.forEachIndexed { index, canteen ->
                     Tab(
                         modifier = Modifier.fillMaxHeight(),
                         text = {
-                            DayItem(mensa.day)
+                            DayItem(canteen.day)
                         },
                         selected = pagerState.currentPage == index,
                         selectedContentColor = MaterialTheme.colors.onSurface,
@@ -78,14 +77,19 @@ fun MainScreen(viewModel: MainViewModel, navController: NavController) {
                     selectedContentColor = MaterialTheme.colors.onSurface,
                     unselectedContentColor = MaterialTheme.colors.onSurface.copy(alpha = 0.8f),
                     onClick = {
-                        navController.navigate(NavigationDestination.SETTINGS.name)
+                        viewModel.navigateToSettingsScreen()
                     },
                 )
             }
         }
     }) {
         HorizontalPager(modifier = Modifier.padding(it), state = pagerState) { page ->
-            PageLayout(mensaflow = days[page].mensas)
+            PageLayout(
+                canteenFlow = days[page].canteens,
+                onAddMensaClick = {
+                    viewModel.navigateToAddCanteenScreen()
+                }
+            )
         }
     }
 }

@@ -4,10 +4,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import m_rnd.keingeldfuerdiemensa.datasource.api.ApiMealDataSource
-import m_rnd.keingeldfuerdiemensa.datasource.db.DbMensaDataSource
-import m_rnd.keingeldfuerdiemensa.repository.MensaRepository
-import m_rnd.keingeldfuerdiemensa.repository.MensaRepositoryImpl
+import m_rnd.keingeldfuerdiemensa.datasource.api.OpenMensaDataSource
+import m_rnd.keingeldfuerdiemensa.datasource.db.DbCanteenDataSource
+import m_rnd.keingeldfuerdiemensa.repository.CanteenRepository
+import m_rnd.keingeldfuerdiemensa.repository.CanteenRepositoryImpl
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -16,10 +16,10 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideMensaRepository(
-        apiMealDataSource: ApiMealDataSource,
-        dbMensaDataSource: DbMensaDataSource,
-    ): MensaRepository = MensaRepositoryImpl(
-        apiMealDataSource = apiMealDataSource,
-        dbMensaDataSource = dbMensaDataSource)
+    fun provideCanteenRepository(
+        openMensaDataSource: OpenMensaDataSource,
+        dbCanteenDataSource: DbCanteenDataSource,
+    ): CanteenRepository = CanteenRepositoryImpl(
+        openMensaDataSource = openMensaDataSource,
+        dbCanteenDataSource = dbCanteenDataSource)
 }

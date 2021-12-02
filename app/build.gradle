@@ -71,14 +71,19 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0"
 
+    //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
+    // hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0-alpha03'
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
     implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    implementation("org.burnoutcrew.composereorderable:reorderable:0.7.4")
 
     testImplementation 'junit:junit:4.+'
     testImplementation "org.mockito:mockito-inline:3.12.4"

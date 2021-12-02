@@ -8,7 +8,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import m_rnd.keingeldfuerdiemensa.datasource.db.implementation.AppDatabase
-import m_rnd.keingeldfuerdiemensa.datasource.db.implementation.MensaDao
+import m_rnd.keingeldfuerdiemensa.datasource.db.implementation.CanteenDao
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -16,8 +16,8 @@ import javax.inject.Singleton
 object DatabaseModule {
 
     @Provides
-    fun provideMensaDao(database: AppDatabase): MensaDao {
-        return database.mensaDao()
+    fun provideCanteenDao(database: AppDatabase): CanteenDao {
+        return database.canteenDao()
     }
 
     @Provides

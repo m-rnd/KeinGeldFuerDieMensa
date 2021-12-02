@@ -9,10 +9,10 @@ import androidx.compose.ui.unit.dp
 import m_rnd.keingeldfuerdiemensa.ui.theme.Typography
 
 @Composable
-fun MealListTitle(modifier: Modifier = Modifier, mensaName: String) {
+fun MealListTitle(modifier: Modifier = Modifier, canteenName: String) {
     Text(
         modifier = modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp),
         style = Typography.h5,
         color = MaterialTheme.colors.primary,
-        text = mensaName)
+        text = canteenName)
 }
