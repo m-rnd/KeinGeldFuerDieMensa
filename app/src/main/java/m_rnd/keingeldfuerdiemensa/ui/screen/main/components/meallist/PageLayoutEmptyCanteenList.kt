@@ -27,10 +27,10 @@ fun PageLayoutEmptyCanteenList(
     ) {
         Text(
             modifier = Modifier.padding(bottom = 16.dp),
-            text = stringResource(R.string.main_add_mensa_text)
+            text = stringResource(R.string.main_add_canteen_text)
         )
         Button(onClick = onAddCanteenClick) {
-            Text(stringResource(R.string.main_add_mensa_button))
+            Text(stringResource(R.string.main_add_canteen_button))
         }
     }
 }

@@ -21,15 +21,15 @@ class DbCanteenDataSourceImpl @Inject constructor(
     }
 
     override suspend fun deleteCanteen(canteen: Canteen): AppResult<Unit> {
-        return affectedRowsToResult(canteenDao.deleteCanteen(canteen.toDbEntity()))
+        return primaryKeyToResult(canteenDao.deleteCanteen(canteen.toDbEntity()))
     }
 
     override suspend fun setCanteenPriority(canteen: Canteen, priority: Int): AppResult<Unit> {
-        return affectedRowsToResult(canteenDao.setCanteenPriority(canteen.id, priority))
+        return primaryKeyToResult(canteenDao.setCanteenPriority(canteen.id, priority))
     }
 
     override suspend fun setCanteenVisible(canteen: Canteen, isVisible: Boolean): AppResult<Unit> {
-        return affectedRowsToResult(canteenDao.setCanteenVisible(canteen.id, isVisible))
+        return primaryKeyToResult(canteenDao.setCanteenVisible(canteen.id, isVisible))
     }
 
     override fun getCanteens(): Flow<FlowState<List<Canteen>>> {
@@ -54,7 +54,7 @@ class DbCanteenDataSourceImpl @Inject constructor(
         rows.takeIf { it > 0 }?.let { AppResult.Success(Unit) }
             ?: AppResult.Error(ErrorReason.Db.EmptyResult)
 
-    private fun affectedRowsToResult(rows: Int): AppResult<Unit> =
+    private fun primaryKeyToResult(rows: Int): AppResult<Unit> =
         rows.takeIf { it > 0 }?.let { AppResult.Success(Unit) }
             ?: AppResult.Error(ErrorReason.Db.EmptyResult)
 }
