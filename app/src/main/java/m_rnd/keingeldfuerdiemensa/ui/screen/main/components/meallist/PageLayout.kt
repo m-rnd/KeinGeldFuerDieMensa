@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.Flow
 import m_rnd.keingeldfuerdiemensa.entities.Canteen
 import m_rnd.keingeldfuerdiemensa.entities.util.ErrorReason
 import m_rnd.keingeldfuerdiemensa.entities.util.FlowState
+import m_rnd.keingeldfuerdiemensa.ui.components.banner.ErrorBanner
 
 
 @Composable
@@ -31,6 +32,8 @@ fun PageLayout(
             is FlowState.Error -> {
                 if (v.reason == ErrorReason.Db.EmptyResult) {
                     PageLayoutEmptyCanteenList(onAddMensaClick)
+                } else {
+                    ErrorBanner(errorReason = v.reason)
                 }
             }
             is FlowState.Loading -> {
