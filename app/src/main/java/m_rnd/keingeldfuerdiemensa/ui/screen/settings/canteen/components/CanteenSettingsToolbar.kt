@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import m_rnd.keingeldfuerdiemensa.R
@@ -34,7 +35,7 @@ fun CanteenSettingsToolbar(
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(onClick = onNavigationIconClick) {
-                Icon(imageVector = iconStart, contentDescription = "Toolbar")
+                Icon(imageVector = iconStart, contentDescription = stringResource(R.string.common_content_description_navigate_up))
             }
             Text(
                 modifier = Modifier.weight(1f),
@@ -45,7 +46,7 @@ fun CanteenSettingsToolbar(
             IconButton(onClick = onSortIconClick) {
                 Icon(
                     painter = painterResource(if (isSortMode) R.drawable.ic_save else R.drawable.ic_baseline_sort),
-                    contentDescription = "sort"
+                    contentDescription = stringResource(R.string.canteen_settings_content_description_toggle_sort_mode)
                 )
             }
         }

@@ -4,13 +4,20 @@
     <string name="common_save">Speichern</string>
     <string name="common_error">Fehler</string>
     <string name="common_info">Information</string>
+    <string name="common_content_description_navigate_up">Zurück navigieren</string>
 
     <string name="main_add_canteen_text">Hier sieht es ziemlich leer aus! Füge eine Mensa hinzu, von der du den Speiseplan anzeigen lassen willst. Du kannst später in den Einstellungen auch weitere Mensen hinzufügen.</string>
     <string name="main_add_canteen_button">Mensa hinzufügen</string>
+    <string name="main_content_description_settings_icon">Zu Einstellungen navigieren</string>
 
     <string name="canteen_settings_title">Mensen</string>
     <string name="canteen_settings_info_banner">Du kannst Mensen einzeln aus dem Speiseplan ein/ausblenden und neu sortieren. Lösche eine Mensa, indem du sie zur Seite wischst.</string>
     <string name="canteen_settings_info_banner_no_canteens">Füge eine Mensa hinzu, indem du auf den (+) Button klickst.</string>
+    <string name="canteen_settings_content_description_toggle_sort_mode">Sortiermodus umschalten</string>
+    <string name="canteen_settings_content_description_add_canteen">Mensa hinzufügen</string>
+    <string name="canteen_settings_content_description_delete_canteen">Mensa löschen</string>
+    <string name="canteen_settings_content_description_toggle_visibility">Sichtbarkeit ändern</string>
+    <string name="canteen_settings_content_description_sort_canteen">Mensa sortieren</string>
 
     <string name="add_canteen_title">Mensa hinzufügen</string>
     <string name="add_canteen_search_text_field_placeholder">Suchtext eingeben</string>
@@ -18,6 +25,7 @@
         <item quantity="one">%d Mensa wurde gefunden</item>
         <item quantity="other">%d Mensen wurden gefunden</item>
     </plurals>
+    <string name="add_canteen_content_description_search">Suche nach Mensen</string>
 
     <string name="dialog_canteen_name_header">Name ändern</string>
     <string name="dialog_canteen_name_text_field_placeholder">Mensa-Name</string>

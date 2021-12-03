@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
@@ -66,7 +67,7 @@ fun DismissibleCanteenListItem(
             ) {
                 Icon(
                     painterResource(R.drawable.ic_delete),
-                    contentDescription = "delete",
+                    contentDescription = stringResource(R.string.canteen_settings_content_description_delete_canteen),
                     tint = iconColor,
                     modifier = Modifier.scale(scale)
                 )
@@ -103,7 +104,7 @@ fun DismissibleCanteenListItem(
                 IconButton(onClick = { onCanteenVisibilityChange(canteen) }) {
                     Icon(
                         painter = painterResource(icon),
-                        contentDescription = "visibility",
+                        contentDescription = stringResource(R.string.canteen_settings_content_description_toggle_visibility),
                         tint = MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.medium)
                     )
                 }

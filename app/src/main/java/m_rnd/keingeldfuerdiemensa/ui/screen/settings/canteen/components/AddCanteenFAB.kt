@@ -10,6 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.res.stringResource
+import m_rnd.keingeldfuerdiemensa.R
 
 @Composable
 fun AddCanteenFAB(
@@ -26,7 +28,7 @@ fun AddCanteenFAB(
     ) {
         Icon(
             imageVector = Icons.Default.Add,
-            contentDescription = "add"
+            contentDescription = stringResource(R.string.canteen_settings_content_description_add_canteen)
         )
     }
 }
