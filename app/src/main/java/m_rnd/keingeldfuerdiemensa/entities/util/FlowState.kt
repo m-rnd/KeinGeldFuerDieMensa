@@ -57,3 +57,13 @@ fun <T, R> Flow<FlowState<T>>.mapSuccess(transform: suspend (T) -> R): Flow<Flow
         }
     }
 }
+
+fun <T, R> Flow<FlowState<T>>.mapSuccessTo(transform: suspend (T) -> FlowState<R>): Flow<FlowState<R>> {
+    return map { flowState ->
+        when (flowState) {
+            is FlowState.Success -> transform(flowState.data)
+            is FlowState.Error -> flowState
+            is FlowState.Loading -> flowState
+        }
+    }
+}

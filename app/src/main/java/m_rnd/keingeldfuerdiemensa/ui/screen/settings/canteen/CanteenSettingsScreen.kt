@@ -80,11 +80,11 @@ private fun Content(
                     )
                 }
                 is CanteenList.EmptyList -> {
-                    InfoBanner(contentText = stringResource(R.string.canteen_list_info_banner_no_canteens))
+                    InfoBanner(contentText = stringResource(R.string.canteen_settings_info_banner_no_canteens))
                 }
             }
             if (canteenResult !is CanteenList.EmptyList) {
-                InfoBanner(contentText = stringResource(R.string.canteen_list_info_banner))
+                InfoBanner(contentText = stringResource(R.string.canteen_settings_info_banner))
             }
         }
     }

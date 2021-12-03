@@ -7,7 +7,10 @@
 
     <string name="main_add_canteen_text">Hier sieht es ziemlich leer aus! Füge eine Mensa hinzu, von der du den Speiseplan anzeigen lassen willst. Du kannst später in den Einstellungen auch weitere Mensen hinzufügen.</string>
     <string name="main_add_canteen_button">Mensa hinzufügen</string>
+
     <string name="canteen_settings_title">Mensen</string>
+    <string name="canteen_settings_info_banner">Du kannst Mensen einzeln aus dem Speiseplan ein/ausblenden und neu sortieren. Lösche eine Mensa, indem du sie zur Seite wischst.</string>
+    <string name="canteen_settings_info_banner_no_canteens">Füge eine Mensa hinzu, indem du auf den (+) Button klickst.</string>
 
     <string name="add_canteen_title">Mensa hinzufügen</string>
     <string name="add_canteen_search_text_field_placeholder">Suchtext eingeben</string>
@@ -19,10 +22,10 @@
     <string name="dialog_canteen_name_header">Name ändern</string>
     <string name="dialog_canteen_name_text_field_placeholder">Mensa-Name</string>
 
-    <string name="error_reason_unknown">unbekannter Fehler</string>
-    <string name="error_reason_api">Netzwerk-Fehler: %s</string>
+    <string name="error_reason_unknown">Unbekannter Fehler</string>
     <string name="error_reason_db_empty_result">Es wurden keine Daten gefunden.</string>
     <string name="error_reason_app">App-Fehler: %s</string>
-    <string name="canteen_list_info_banner">Du kannst Mensen einzeln aus dem Speiseplan ein/ausblenden und neu sortieren. Lösche eine Mensa, indem du sie zur Seite wischst.</string>
-    <string name="canteen_list_info_banner_no_canteens">Füge eine Mensa hinzu, indem du auf den (+) Button klickst.</string>
+    <string name="error_reason_api_other">Netzwerk-Fehler: Unbekannter Fehler</string>
+    <string name="error_reason_api_no_connection">Netzwerk-Fehler: Keine Verbindung</string>
+    <string name="error_reason_api_error">Netzwerk-Fehler: Interner Fehler</string>
 </resources>

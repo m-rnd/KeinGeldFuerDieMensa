@@ -1,13 +1,12 @@
 package m_rnd.keingeldfuerdiemensa.repository
 
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import m_rnd.keingeldfuerdiemensa.datasource.api.OpenMensaDataSource
 import m_rnd.keingeldfuerdiemensa.datasource.db.DbCanteenDataSource
 import m_rnd.keingeldfuerdiemensa.entities.Canteen
 import m_rnd.keingeldfuerdiemensa.entities.CanteenSearchResult
-import m_rnd.keingeldfuerdiemensa.entities.util.AppResult
-import m_rnd.keingeldfuerdiemensa.entities.util.FlowState
-import m_rnd.keingeldfuerdiemensa.entities.util.mapSuccess
+import m_rnd.keingeldfuerdiemensa.entities.util.*
 import javax.inject.Inject
 
 class CanteenRepositoryImpl @Inject constructor(
@@ -17,13 +16,14 @@ class CanteenRepositoryImpl @Inject constructor(
 
     override fun getCanteensWithMealsForDay(date: String): Flow<FlowState<List<Canteen>>> {
         return dbCanteenDataSource.getVisibleCanteens()
-            .mapSuccess {
-                it.mapNotNull { mensa ->
+            .mapSuccessTo {
+                val canteensWithMeals = it.map { mensa ->
                     when (val meals = openMensaDataSource.getMealsForCanteen(mensa.id, date)) {
                         is AppResult.Success -> mensa.copy(meals = meals.data)
-                        else -> null
+                        is AppResult.Error -> return@mapSuccessTo FlowState.Error(meals.reason)
                     }
                 }
+                FlowState.Success(canteensWithMeals)
             }
     }
 
