@@ -34,7 +34,7 @@ fun AddCanteenToolbar(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 IconButton(onClick = onNavigateUp) {
-                    Icon(imageVector = Icons.Default.Close, contentDescription = "Toolbar")
+                    Icon(imageVector = Icons.Default.Close, contentDescription = stringResource(R.string.common_content_description_navigate_up))
                 }
                 Text(
                     style = Typography.h6,
@@ -49,7 +49,7 @@ fun AddCanteenToolbar(
                 maxLines = 1,
                 singleLine = true,
                 enabled = isReady,
-                trailingIcon = { Icon(imageVector = Icons.Outlined.Search, "search") },
+                trailingIcon = { Icon(imageVector = Icons.Outlined.Search, stringResource(R.string.add_canteen_content_description_search)) },
                 value = canteenSearchInput,
                 placeholder = { Text(stringResource(R.string.add_canteen_search_text_field_placeholder)) },
                 onValueChange = { onCanteenInputChanged(it) }
