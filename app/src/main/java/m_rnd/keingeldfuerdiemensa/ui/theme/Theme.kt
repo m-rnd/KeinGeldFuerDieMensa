@@ -5,37 +5,43 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
-
-private val DarkColorPalette = darkColors(
-    primary = PurpleLight,
-    primaryVariant = GreenLight,
-    secondary = PurpleLight
-)
-
-private val LightColorPalette = lightColors(
-    primary = Purple3,
-    primaryVariant = Green,
-    secondary = Purple3,
-
-    /* Other default colors to override
-    background = Color.White,
-    surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
-)
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
+import androidx.core.graphics.ColorUtils
 
 @Composable
 fun ComposeTestTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
+    primaryColorLightTheme: Color = Purple,
+    primaryColorDarkTheme: Color = PurpleLight,
     content: @Composable() () -> Unit
 ) {
+    /*
+    primary - color of all ui elements
+    secondary - here: color of toolbar and bottombar (tintedSurface)
+     */
     val colors = if (darkTheme) {
-        DarkColorPalette
+        darkColors(
+            primary = primaryColorDarkTheme,
+            secondary = Color(
+                ColorUtils.blendARGB(
+                    primaryColorLightTheme.toArgb(),
+                    Color(0xFF121212).toArgb(),// see default surface Color
+                    0.95f
+                )
+            )
+        )
     } else {
-        LightColorPalette
+        lightColors(
+            primary = primaryColorLightTheme,
+            secondary = Color(
+                ColorUtils.blendARGB(
+                    primaryColorLightTheme.toArgb(),
+                    Color.White.toArgb(),
+                    0.95f
+                )
+            )
+        )
     }
 
     MaterialTheme(

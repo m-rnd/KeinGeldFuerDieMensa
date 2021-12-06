@@ -1,6 +1,8 @@
 package m_rnd.keingeldfuerdiemensa.ui.screen.addcanteen.components
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -8,21 +10,37 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.insets.ExperimentalAnimatedInsets
+import com.google.accompanist.insets.rememberImeNestedScrollConnection
 import m_rnd.keingeldfuerdiemensa.R
 import m_rnd.keingeldfuerdiemensa.entities.CanteenSearchResult
+import m_rnd.keingeldfuerdiemensa.ui.components.banner.InfoBanner
 import m_rnd.keingeldfuerdiemensa.ui.components.util.pluralResource
 
+
+@OptIn(ExperimentalAnimatedInsets::class)
 @Composable
 fun CanteenSearchResultList(
+    contentPadding: PaddingValues,
     onCanteenClicked: (CanteenSearchResult) -> Unit,
     showResultCount: Boolean,
     filteredCanteens: List<CanteenSearchResult>
 ) {
     LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .nestedScroll(connection = rememberImeNestedScrollConnection()),
+        contentPadding = contentPadding,
         content = {
+
+            if (filteredCanteens.isEmpty()) {
+                item { InfoBanner(contentText = stringResource(R.string.add_canteen_search_result_info_label)) }
+            }
+
             items(filteredCanteens) { canteen ->
                 CanteenSearchResultListItem(
                     modifier = Modifier.clickable {
@@ -31,6 +49,7 @@ fun CanteenSearchResultList(
                     canteen = canteen
                 )
             }
+
             if (showResultCount) {
                 item {
                     Text(

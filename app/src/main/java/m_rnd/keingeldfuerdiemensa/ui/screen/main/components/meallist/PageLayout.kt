@@ -1,12 +1,11 @@
 package m_rnd.keingeldfuerdiemensa.ui.screen.main.components.meallist
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -18,10 +17,12 @@ import m_rnd.keingeldfuerdiemensa.entities.Canteen
 import m_rnd.keingeldfuerdiemensa.entities.util.ErrorReason
 import m_rnd.keingeldfuerdiemensa.entities.util.FlowState
 import m_rnd.keingeldfuerdiemensa.ui.components.banner.ErrorBanner
+import m_rnd.keingeldfuerdiemensa.ui.components.util.LoadingIndicator
 
 
 @Composable
 fun PageLayout(
+    contentPadding: PaddingValues,
     canteenFlow: Flow<FlowState<List<Canteen>>>,
     onAddMensaClick: () -> Unit
 ) {
@@ -37,16 +38,11 @@ fun PageLayout(
                 }
             }
             is FlowState.Loading -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator()
-                }
-
+                LoadingIndicator()
             }
             is FlowState.Success -> {
                 LazyColumn(
+                    contentPadding = contentPadding,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     v.data.forEach { canteen ->
