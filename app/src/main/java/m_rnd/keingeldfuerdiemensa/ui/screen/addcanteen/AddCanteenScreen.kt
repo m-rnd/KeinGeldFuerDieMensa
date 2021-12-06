@@ -1,13 +1,7 @@
 package m_rnd.keingeldfuerdiemensa.ui.screen.addcanteen
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.TextFieldValue
@@ -16,9 +10,13 @@ import m_rnd.keingeldfuerdiemensa.entities.CanteenSearchResult
 import m_rnd.keingeldfuerdiemensa.entities.util.UiState
 import m_rnd.keingeldfuerdiemensa.presentation.AddCanteenViewModel
 import m_rnd.keingeldfuerdiemensa.ui.components.banner.ErrorBanner
-import m_rnd.keingeldfuerdiemensa.ui.screen.addcanteen.components.AddCanteenToolbar
+import m_rnd.keingeldfuerdiemensa.ui.components.systemui.StatusBarType
+import m_rnd.keingeldfuerdiemensa.ui.components.systemui.SystemUiScaffold
+import m_rnd.keingeldfuerdiemensa.ui.components.util.LoadingIndicator
+import m_rnd.keingeldfuerdiemensa.ui.screen.addcanteen.components.BottomSearchBar
 import m_rnd.keingeldfuerdiemensa.ui.screen.addcanteen.components.CanteenSearchResultList
 import m_rnd.keingeldfuerdiemensa.ui.screen.addcanteen.namedialog.CanteenNameDialog
+import m_rnd.keingeldfuerdiemensa.ui.theme.ComposeTestTheme
 
 @Composable
 fun AddCanteenScreen(viewModel: AddCanteenViewModel) {
@@ -50,37 +48,35 @@ private fun Content(
     canteenSearchInput: TextFieldValue,
     filteredCanteens: List<CanteenSearchResult>
 ) {
-    Scaffold(topBar = {
-        AddCanteenToolbar(
-            onNavigateUp = onNavigateUp,
-            onCanteenInputChanged = onCanteenInputChanged,
-            canteenSearchInput = canteenSearchInput,
-            isReady = uiState == UiState.Ready
-        )
-    }) {
-        Column(
-            modifier = Modifier.padding(it)
-        ) {
+    SystemUiScaffold(
+        bottomBar = {
+            BottomSearchBar(
+                onNavigateUp = onNavigateUp,
+                onCanteenInputChanged = onCanteenInputChanged,
+                searchEnabled = uiState == UiState.Ready,
+                canteenSearchInput = canteenSearchInput
 
-            when(uiState) {
-                is UiState.Loading -> {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        CircularProgressIndicator()
-                    }
-                }
-                is UiState.Error -> {
-                    ErrorBanner(errorReason = uiState.reason)
-                }
-                is UiState.Ready -> {
-                    CanteenSearchResultList(
-                        onCanteenClicked = onCanteenClicked,
-                        showResultCount = canteenSearchInput.text.length > 1,
-                        filteredCanteens = filteredCanteens
-                    )
-                }
+            )
+        },
+        statusBarType = StatusBarType.BACKGROUND_TRANSLUCENT
+    ) { contentPadding ->
+        when (uiState) {
+            is UiState.Loading -> {
+                LoadingIndicator(Modifier.padding(contentPadding))
+            }
+            is UiState.Error -> {
+                ErrorBanner(
+                    errorReason = uiState.reason,
+                    modifier = Modifier.padding(contentPadding)
+                )
+            }
+            is UiState.Ready -> {
+                CanteenSearchResultList(
+                    contentPadding = contentPadding,
+                    onCanteenClicked = onCanteenClicked,
+                    showResultCount = canteenSearchInput.text.length > 1,
+                    filteredCanteens = filteredCanteens
+                )
             }
         }
     }
@@ -89,20 +85,22 @@ private fun Content(
 @Preview
 @Composable
 fun AddCanteenScreenPreview() {
-    Content(
-        onNavigateUp = { },
-        onCanteenInputChanged = { },
-        onCanteenClicked = { },
-        uiState = UiState.Ready,
-        canteenSearchInput = TextFieldValue("asdf"),
-        filteredCanteens = listOf(
-            CanteenSearchResult(
-                1,
-                "Mensa",
-                "Leipzig",
-                "Innenstadt",
-                listOf()
+    ComposeTestTheme {
+        Content(
+            onNavigateUp = { },
+            onCanteenInputChanged = { },
+            onCanteenClicked = { },
+            uiState = UiState.Ready,
+            canteenSearchInput = TextFieldValue("asdf"),
+            filteredCanteens = listOf(
+                CanteenSearchResult(
+                    1,
+                    "Mensa",
+                    "Leipzig",
+                    "Innenstadt",
+                    listOf()
+                )
             )
         )
-    )
+    }
 }

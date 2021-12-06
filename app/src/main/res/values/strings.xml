@@ -21,11 +21,11 @@
 
     <string name="add_canteen_title">Mensa hinzufügen</string>
     <string name="add_canteen_search_text_field_placeholder">Suchtext eingeben</string>
+    <string name="add_canteen_search_result_info_label">Du kannst Mensen anhand dessen Namen, Adresse oder Stadt suchen.</string>
     <plurals name="add_canteen_search_result_amount">
         <item quantity="one">%d Mensa wurde gefunden</item>
         <item quantity="other">%d Mensen wurden gefunden</item>
     </plurals>
-    <string name="add_canteen_content_description_search">Suche nach Mensen</string>
 
     <string name="dialog_canteen_name_header">Name ändern</string>
     <string name="dialog_canteen_name_text_field_placeholder">Mensa-Name</string>

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,7 +32,9 @@ fun DismissibleCanteenListItem(
 ) {
     val state = rememberDismissState(
         confirmStateChange = {
-            if (it == DismissValue.DismissedToStart) { onCanteenDelete(canteen) }
+            if (it == DismissValue.DismissedToStart) {
+                onCanteenDelete(canteen)
+            }
             it == DismissValue.DismissedToStart
         }
     )
@@ -99,16 +102,20 @@ fun DismissibleCanteenListItem(
                     text = canteen.name
                 )
 
-                val icon =
-                    if (canteen.isVisible) R.drawable.ic_visibility else R.drawable.ic_visibility_off
-                IconButton(onClick = { onCanteenVisibilityChange(canteen) }) {
-                    Icon(
-                        painter = painterResource(icon),
-                        contentDescription = stringResource(R.string.canteen_settings_content_description_toggle_visibility),
-                        tint = MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.medium)
-                    )
+                val icon = if (canteen.isVisible) {
+                    R.drawable.ic_visibility
+                } else {
+                    R.drawable.ic_visibility_off
                 }
 
+                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                    IconButton(onClick = { onCanteenVisibilityChange(canteen) }) {
+                        Icon(
+                            painter = painterResource(icon),
+                            contentDescription = stringResource(R.string.canteen_settings_content_description_toggle_visibility),
+                        )
+                    }
+                }
             }
         }
     }

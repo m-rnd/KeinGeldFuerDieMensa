@@ -20,6 +20,7 @@ import androidx.compose.ui.window.Dialog
 import m_rnd.keingeldfuerdiemensa.R
 import m_rnd.keingeldfuerdiemensa.entities.CanteenSearchResult
 import m_rnd.keingeldfuerdiemensa.entities.util.DialogResult
+import m_rnd.keingeldfuerdiemensa.ui.theme.DialogElevation
 
 private val cornerRadius = 16.dp
 
@@ -44,16 +45,22 @@ private fun Content(
 ) {
     Surface(
         modifier = Modifier.fillMaxWidth(),
+        elevation = DialogElevation,
         shape = RoundedCornerShape(cornerRadius)
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier.padding(cornerRadius)
         ) {
-            Text(text = stringResource(R.string.dialog_canteen_name_header), style = MaterialTheme.typography.h6)
+            Text(
+                text = stringResource(R.string.dialog_canteen_name_header),
+                style = MaterialTheme.typography.h6
+            )
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = canteenName.value, onValueChange = { canteenName.value = it}, placeholder = {
+                value = canteenName.value,
+                onValueChange = { canteenName.value = it },
+                placeholder = {
                     Text(
                         stringResource(R.string.dialog_canteen_name_text_field_placeholder)
                     )
@@ -71,5 +78,5 @@ private fun Content(
 @Preview
 @Composable
 private fun CanteenNameDialogPreview() {
-    Content(remember {mutableStateOf(TextFieldValue("Mensa am Park")) }, {})
+    Content(remember { mutableStateOf(TextFieldValue("Mensa am Park")) }, {})
 }
