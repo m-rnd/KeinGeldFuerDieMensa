@@ -1,5 +1,6 @@
 package m_rnd.keingeldfuerdiemensa.ui.screen.main.components.mealplan
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -17,6 +18,7 @@ import m_rnd.keingeldfuerdiemensa.ui.components.banner.ErrorBanner
 import m_rnd.keingeldfuerdiemensa.ui.components.util.LoadingIndicator
 
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MealPlan(
     contentPadding: PaddingValues = PaddingValues(0.dp),
@@ -46,7 +48,7 @@ fun MealPlan(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     canteenState.data.forEach { canteen ->
-                        item { MealPlanCanteenTitle(canteenName = canteen.name) }
+                        stickyHeader { MealPlanCanteenTitle(canteenName = canteen.name) }
 
                         val mealsByCategory = canteen.meals.groupBy { it.category }
 
