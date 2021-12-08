@@ -4,6 +4,8 @@
     <string name="common_save">Speichern</string>
     <string name="common_error">Fehler</string>
     <string name="common_info">Information</string>
+    <string name="common_today">Heute</string>
+    <string name="common_tomorrow">Morgen</string>
     <string name="common_content_description_navigate_up">Zurück navigieren</string>
 
     <string name="main_add_canteen_text">Hier sieht es ziemlich leer aus! Füge eine Mensa hinzu, von der du den Speiseplan anzeigen lassen willst. Du kannst später in den Einstellungen auch weitere Mensen hinzufügen.</string>

@@ -2,7 +2,8 @@ package m_rnd.keingeldfuerdiemensa.presentation
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import m_rnd.keingeldfuerdiemensa.entities.DayWithCanteens
+import m_rnd.keingeldfuerdiemensa.common.DAY_IN_MS
+import m_rnd.keingeldfuerdiemensa.entities.MealPlan
 import m_rnd.keingeldfuerdiemensa.entities.util.NavigationTarget
 import m_rnd.keingeldfuerdiemensa.ui.navigation.Navigator
 import m_rnd.keingeldfuerdiemensa.usecase.GetCanteensWithMealsUseCase
@@ -18,13 +19,12 @@ class MainViewModel @Inject constructor(
 
     private fun getCanteensForDay(timestamp: Long) = getCanteensWithMealsUseCase(timestamp)
 
-    fun getCanteensForNextDays(): List<DayWithCanteens> {
-        val dayInMs: Long = 1000 * 60 * 60 * 24
+    fun getMealPlans(): List<MealPlan> {
         val currentTs = System.currentTimeMillis()
-        val canteens = mutableListOf<DayWithCanteens>()
-        for (ts in currentTs..currentTs + 7 * dayInMs step dayInMs) {
+        val canteens = mutableListOf<MealPlan>()
+        for (ts in currentTs..currentTs + 7 * DAY_IN_MS step DAY_IN_MS) {
             canteens.add(
-                DayWithCanteens(
+                MealPlan(
                     ts,
                     getCanteensForDay(ts)
                 )
