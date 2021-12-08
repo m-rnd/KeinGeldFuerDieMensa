@@ -1,4 +1,4 @@
-package m_rnd.keingeldfuerdiemensa.ui.screen.main.components.meallist
+package m_rnd.keingeldfuerdiemensa.ui.screen.main.components.mealplan
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Column
@@ -15,10 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import m_rnd.keingeldfuerdiemensa.ui.theme.ComposeTestTheme
 import m_rnd.keingeldfuerdiemensa.ui.theme.Typography
 
 @Composable
-fun MealListItem(
+fun MealPlanItem(
     modifier: Modifier = Modifier,
     mealTitle: String,
     mealDescription: String,
@@ -31,14 +32,14 @@ fun MealListItem(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                modifier = Modifier.fillMaxWidth(0.85f),
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(end = 8.dp),
                 style = Typography.h6,
                 text = mealTitle
             )
             Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(CenterVertically),
+                modifier = Modifier.align(CenterVertically),
                 textAlign = TextAlign.End,
                 style = Typography.caption,
                 text = "%.2f".format(mealPrice) + "€"
@@ -57,10 +58,12 @@ fun MealListItem(
 @ExperimentalAnimationApi
 @Composable
 @Preview(showBackground = true)
-fun MealListItemPreview() {
-    MealListItem(
-        mealTitle = "Cevapcici",
-        mealDescription = "Zusatzstoffe",
-        mealPrice = 1.3f
-    )
+fun MealPlanItemPreview() {
+    ComposeTestTheme {
+        MealPlanItem(
+            mealTitle = "Cevapcici",
+            mealDescription = "Zusatzstoffe",
+            mealPrice = 1.3f
+        )
+    }
 }

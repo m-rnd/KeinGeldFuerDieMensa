@@ -1,19 +1,16 @@
-package m_rnd.keingeldfuerdiemensa.ui.screen.main.components.meallist
+package m_rnd.keingeldfuerdiemensa.ui.screen.main.components.mealplan
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.flow.Flow
 import m_rnd.keingeldfuerdiemensa.entities.Canteen
+import m_rnd.keingeldfuerdiemensa.entities.mock.PreviewEntity
 import m_rnd.keingeldfuerdiemensa.entities.util.ErrorReason
 import m_rnd.keingeldfuerdiemensa.entities.util.FlowState
 import m_rnd.keingeldfuerdiemensa.ui.components.banner.ErrorBanner
@@ -21,20 +18,23 @@ import m_rnd.keingeldfuerdiemensa.ui.components.util.LoadingIndicator
 
 
 @Composable
-fun PageLayout(
-    contentPadding: PaddingValues,
-    canteenFlow: Flow<FlowState<List<Canteen>>>,
-    onAddMensaClick: () -> Unit
+fun MealPlan(
+    contentPadding: PaddingValues = PaddingValues(0.dp),
+    canteenState: FlowState<List<Canteen>>,
+    onAddCanteenClick: () -> Unit
 ) {
-    val canteens = canteenFlow.collectAsState(initial = FlowState.Loading)
-
     Column(modifier = Modifier.fillMaxSize()) {
-        when (val v = canteens.value) {
+        when (canteenState) {
             is FlowState.Error -> {
-                if (v.reason == ErrorReason.Db.EmptyResult) {
-                    PageLayoutEmptyCanteenList(onAddMensaClick)
+                if (canteenState.reason == ErrorReason.Db.EmptyResult) {
+                    EmptyMealPlan(onAddCanteenClick)
                 } else {
-                    ErrorBanner(errorReason = v.reason)
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        ErrorBanner(errorReason = canteenState.reason)
+                    }
                 }
             }
             is FlowState.Loading -> {
@@ -45,17 +45,17 @@ fun PageLayout(
                     contentPadding = contentPadding,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    v.data.forEach { canteen ->
-                        item { MealListTitle(canteenName = canteen.name) }
+                    canteenState.data.forEach { canteen ->
+                        item { MealPlanCanteenTitle(canteenName = canteen.name) }
 
-                        val mealsByCategory  = canteen.meals.groupBy { it.category }
+                        val mealsByCategory = canteen.meals.groupBy { it.category }
 
                         mealsByCategory.forEach { (category, meals) ->
-                            item { MealCategoryTitle(categoryName = category) }
+                            item { MealPlanCategoryTitle(categoryName = category) }
                             itemsIndexed(meals) { index, meal ->
-                                MealListItem(
+                                MealPlanItem(
                                     mealTitle = meal.name,
-                                    mealDescription = meal.notes.joinToString(","),
+                                    mealDescription = meal.notes.joinToString(" • "),
                                     mealPrice = meal.prices.students ?: 0f
                                 )
                                 if (index < meals.size - 1)
@@ -66,10 +66,18 @@ fun PageLayout(
                                     )
                             }
                         }
-
                     }
                 }
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun MealPlanPreview() {
+    MealPlan(
+        canteenState = FlowState.Success(listOf(PreviewEntity.CanteenMock())),
+        onAddCanteenClick = {}
+    )
 }

@@ -1,4 +1,4 @@
-package m_rnd.keingeldfuerdiemensa.ui.screen.main.components.meallist
+package m_rnd.keingeldfuerdiemensa.ui.screen.main.components.mealplan
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
@@ -8,10 +8,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun MealCategoryTitle(modifier: Modifier = Modifier, categoryName: String) {
+fun MealPlanCategoryTitle(modifier: Modifier = Modifier, categoryName: String) {
     Text(
         modifier = modifier.padding(top = 16.dp),
         style = MaterialTheme.typography.subtitle1,
         color = MaterialTheme.colors.onSurface,
-        text = categoryName)
+        text = categoryName
+    )
 }
