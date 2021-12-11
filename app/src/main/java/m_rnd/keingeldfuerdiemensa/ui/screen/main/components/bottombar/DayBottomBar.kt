@@ -21,8 +21,8 @@ import kotlinx.coroutines.launch
 import m_rnd.keingeldfuerdiemensa.entities.MealPlan
 import m_rnd.keingeldfuerdiemensa.entities.mock.PreviewEntity
 import m_rnd.keingeldfuerdiemensa.ui.components.util.translucentSurfaceColor
+import m_rnd.keingeldfuerdiemensa.ui.theme.AppTheme
 import m_rnd.keingeldfuerdiemensa.ui.theme.BottomBarElevation
-import m_rnd.keingeldfuerdiemensa.ui.theme.ComposeTestTheme
 import m_rnd.keingeldfuerdiemensa.ui.theme.CustomCornerRadius
 import m_rnd.keingeldfuerdiemensa.ui.theme.MainScreenBottomBarHeight
 
@@ -99,7 +99,7 @@ private fun DayBottomBarTab(
 @Preview
 @Composable
 fun DayBottomBarPreview() {
-    ComposeTestTheme {
+    AppTheme {
         DayBottomBar(
             meals = listOf(PreviewEntity.MealPlanMock()),
             pagerState = rememberPagerState(pageCount = 2),

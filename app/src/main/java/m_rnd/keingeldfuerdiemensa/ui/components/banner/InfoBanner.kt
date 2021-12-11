@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import m_rnd.keingeldfuerdiemensa.R
-import m_rnd.keingeldfuerdiemensa.ui.theme.ComposeTestTheme
+import m_rnd.keingeldfuerdiemensa.ui.theme.AppTheme
 
 @Composable
 fun InfoBanner(
@@ -38,7 +38,7 @@ fun InfoBanner(
 )
 @Composable
 fun InfoBannerPreview() {
-    ComposeTestTheme {
+    AppTheme {
         InfoBanner(
             Modifier,
             contentText = "some info message",

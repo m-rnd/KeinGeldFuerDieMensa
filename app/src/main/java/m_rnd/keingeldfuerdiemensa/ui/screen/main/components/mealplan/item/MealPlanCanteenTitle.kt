@@ -11,21 +11,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsPadding
-import m_rnd.keingeldfuerdiemensa.ui.theme.TranslucentSurfaceAlpha
+import m_rnd.keingeldfuerdiemensa.ui.components.util.coloroverrides.translucentBackgroundColor
 import m_rnd.keingeldfuerdiemensa.ui.theme.Typography
 
 @Composable
 fun MealPlanCanteenTitle(modifier: Modifier = Modifier, canteenName: String) {
-    val backgroundTranslucentColor = MaterialTheme.colors.background.copy(
-        TranslucentSurfaceAlpha
-    )
     Box(
         modifier = Modifier.statusBarsPadding()
     ) {
         Text(
             modifier = modifier
                 .fillMaxWidth()
-                .background(backgroundTranslucentColor)
+                .background(translucentBackgroundColor())
                 .padding(bottom = 16.dp),
             style = Typography.h5,
             color = MaterialTheme.colors.primary,

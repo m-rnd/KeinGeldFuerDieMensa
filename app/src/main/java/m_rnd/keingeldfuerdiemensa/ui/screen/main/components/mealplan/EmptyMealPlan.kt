@@ -9,7 +9,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import m_rnd.keingeldfuerdiemensa.R
 import m_rnd.keingeldfuerdiemensa.ui.components.banner.InfoBanner
-import m_rnd.keingeldfuerdiemensa.ui.theme.ComposeTestTheme
+import m_rnd.keingeldfuerdiemensa.ui.theme.AppTheme
 
 @Composable
 fun EmptyMealPlan(
@@ -31,7 +31,7 @@ fun EmptyMealPlan(
 @Composable
 @Preview
 fun EmptyMealPlanPreview() {
-    ComposeTestTheme {
+    AppTheme {
         EmptyMealPlan {}
     }
 }

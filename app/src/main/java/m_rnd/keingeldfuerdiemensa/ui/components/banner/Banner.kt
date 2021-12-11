@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import m_rnd.keingeldfuerdiemensa.ui.theme.ComposeTestTheme
+import m_rnd.keingeldfuerdiemensa.ui.theme.AppTheme
 import m_rnd.keingeldfuerdiemensa.ui.theme.CustomCornerRadius
 import m_rnd.keingeldfuerdiemensa.ui.theme.Typography
 
@@ -73,7 +73,7 @@ fun Banner(
 )
 @Composable
 fun BannerPreview() {
-    ComposeTestTheme {
+    AppTheme {
         Column {
             Banner(
                 Modifier,

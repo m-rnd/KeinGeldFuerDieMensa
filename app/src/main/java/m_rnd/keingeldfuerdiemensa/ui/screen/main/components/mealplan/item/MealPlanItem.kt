@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import m_rnd.keingeldfuerdiemensa.ui.theme.ComposeTestTheme
+import m_rnd.keingeldfuerdiemensa.ui.theme.AppTheme
 import m_rnd.keingeldfuerdiemensa.ui.theme.Typography
 
 @Composable
@@ -59,7 +59,7 @@ fun MealPlanItem(
 @Composable
 @Preview(showBackground = true)
 fun MealPlanItemPreview() {
-    ComposeTestTheme {
+    AppTheme {
         MealPlanItem(
             mealTitle = "Cevapcici",
             mealDescription = "Zusatzstoffe",

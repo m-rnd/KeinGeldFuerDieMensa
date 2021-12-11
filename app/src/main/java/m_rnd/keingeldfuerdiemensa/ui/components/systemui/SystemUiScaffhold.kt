@@ -15,7 +15,7 @@ import com.google.accompanist.insets.navigationBarsHeight
 import com.google.accompanist.insets.statusBarsHeight
 import com.google.accompanist.insets.ui.LocalScaffoldPadding
 import com.google.accompanist.insets.ui.Scaffold
-import m_rnd.keingeldfuerdiemensa.ui.theme.TranslucentSurfaceAlpha
+import m_rnd.keingeldfuerdiemensa.ui.components.util.coloroverrides.translucentBackgroundColor
 
 
 enum class NavigationBarType {
@@ -46,16 +46,13 @@ fun SystemUiScaffold(
     content: @Composable (PaddingValues) -> Unit
 ) {
     Box {
-        val backgroundTranslucentColor = MaterialTheme.colors.background.copy(
-            TranslucentSurfaceAlpha
-        )
         Scaffold(
             modifier = modifier.zIndex(0f),
             scaffoldState = scaffoldState,
             topBar = {
                 val statusBarColor = when (statusBarType) {
                     StatusBarType.TRANSPARENT -> Color.Transparent
-                    StatusBarType.BACKGROUND_TRANSLUCENT -> backgroundTranslucentColor
+                    StatusBarType.BACKGROUND_TRANSLUCENT -> translucentBackgroundColor()
                 }
                 Spacer(
                     Modifier
@@ -70,7 +67,7 @@ fun SystemUiScaffold(
             bottomBar = {
                 val navigationBarColor = when (navigationBarType) {
                     NavigationBarType.TRANSPARENT -> Color.Transparent
-                    NavigationBarType.BACKGROUND_TRANSLUCENT -> backgroundTranslucentColor
+                    NavigationBarType.BACKGROUND_TRANSLUCENT -> translucentBackgroundColor()
                 }
                 Spacer(
                     Modifier

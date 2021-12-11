@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.core.graphics.ColorUtils
 
 @Composable
-fun ComposeTestTheme(
+fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     primaryColorLightTheme: Color = Purple,
     primaryColorDarkTheme: Color = PurpleLight,
