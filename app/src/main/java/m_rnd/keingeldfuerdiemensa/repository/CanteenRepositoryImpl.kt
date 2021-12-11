@@ -17,10 +17,18 @@ class CanteenRepositoryImpl @Inject constructor(
     override fun getCanteensWithMealsForDay(date: String): Flow<FlowState<List<Canteen>>> {
         return dbCanteenDataSource.getVisibleCanteens()
             .mapSuccessTo {
-                val canteensWithMeals = it.map { mensa ->
-                    when (val meals = openMensaDataSource.getMealsForCanteen(mensa.id, date)) {
-                        is AppResult.Success -> mensa.copy(meals = meals.data)
-                        is AppResult.Error -> return@mapSuccessTo FlowState.Error(meals.reason)
+                val canteensWithMeals = it.map { canteen ->
+                    when (val meals = openMensaDataSource.getMealsForCanteen(canteen.id, date)) {
+                        is AppResult.Success -> canteen.copy(meals = meals.data)
+                        is AppResult.Error -> {
+                            // return the canteen with empty meals if there are no meals at the specific date
+                            // if there is another error, cancel meal plan downloading
+                            if (meals.reason is ErrorReason.Api.ErrorResponse.NotFound) {
+                                canteen
+                            } else {
+                                return@mapSuccessTo FlowState.Error(meals.reason)
+                            }
+                        }
                     }
                 }
                 FlowState.Success(canteensWithMeals)

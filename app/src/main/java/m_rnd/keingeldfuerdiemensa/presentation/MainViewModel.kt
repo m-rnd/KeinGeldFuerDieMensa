@@ -21,16 +21,16 @@ class MainViewModel @Inject constructor(
 
     fun getMealPlans(): List<MealPlan> {
         val currentTs = System.currentTimeMillis()
-        val canteens = mutableListOf<MealPlan>()
+        val plans = mutableListOf<MealPlan>()
         for (ts in currentTs..currentTs + 7 * DAY_IN_MS step DAY_IN_MS) {
-            canteens.add(
+            plans.add(
                 MealPlan(
                     ts,
                     getCanteensForDay(ts)
                 )
             )
         }
-        return canteens
+        return plans
     }
 
     fun navigateToSettingsScreen() {
