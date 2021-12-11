@@ -14,7 +14,7 @@ import m_rnd.keingeldfuerdiemensa.ui.components.systemui.StatusBarType
 import m_rnd.keingeldfuerdiemensa.ui.components.systemui.SystemUiScaffold
 import m_rnd.keingeldfuerdiemensa.ui.screen.main.components.bottombar.DayBottomBar
 import m_rnd.keingeldfuerdiemensa.ui.screen.main.components.mealplan.MealPlan
-import m_rnd.keingeldfuerdiemensa.ui.theme.ComposeTestTheme
+import m_rnd.keingeldfuerdiemensa.ui.theme.AppTheme
 
 @ExperimentalPagerApi
 @Composable
@@ -61,7 +61,7 @@ private fun Content(
 @Preview
 @Composable
 fun MainScreenPreview() {
-    ComposeTestTheme {
+    AppTheme {
         Content(
             mealPlans = listOf(MealPlanMock()),
             onAddCanteenClick = { },

@@ -16,7 +16,7 @@ import m_rnd.keingeldfuerdiemensa.ui.components.util.LoadingIndicator
 import m_rnd.keingeldfuerdiemensa.ui.screen.addcanteen.components.BottomSearchBar
 import m_rnd.keingeldfuerdiemensa.ui.screen.addcanteen.components.CanteenSearchResultList
 import m_rnd.keingeldfuerdiemensa.ui.screen.addcanteen.namedialog.CanteenNameDialog
-import m_rnd.keingeldfuerdiemensa.ui.theme.ComposeTestTheme
+import m_rnd.keingeldfuerdiemensa.ui.theme.AppTheme
 
 @Composable
 fun AddCanteenScreen(viewModel: AddCanteenViewModel) {
@@ -85,7 +85,7 @@ private fun Content(
 @Preview
 @Composable
 fun AddCanteenScreenPreview() {
-    ComposeTestTheme {
+    AppTheme {
         Content(
             onNavigateUp = { },
             onCanteenInputChanged = { },

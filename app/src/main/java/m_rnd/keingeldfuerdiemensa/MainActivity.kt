@@ -12,7 +12,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 import m_rnd.keingeldfuerdiemensa.ui.navigation.NavigationComponent
 import m_rnd.keingeldfuerdiemensa.ui.navigation.Navigator
-import m_rnd.keingeldfuerdiemensa.ui.theme.ComposeTestTheme
+import m_rnd.keingeldfuerdiemensa.ui.theme.AppTheme
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 import javax.inject.Inject
@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            ComposeTestTheme {
+            AppTheme {
                 ProvideWindowInsets(windowInsetsAnimationsEnabled = true) {
                     NavigationComponent(rememberNavController(), navigator)
 

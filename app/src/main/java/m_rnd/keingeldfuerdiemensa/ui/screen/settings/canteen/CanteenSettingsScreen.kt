@@ -20,7 +20,7 @@ import m_rnd.keingeldfuerdiemensa.ui.components.toolbar.CanteenSettingsToolbar
 import m_rnd.keingeldfuerdiemensa.ui.screen.settings.canteen.components.AddCanteenFAB
 import m_rnd.keingeldfuerdiemensa.ui.screen.settings.canteen.components.list.DismissibleCanteenList
 import m_rnd.keingeldfuerdiemensa.ui.screen.settings.canteen.components.list.ReorderableCanteenList
-import m_rnd.keingeldfuerdiemensa.ui.theme.ComposeTestTheme
+import m_rnd.keingeldfuerdiemensa.ui.theme.AppTheme
 
 @Composable
 fun CanteenSettingsScreen(viewModel: CanteenSettingsViewModel) {
@@ -94,7 +94,7 @@ private fun Content(
 @Preview
 @Composable
 fun SettingsScreenPreview() {
-    ComposeTestTheme {
+    AppTheme {
         Content(
             onNavigateUp = {},
             onAddCanteenClick = {},
