@@ -17,8 +17,13 @@ suspend fun <ApiEntity, Entity> callApi(
         when {
             response.isSuccessful -> AppResult.Success(response.body()!!).mapSuccess(mapper)
             else -> {
-                Timber.e("API returned error: ${response.errorBody()?.string() ?: response.code()}")
-                AppResult.Error(ErrorReason.Api.ErrorResponse)
+                Timber.e("API returned error code: ${response.code()}")
+                AppResult.Error(
+                    when (response.code()) {
+                        404 -> ErrorReason.Api.ErrorResponse.NotFound
+                        else -> ErrorReason.Api.ErrorResponse.Other
+                    }
+                )
             }
         }
     } catch (e: Exception) {

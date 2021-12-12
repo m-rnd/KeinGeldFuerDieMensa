@@ -9,9 +9,13 @@ sealed class ErrorReason: Serializable {
     data class UseCaseException(val exception: Throwable): ErrorReason()
 
     sealed class Api: ErrorReason() {
-        object NoConnection: Api()
-        object ErrorResponse: Api()
-        object Other: Api()
+        object NoConnection : Api()
+        sealed class ErrorResponse : Api() {
+            object NotFound : ErrorResponse()
+            object Other : ErrorResponse()
+        }
+
+        object Other : Api()
     }
 
     sealed class Db: ErrorReason(){

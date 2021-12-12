@@ -5,17 +5,21 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Divider
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import m_rnd.keingeldfuerdiemensa.R
 import m_rnd.keingeldfuerdiemensa.entities.Canteen
 import m_rnd.keingeldfuerdiemensa.entities.mock.PreviewEntity
 import m_rnd.keingeldfuerdiemensa.entities.util.ErrorReason
 import m_rnd.keingeldfuerdiemensa.entities.util.FlowState
 import m_rnd.keingeldfuerdiemensa.ui.components.banner.ErrorBanner
 import m_rnd.keingeldfuerdiemensa.ui.components.util.LoadingIndicator
+import m_rnd.keingeldfuerdiemensa.ui.theme.AppTheme
 
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -52,20 +56,25 @@ fun MealPlan(
 
                         val mealsByCategory = canteen.meals.groupBy { it.category }
 
-                        mealsByCategory.forEach { (category, meals) ->
-                            item { MealPlanCategoryTitle(categoryName = category) }
-                            itemsIndexed(meals) { index, meal ->
-                                MealPlanItem(
-                                    mealTitle = meal.name,
-                                    mealDescription = meal.notes.joinToString(" • "),
-                                    mealPrice = meal.prices.students ?: 0f
-                                )
-                                if (index < meals.size - 1)
-                                    Divider(
-                                        modifier = Modifier
-                                            .align(Alignment.CenterHorizontally)
-                                            .width(144.dp)
+                        if (mealsByCategory.isEmpty()) {
+                            item { Text(stringResource(R.string.main_info_no_meals_found_for_day)) }
+                        } else {
+                            mealsByCategory.forEach { (category, meals) ->
+                                item { MealPlanCategoryTitle(categoryName = category) }
+                                itemsIndexed(meals) { index, meal ->
+                                    MealPlanItem(
+                                        mealTitle = meal.name,
+                                        mealDescription = meal.notes.joinToString(" • "),
+                                        mealPrice = meal.prices.students ?: 0f
                                     )
+                                    if (index < meals.size - 1) {
+                                        Divider(
+                                            modifier = Modifier
+                                                .align(Alignment.CenterHorizontally)
+                                                .width(144.dp)
+                                        )
+                                    }
+                                }
                             }
                         }
                     }
@@ -78,8 +87,10 @@ fun MealPlan(
 @Preview
 @Composable
 fun MealPlanPreview() {
-    MealPlan(
-        canteenState = FlowState.Success(listOf(PreviewEntity.CanteenMock())),
-        onAddCanteenClick = {}
-    )
+    AppTheme {
+        MealPlan(
+            canteenState = FlowState.Success(listOf(PreviewEntity.CanteenMock())),
+            onAddCanteenClick = {}
+        )
+    }
 }
