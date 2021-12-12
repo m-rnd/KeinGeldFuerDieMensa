@@ -63,7 +63,7 @@ fun MealPlan(
                                 item { MealPlanCategoryTitle(categoryName = category) }
                                 itemsIndexed(meals) { index, meal ->
                                     MealPlanItem(
-                                        mealTitle = meal.name,
+                                        mealTitles = meal.names,
                                         mealDescription = meal.notes.joinToString(" • "),
                                         mealPrice = meal.prices.students ?: 0f
                                     )

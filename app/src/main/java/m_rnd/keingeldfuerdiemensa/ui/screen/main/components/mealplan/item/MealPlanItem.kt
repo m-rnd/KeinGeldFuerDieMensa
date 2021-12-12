@@ -1,10 +1,7 @@
 package m_rnd.keingeldfuerdiemensa.ui.screen.main.components.mealplan
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.Text
@@ -21,7 +18,7 @@ import m_rnd.keingeldfuerdiemensa.ui.theme.Typography
 @Composable
 fun MealPlanItem(
     modifier: Modifier = Modifier,
-    mealTitle: String,
+    mealTitles: List<String>,
     mealDescription: String,
     mealPrice: Float,
 ) {
@@ -31,13 +28,20 @@ fun MealPlanItem(
         Row(
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(
+            Column(
                 modifier = Modifier
                     .weight(1f)
                     .padding(end = 8.dp),
-                style = Typography.h6,
-                text = mealTitle
-            )
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                mealTitles.forEach {
+                    Text(
+                        style = Typography.h6,
+                        text = it
+                    )
+                }
+            }
+
             Text(
                 modifier = Modifier.align(CenterVertically),
                 textAlign = TextAlign.End,
@@ -60,10 +64,21 @@ fun MealPlanItem(
 @Preview(showBackground = true)
 fun MealPlanItemPreview() {
     AppTheme {
-        MealPlanItem(
-            mealTitle = "Cevapcici",
-            mealDescription = "Zusatzstoffe",
-            mealPrice = 1.3f
-        )
+        Column(
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            MealPlanItem(
+                mealTitles = listOf("Cevapcici"),
+                mealDescription = "Zusatzstoffe",
+                mealPrice = 1.3f
+            )
+
+
+            MealPlanItem(
+                mealTitles = listOf("Cevapcici", "Currywurst", "Spaghetti"),
+                mealDescription = "Zusatzstoffe",
+                mealPrice = 1.3f
+            )
+        }
     }
 }

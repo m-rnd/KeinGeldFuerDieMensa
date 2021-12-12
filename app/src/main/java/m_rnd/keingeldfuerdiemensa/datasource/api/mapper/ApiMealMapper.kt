@@ -19,7 +19,7 @@ fun ApiMeal.toEntity(): Meal? {
         category == null -> generateMappingError(::category)
         else -> Meal(
             id = id,
-            name = name,
+            names = listOf(name),
             notes = notes,
             prices = entityPrices,
             category = category

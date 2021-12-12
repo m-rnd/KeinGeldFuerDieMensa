@@ -25,7 +25,7 @@ object PreviewEntity {
 
     fun MealMock(
         id: Int = 0,
-        name: String = "Currywurst",
+        names: List<String> = listOf("Currywurst"),
         notes: List<String> = listOf("mit Pommes", "Schwein"),
         prices: PriceInfo = PriceInfo(
             students = 2.50f,
@@ -34,6 +34,6 @@ object PreviewEntity {
             others = 3.10f
         ),
         category: String = "Schneller Teller"
-    ) = Meal(id, name, notes, prices, category)
+    ) = Meal(id, names, notes, prices, category)
 }
 
