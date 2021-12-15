@@ -23,7 +23,14 @@ android {
     }
 
     buildTypes {
+        debug {
+            resValue "string", "app_label", "@string/app_label_debug"
+            applicationIdSuffix '.debug'
+            versionNameSuffix "-debug"
+            debuggable true
+        }
         release {
+            resValue "string", "app_label", "@string/app_label_release"
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
