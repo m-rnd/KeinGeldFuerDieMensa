@@ -2,6 +2,7 @@ package m_rnd.keingeldfuerdiemensa.ui.screen.main
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -20,7 +21,7 @@ import m_rnd.keingeldfuerdiemensa.ui.theme.AppTheme
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
     Content(
-        mealPlans = viewModel.getMealPlans(),
+        mealPlans = remember { viewModel.getMealPlans() },
         onAddCanteenClick = viewModel::navigateToAddCanteenScreen,
         onSettingsClick = viewModel::navigateToSettingsScreen
     )
