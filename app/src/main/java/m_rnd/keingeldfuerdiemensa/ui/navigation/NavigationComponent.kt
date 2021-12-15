@@ -10,7 +10,6 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import m_rnd.keingeldfuerdiemensa.entities.util.NavigationTarget
-import m_rnd.keingeldfuerdiemensa.entities.util.getTargetName
 import m_rnd.keingeldfuerdiemensa.ui.screen.addcanteen.AddCanteenScreen
 import m_rnd.keingeldfuerdiemensa.ui.screen.main.MainScreen
 import m_rnd.keingeldfuerdiemensa.ui.screen.settings.CanteenSettingsScreen
@@ -29,26 +28,26 @@ fun NavigationComponent(
                 is NavigationTarget.Up -> navController.navigateUp()
                 is NavigationTarget.Home,
                 is NavigationTarget.AddCanteen,
-                is NavigationTarget.Settings.Canteen -> navController.navigate(it.getTargetName())
+                is NavigationTarget.Settings.Canteen -> navController.navigate(it.name)
             }
         }.launchIn(this)
     }
 
     NavHost(
         navController = navController,
-        startDestination = getTargetName<NavigationTarget.Home>()
+        startDestination = NavigationTarget.Home.name
     ) {
-        composable(getTargetName<NavigationTarget.Home>()) {
+        composable(NavigationTarget.Home.name) {
             MainScreen(
                 viewModel = hiltViewModel()
             )
         }
-        composable(getTargetName<NavigationTarget.Settings.Canteen>()) {
+        composable(NavigationTarget.Settings.Canteen.name) {
             CanteenSettingsScreen(
                 viewModel = hiltViewModel()
             )
         }
-        composable(getTargetName<NavigationTarget.AddCanteen>()) {
+        composable(NavigationTarget.AddCanteen.name) {
             AddCanteenScreen(
                 viewModel = hiltViewModel()
             )

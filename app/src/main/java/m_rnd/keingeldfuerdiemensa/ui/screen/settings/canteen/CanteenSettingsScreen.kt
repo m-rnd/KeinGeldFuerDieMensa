@@ -6,6 +6,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,8 +30,8 @@ fun CanteenSettingsScreen(viewModel: CanteenSettingsViewModel) {
         onAddCanteenClick = { viewModel.navigateToAddCanteenScreen() },
         onCanteenDelete = { viewModel.deleteCanteen(it) },
         onCanteenVisibilityChange = { viewModel.toggleCanteenVisibility(it) },
-        canteenResult = viewModel.canteensFlow.collectAsState().value,
-        isSortMode = viewModel.isSortEnabled.collectAsState().value,
+        canteenResult = remember { viewModel.canteensFlow }.collectAsState().value,
+        isSortMode = remember { viewModel.isSortEnabled }.collectAsState().value,
         onSortIconClick = { viewModel.toggleSortMode() },
         moveCanteen = { from, to -> viewModel.moveCanteen(from, to) }
     )

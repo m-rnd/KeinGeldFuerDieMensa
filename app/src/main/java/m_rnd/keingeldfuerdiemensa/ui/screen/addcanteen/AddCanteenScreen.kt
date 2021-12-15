@@ -2,6 +2,7 @@ package m_rnd.keingeldfuerdiemensa.ui.screen.addcanteen
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.TextFieldValue
@@ -27,8 +28,8 @@ fun AddCanteenScreen(viewModel: AddCanteenViewModel) {
             viewModel.onCanteenClicked(it)
         },
         uiState = viewModel.uiState,
-        canteenSearchInput = viewModel.canteenSearchInput.value,
-        filteredCanteens = viewModel.filteredCanteens.value
+        canteenSearchInput = remember { viewModel.canteenSearchInput }.value,
+        filteredCanteens = remember { viewModel.filteredCanteens }.value
     )
     if (viewModel.nameDialogShowing) {
         LocalFocusManager.current.clearFocus()

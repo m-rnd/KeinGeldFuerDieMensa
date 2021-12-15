@@ -1,21 +1,13 @@
 package m_rnd.keingeldfuerdiemensa.entities.util
 
 
-sealed class NavigationTarget {
+sealed class NavigationTarget(open val name: String) {
 
-    object Up : NavigationTarget()
-    object Home : NavigationTarget()
-    object AddCanteen : NavigationTarget()
+    object Up : NavigationTarget("up")
+    object Home : NavigationTarget("home")
+    object AddCanteen : NavigationTarget("add_canteen")
 
-    sealed class Settings : NavigationTarget() {
-        object Canteen : Settings()
+    sealed class Settings(override val name: String) : NavigationTarget(name) {
+        object Canteen : Settings("canteen_settings")
     }
-}
-
-inline fun <reified Target : NavigationTarget> getTargetName(): String {
-    return Target::class.java.simpleName
-}
-
-fun NavigationTarget.getTargetName(): String {
-    return this::class.java.simpleName
 }

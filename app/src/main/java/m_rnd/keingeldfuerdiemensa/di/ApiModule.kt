@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import m_rnd.keingeldfuerdiemensa.BuildConfig
 import m_rnd.keingeldfuerdiemensa.datasource.api.implementation.OpenMensaService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -31,7 +32,9 @@ object ApiModule {
     @Provides
     fun provideHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder().apply {
-            addInterceptor(loggingInterceptor)
+            if (BuildConfig.DEBUG) {
+                addInterceptor(loggingInterceptor)
+            }
         }.build()
     }
 
