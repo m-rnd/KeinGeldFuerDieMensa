@@ -16,7 +16,7 @@ class CanteenRepositoryImpl @Inject constructor(
 ) : CanteenRepository {
 
     private fun groupSimilarMeals(meals: List<Meal>): List<Meal> {
-        return meals.groupBy { it.notes + it.category + it.prices }.mapNotNull {
+        return meals.groupBy { it.notes.sorted() + it.category + it.prices }.mapNotNull {
             val groupedMeals = it.value
             val firstMeal = groupedMeals.firstOrNull()
             firstMeal?.let {
