@@ -1,13 +1,21 @@
 package m_rnd.keingeldfuerdiemensa.presentation
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import m_rnd.keingeldfuerdiemensa.R
 import m_rnd.keingeldfuerdiemensa.common.DAY_IN_MS
 import m_rnd.keingeldfuerdiemensa.entities.MealPlan
 import m_rnd.keingeldfuerdiemensa.entities.util.NavigationTarget
 import m_rnd.keingeldfuerdiemensa.ui.navigation.Navigator
 import m_rnd.keingeldfuerdiemensa.usecase.GetCanteensWithMealsUseCase
 import javax.inject.Inject
+
+enum class MainMenuItem(@StringRes val displayName: Int) {
+    CANTEEN_SETTINGS(R.string.canteen_settings_title),
+    ABOUT(R.string.about_title)
+}
+
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -33,8 +41,11 @@ class MainViewModel @Inject constructor(
         return plans
     }
 
-    fun navigateToSettingsScreen() {
-        navigator.navigateTo(NavigationTarget.Settings.Canteen)
+    fun navigateToMenuItemTarget(item: MainMenuItem) {
+        when (item) {
+            MainMenuItem.CANTEEN_SETTINGS -> navigator.navigateTo(NavigationTarget.Settings.Canteen)
+            MainMenuItem.ABOUT -> navigator.navigateTo(NavigationTarget.Settings.About)
+        }
     }
 
     fun navigateToAddCanteenScreen() {

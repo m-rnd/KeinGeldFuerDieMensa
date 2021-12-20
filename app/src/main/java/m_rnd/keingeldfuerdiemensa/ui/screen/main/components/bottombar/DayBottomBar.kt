@@ -5,8 +5,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -20,6 +19,7 @@ import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 import m_rnd.keingeldfuerdiemensa.entities.MealPlan
 import m_rnd.keingeldfuerdiemensa.entities.mock.PreviewEntity
+import m_rnd.keingeldfuerdiemensa.presentation.MainMenuItem
 import m_rnd.keingeldfuerdiemensa.ui.components.util.translucentSurfaceColor
 import m_rnd.keingeldfuerdiemensa.ui.theme.AppTheme
 import m_rnd.keingeldfuerdiemensa.ui.theme.BottomBarElevation
@@ -31,9 +31,11 @@ import m_rnd.keingeldfuerdiemensa.ui.theme.MainScreenBottomBarHeight
 fun DayBottomBar(
     meals: List<MealPlan>,
     pagerState: PagerState,
-    onSettingsIconClick: () -> Unit
+    onMenuItemClick: (MainMenuItem) -> Unit
 ) {
+    var isMenuVisible by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
+
     Surface(
         color = translucentSurfaceColor(BottomBarElevation),
         elevation = BottomBarElevation
@@ -68,12 +70,16 @@ fun DayBottomBar(
                     DayItem(canteen.day, isSelected)
                 }
             }
-
             DayBottomBarTab(
                 isSelected = pagerState.currentPage == meals.size,
-                onClick = onSettingsIconClick
+                onClick = { isMenuVisible = !isMenuVisible }
             ) {
                 SettingsItem()
+                SettingsMenu(
+                    isVisible = isMenuVisible,
+                    onMenuItemClick = onMenuItemClick,
+                    onDismiss = { isMenuVisible = false }
+                )
             }
         }
     }
@@ -103,7 +109,7 @@ fun DayBottomBarPreview() {
         DayBottomBar(
             meals = listOf(PreviewEntity.MealPlanMock()),
             pagerState = rememberPagerState(pageCount = 2),
-            onSettingsIconClick = { }
+            onMenuItemClick = { },
         )
     }
 }

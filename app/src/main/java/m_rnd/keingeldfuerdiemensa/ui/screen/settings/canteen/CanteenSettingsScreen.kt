@@ -94,7 +94,7 @@ private fun Content(
 
 @Preview
 @Composable
-fun SettingsScreenPreview() {
+fun CanteenSettingsScreenPreview() {
     AppTheme {
         Content(
             onNavigateUp = {},

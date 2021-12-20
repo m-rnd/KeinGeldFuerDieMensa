@@ -13,6 +13,7 @@ import m_rnd.keingeldfuerdiemensa.entities.util.NavigationTarget
 import m_rnd.keingeldfuerdiemensa.ui.screen.addcanteen.AddCanteenScreen
 import m_rnd.keingeldfuerdiemensa.ui.screen.main.MainScreen
 import m_rnd.keingeldfuerdiemensa.ui.screen.settings.CanteenSettingsScreen
+import m_rnd.keingeldfuerdiemensa.ui.screen.settings.about.AboutScreen
 
 
 // https://proandroiddev.com/jetpack-compose-navigation-architecture-with-viewmodels-1de467f19e1c
@@ -26,9 +27,7 @@ fun NavigationComponent(
         navigator.sharedFlow.onEach {
             when (it) {
                 is NavigationTarget.Up -> navController.navigateUp()
-                is NavigationTarget.Home,
-                is NavigationTarget.AddCanteen,
-                is NavigationTarget.Settings.Canteen -> navController.navigate(it.name)
+                else -> navController.navigate(it.name)
             }
         }.launchIn(this)
     }
@@ -49,6 +48,11 @@ fun NavigationComponent(
         }
         composable(NavigationTarget.AddCanteen.name) {
             AddCanteenScreen(
+                viewModel = hiltViewModel()
+            )
+        }
+        composable(NavigationTarget.Settings.About.name) {
+            AboutScreen(
                 viewModel = hiltViewModel()
             )
         }
