@@ -35,6 +35,11 @@
     <string name="dialog_canteen_name_header">Name ändern</string>
     <string name="dialog_canteen_name_text_field_placeholder">Mensa-Name</string>
 
+    <string name="about_title">Über</string>
+    <string name="about_mensa_api">Diese App verwendet die <a href="https://openmensa.org/">OpenMensa API</a> zum Abruf der Mensa-Liste und der jeweiligen Speisepläne. Die Bereitstellung der Informationen erfolgt ohne Gewähr, im Zweifelsfall gelten die an den Mensen ausgehängten Pläne und Daten.</string>
+    <string name="about_github">Der Quellcode der App ist auf <a href="https://github.com/m-rnd/KeinGeldFuerDieMensa">GitHub</a> verfügbar. Dort ist auch ein guter Platz um Fehler zu melden und Features vorzuschlagen.</string>
+    <string name="about_app_info">v%1$s(%2$d) by Markus Reinhold</string>
+
     <string name="error_reason_unknown">Unbekannter Fehler</string>
     <string name="error_reason_db_empty_result">Es wurden keine Daten gefunden.</string>
     <string name="error_reason_app">App-Fehler: %s</string>

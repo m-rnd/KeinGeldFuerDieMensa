@@ -1,16 +1,14 @@
-package m_rnd.keingeldfuerdiemensa.ui.components.toolbar
+package m_rnd.keingeldfuerdiemensa.ui.screen.settings.about
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -22,21 +20,15 @@ import m_rnd.keingeldfuerdiemensa.ui.theme.AppTheme
 import m_rnd.keingeldfuerdiemensa.ui.theme.Typography
 
 @Composable
-fun CanteenSettingsToolbar(
-    modifier: Modifier = Modifier,
-    iconStart: ImageVector,
-    isSortMode: Boolean,
+fun AboutToolbar(
     onNavigationIconClick: () -> Unit,
-    onSortIconClick: () -> Unit,
-    title: String
 ) {
     Surface(
         color = translucentSurfaceColor(elevation = AppBarElevation),
-        elevation = AppBarElevation,
-        modifier = modifier
+        elevation = AppBarElevation
     ) {
         TopAppBar(
-            modifier = modifier.statusBarsPadding(),
+            modifier = Modifier.statusBarsPadding(),
             elevation = 0.dp,
             backgroundColor = Color.Transparent
         ) {
@@ -46,7 +38,7 @@ fun CanteenSettingsToolbar(
             ) {
                 IconButton(onClick = onNavigationIconClick) {
                     Icon(
-                        imageVector = iconStart,
+                        imageVector = Icons.Default.ArrowBack,
                         contentDescription = stringResource(R.string.common_content_description_navigate_up)
                     )
                 }
@@ -54,14 +46,8 @@ fun CanteenSettingsToolbar(
                     modifier = Modifier.weight(1f),
                     style = Typography.h6,
                     color = MaterialTheme.colors.onBackground,
-                    text = title
+                    text = stringResource(R.string.about_title)
                 )
-                IconButton(onClick = onSortIconClick) {
-                    Icon(
-                        painter = painterResource(if (isSortMode) R.drawable.ic_save else R.drawable.ic_baseline_sort),
-                        contentDescription = stringResource(R.string.canteen_settings_content_description_toggle_sort_mode)
-                    )
-                }
             }
         }
     }
@@ -69,13 +55,10 @@ fun CanteenSettingsToolbar(
 
 @Preview
 @Composable
-fun CanteenSettingsToolbarPreview() {
+fun AboutToolbarPreview() {
     AppTheme {
-        CanteenSettingsToolbar(iconStart = Icons.Default.Close,
+        AboutToolbar(
             onNavigationIconClick = {},
-            title = "Toolbar",
-            isSortMode = false,
-            onSortIconClick = {}
         )
     }
 }

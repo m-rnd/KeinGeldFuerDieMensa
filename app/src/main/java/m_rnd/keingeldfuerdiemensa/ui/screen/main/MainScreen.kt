@@ -10,6 +10,7 @@ import com.google.accompanist.pager.rememberPagerState
 import m_rnd.keingeldfuerdiemensa.entities.MealPlan
 import m_rnd.keingeldfuerdiemensa.entities.mock.PreviewEntity.MealPlanMock
 import m_rnd.keingeldfuerdiemensa.entities.util.FlowState
+import m_rnd.keingeldfuerdiemensa.presentation.MainMenuItem
 import m_rnd.keingeldfuerdiemensa.presentation.MainViewModel
 import m_rnd.keingeldfuerdiemensa.ui.components.systemui.StatusBarType
 import m_rnd.keingeldfuerdiemensa.ui.components.systemui.SystemUiScaffold
@@ -23,7 +24,7 @@ fun MainScreen(viewModel: MainViewModel) {
     Content(
         mealPlans = remember { viewModel.getMealPlans() },
         onAddCanteenClick = viewModel::navigateToAddCanteenScreen,
-        onSettingsClick = viewModel::navigateToSettingsScreen
+        onMenuItemClick = viewModel::navigateToMenuItemTarget
     )
 
 }
@@ -33,7 +34,7 @@ fun MainScreen(viewModel: MainViewModel) {
 private fun Content(
     mealPlans: List<MealPlan>,
     onAddCanteenClick: () -> Unit,
-    onSettingsClick: () -> Unit
+    onMenuItemClick: (MainMenuItem) -> Unit
 ) {
 
     val pagerState = rememberPagerState(pageCount = mealPlans.size)
@@ -44,7 +45,7 @@ private fun Content(
             DayBottomBar(
                 meals = mealPlans,
                 pagerState = pagerState,
-                onSettingsIconClick = onSettingsClick
+                onMenuItemClick = onMenuItemClick
             )
         }
     ) { contentPadding ->
@@ -66,7 +67,7 @@ fun MainScreenPreview() {
         Content(
             mealPlans = listOf(MealPlanMock()),
             onAddCanteenClick = { },
-            onSettingsClick = { }
+            onMenuItemClick = { }
         )
     }
 }
