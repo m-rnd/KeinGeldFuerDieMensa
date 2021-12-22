@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_label_release">Canteen plan</string>
+    <string name="common_save">Save</string>
+    <string name="common_error">Error</string>
+    <string name="common_info">Information</string>
+    <string name="common_today">Today</string>
+    <string name="common_tomorrow">Tomorrow</string>
+    <string name="common_content_description_navigate_up">Navigate back</string>
+    <string name="main_add_canteen_text">It looks quite empty here! Add a canteen of which you want to show the meal plan. You can add more canteens in the settings later on.</string>
+    <string name="main_add_canteen_button">Search for canteens</string>
+    <string name="main_info_no_meals_found_for_day">(No meal plan found for this day)</string>
+    <string name="main_content_description_settings_icon">Navigate to settings</string>
+    <string name="canteen_settings_title">Canteens</string>
+    <string name="canteen_settings_info_banner">You can show/hide canteens from the meal plan and reorder them. Delete a canteen by swiping it to the left.</string>
+    <string name="canteen_settings_info_banner_no_canteens">Add a canteen by clicking on the (+) button.</string>
+    <string name="canteen_settings_content_description_toggle_sort_mode">Toggle sort mode</string>
+    <string name="canteen_settings_content_description_add_canteen">Add canteen</string>
+    <string name="canteen_settings_content_description_delete_canteen">Delete canteen</string>
+    <string name="canteen_settings_content_description_toggle_visibility">Toggle visibility</string>
+    <string name="canteen_settings_content_description_sort_canteen">Sort canteen</string>
+    <string name="add_canteen_search_text_field_placeholder">Enter search text</string>
+    <string name="add_canteen_search_result_info_label">You can search canteens by their name, address or city.</string>
+    <string name="dialog_canteen_name_header">Change name</string>
+    <string name="dialog_canteen_name_text_field_placeholder">Canteen name</string>
+    <string name="about_title">About</string>
+    <string name="about_mensa_api">This app uses the <a href="https://openmensa.org/">OpenMensa API</a> to download the canteen list and their respective meal plans. The information is provided without guarantee; in case of doubt, the plans and data posted at the canteens apply.</string>
+    <string name="about_github">The source code of the app is available on <a href="https://github.com/m-rnd/KeinGeldFuerDieMensa">GitHub</a>. This is a good place to report bugs or suggest features.</string>
+    <string name="error_reason_unknown">Unknown error</string>
+    <string name="error_reason_db_empty_result">Data not found</string>
+    <string name="error_reason_app">App error: %s</string>
+    <string name="error_reason_api_other">Network error: Unknown error</string>
+    <string name="error_reason_api_no_connection">Network error: No connection</string>
+    <string name="error_reason_api_error">Network error: Internal error</string>
+</resources>

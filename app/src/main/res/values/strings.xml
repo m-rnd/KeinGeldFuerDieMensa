@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Kein Geld für die Mensa</string>
+    <string name="app_name" translatable="false">Kein Geld für die Mensa</string>
     <string name="app_label_release">Mensaplan</string>
-    <string name="app_label_debug">KGfdM Debug</string>
+    <string name="app_label_debug" translatable="false">KGfdM Debug</string>
 
     <string name="common_save">Speichern</string>
     <string name="common_error">Fehler</string>
@@ -11,12 +11,12 @@
     <string name="common_content_description_navigate_up">Zurück navigieren</string>
 
     <string name="main_add_canteen_text">Hier sieht es ziemlich leer aus! Füge eine Mensa hinzu, von der du den Speiseplan anzeigen lassen willst. Du kannst später in den Einstellungen auch weitere Mensen hinzufügen.</string>
-    <string name="main_add_canteen_button">Mensa hinzufügen</string>
+    <string name="main_add_canteen_button">Nach Mensen suchen</string>
     <string name="main_info_no_meals_found_for_day">(Kein Speiseplan für diesen Tag gefunden)</string>
     <string name="main_content_description_settings_icon">Zu Einstellungen navigieren</string>
 
     <string name="canteen_settings_title">Mensen</string>
-    <string name="canteen_settings_info_banner">Du kannst Mensen einzeln aus dem Speiseplan ein/ausblenden und neu sortieren. Lösche eine Mensa, indem du sie zur Seite wischst.</string>
+    <string name="canteen_settings_info_banner">Du kannst Mensen einzeln aus dem Speiseplan ein/ausblenden und neu sortieren. Lösche eine Mensa, indem du sie nach links wischst.</string>
     <string name="canteen_settings_info_banner_no_canteens">Füge eine Mensa hinzu, indem du auf den (+) Button klickst.</string>
     <string name="canteen_settings_content_description_toggle_sort_mode">Sortiermodus umschalten</string>
     <string name="canteen_settings_content_description_add_canteen">Mensa hinzufügen</string>
@@ -24,7 +24,6 @@
     <string name="canteen_settings_content_description_toggle_visibility">Sichtbarkeit ändern</string>
     <string name="canteen_settings_content_description_sort_canteen">Mensa sortieren</string>
 
-    <string name="add_canteen_title">Mensa hinzufügen</string>
     <string name="add_canteen_search_text_field_placeholder">Suchtext eingeben</string>
     <string name="add_canteen_search_result_info_label">Du kannst Mensen anhand dessen Namen, Adresse oder Stadt suchen.</string>
     <plurals name="add_canteen_search_result_amount">
@@ -38,10 +37,10 @@
     <string name="about_title">Über</string>
     <string name="about_mensa_api">Diese App verwendet die <a href="https://openmensa.org/">OpenMensa API</a> zum Abruf der Mensa-Liste und der jeweiligen Speisepläne. Die Bereitstellung der Informationen erfolgt ohne Gewähr, im Zweifelsfall gelten die an den Mensen ausgehängten Pläne und Daten.</string>
     <string name="about_github">Der Quellcode der App ist auf <a href="https://github.com/m-rnd/KeinGeldFuerDieMensa">GitHub</a> verfügbar. Dort ist auch ein guter Platz um Fehler zu melden und Features vorzuschlagen.</string>
-    <string name="about_app_info">v%1$s(%2$d) by Markus Reinhold</string>
+    <string name="about_app_info" translatable="false">v%1$s(%2$d) by Markus Reinhold</string>
 
     <string name="error_reason_unknown">Unbekannter Fehler</string>
-    <string name="error_reason_db_empty_result">Es wurden keine Daten gefunden.</string>
+    <string name="error_reason_db_empty_result">Es wurden keine Daten gefunden</string>
     <string name="error_reason_app">App-Fehler: %s</string>
     <string name="error_reason_api_other">Netzwerk-Fehler: Unbekannter Fehler</string>
     <string name="error_reason_api_no_connection">Netzwerk-Fehler: Keine Verbindung</string>
