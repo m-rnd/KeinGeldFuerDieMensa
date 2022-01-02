@@ -37,7 +37,7 @@ private fun Content(
     onMenuItemClick: (MainMenuItem) -> Unit
 ) {
 
-    val pagerState = rememberPagerState(pageCount = mealPlans.size)
+    val pagerState = rememberPagerState()
 
     SystemUiScaffold(
         statusBarType = StatusBarType.BACKGROUND_TRANSLUCENT,
@@ -49,7 +49,7 @@ private fun Content(
             )
         }
     ) { contentPadding ->
-        HorizontalPager(state = pagerState) { page ->
+        HorizontalPager(state = pagerState, count = mealPlans.size) { page ->
             MealPlan(
                 contentPadding = contentPadding,
                 canteenState = mealPlans[page].canteens.collectAsState(initial = FlowState.Loading).value,

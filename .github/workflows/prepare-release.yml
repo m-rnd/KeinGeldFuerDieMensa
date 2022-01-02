@@ -1,0 +1,20 @@
+name: Upload retrace mapping file
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create-and-upload-mapping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+      - name: Build the app
+        run: ./gradlew assembleRelease
+      - name: Upload mapping
+        uses: actions/upload-artifact@v2
+        with:
+          name: mapping
+          path: app/build/outputs/mapping/release/mapping.txt

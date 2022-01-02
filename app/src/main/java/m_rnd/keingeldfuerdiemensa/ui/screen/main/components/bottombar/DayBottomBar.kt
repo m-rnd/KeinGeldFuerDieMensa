@@ -108,7 +108,7 @@ fun DayBottomBarPreview() {
     AppTheme {
         DayBottomBar(
             meals = listOf(PreviewEntity.MealPlanMock()),
-            pagerState = rememberPagerState(pageCount = 2),
+            pagerState = rememberPagerState(),
             onMenuItemClick = { },
         )
     }
