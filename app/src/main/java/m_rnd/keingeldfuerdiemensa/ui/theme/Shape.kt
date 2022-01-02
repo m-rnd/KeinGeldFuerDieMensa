@@ -9,3 +9,9 @@ val Shapes = Shapes(
     medium = RoundedCornerShape(4.dp),
     large = RoundedCornerShape(0.dp)
 )
+val CustomCornerRadius = 16.dp
+
+val MainScreenBottomBarHeight = 72.dp
+val AppBarElevation = 4.dp
+val BottomBarElevation = 12.dp
+val DialogElevation = 16.dp

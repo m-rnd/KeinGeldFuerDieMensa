@@ -4,9 +4,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import m_rnd.keingeldfuerdiemensa.datasource.MealDataSource
-import m_rnd.keingeldfuerdiemensa.datasource.MealDataSourceImpl
-import m_rnd.keingeldfuerdiemensa.datasource.api.MensaService
+import m_rnd.keingeldfuerdiemensa.datasource.api.OpenMensaDataSource
+import m_rnd.keingeldfuerdiemensa.datasource.api.OpenMensaDataSourceImpl
+import m_rnd.keingeldfuerdiemensa.datasource.api.implementation.OpenMensaService
+import m_rnd.keingeldfuerdiemensa.datasource.db.DbCanteenDataSource
+import m_rnd.keingeldfuerdiemensa.datasource.db.DbCanteenDataSourceImpl
+import m_rnd.keingeldfuerdiemensa.datasource.db.implementation.CanteenDao
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -14,6 +17,9 @@ import javax.inject.Singleton
 object DataSourceModule {
     @Provides
     @Singleton
-    fun provideMealDatasource(mensaService: MensaService): MealDataSource = MealDataSourceImpl(mensaService)
+    fun provideApiMealDatasource(openMensaService: OpenMensaService): OpenMensaDataSource = OpenMensaDataSourceImpl(openMensaService)
 
+    @Provides
+    @Singleton
+    fun provideDbCanteenDatasource(canteenDao: CanteenDao): DbCanteenDataSource = DbCanteenDataSourceImpl(canteenDao)
 }

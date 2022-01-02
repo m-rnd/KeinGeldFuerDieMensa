@@ -1,32 +1,54 @@
 package m_rnd.keingeldfuerdiemensa.presentation
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import m_rnd.keingeldfuerdiemensa.entities.DayWithMensas
-import m_rnd.keingeldfuerdiemensa.usecase.GetMensaUseCase
+import m_rnd.keingeldfuerdiemensa.R
+import m_rnd.keingeldfuerdiemensa.common.DAY_IN_MS
+import m_rnd.keingeldfuerdiemensa.entities.MealPlan
+import m_rnd.keingeldfuerdiemensa.entities.util.NavigationTarget
+import m_rnd.keingeldfuerdiemensa.ui.navigation.Navigator
+import m_rnd.keingeldfuerdiemensa.usecase.GetCanteensWithMealsUseCase
 import javax.inject.Inject
 
+enum class MainMenuItem(@StringRes val displayName: Int) {
+    CANTEEN_SETTINGS(R.string.canteen_settings_title),
+    ABOUT(R.string.about_title)
+}
+
+
 @HiltViewModel
-class MainViewModel @Inject constructor() : ViewModel() {
+class MainViewModel @Inject constructor(
+    private val navigator: Navigator
+) : ViewModel() {
 
     @Inject
-    lateinit var getMensaUseCase: GetMensaUseCase
+    lateinit var getCanteensWithMealsUseCase: GetCanteensWithMealsUseCase
 
+    private fun getCanteensForDay(timestamp: Long) = getCanteensWithMealsUseCase(timestamp)
 
-    private fun getMensasForDay(timestamp: Long) = getMensaUseCase(timestamp)
-
-    fun getMensasForNextDays(): List<DayWithMensas> {
-        val dayInMs: Long = 1000 * 60 * 60 * 24
+    fun getMealPlans(): List<MealPlan> {
         val currentTs = System.currentTimeMillis()
-        val mensas = mutableListOf<DayWithMensas>()
-        for (ts in currentTs..currentTs + 7 * dayInMs step dayInMs) {
-            mensas.add(
-                DayWithMensas(
+        val plans = mutableListOf<MealPlan>()
+        for (ts in currentTs..currentTs + 7 * DAY_IN_MS step DAY_IN_MS) {
+            plans.add(
+                MealPlan(
                     ts,
-                    getMensasForDay(ts)
+                    getCanteensForDay(ts)
                 )
             )
         }
-        return mensas
+        return plans
+    }
+
+    fun navigateToMenuItemTarget(item: MainMenuItem) {
+        when (item) {
+            MainMenuItem.CANTEEN_SETTINGS -> navigator.navigateTo(NavigationTarget.Settings.Canteen)
+            MainMenuItem.ABOUT -> navigator.navigateTo(NavigationTarget.Settings.About)
+        }
+    }
+
+    fun navigateToAddCanteenScreen() {
+        navigator.navigateTo(NavigationTarget.AddCanteen)
     }
 }
