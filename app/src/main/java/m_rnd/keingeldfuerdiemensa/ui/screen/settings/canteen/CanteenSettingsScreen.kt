@@ -1,4 +1,4 @@
-package m_rnd.keingeldfuerdiemensa.ui.screen.settings
+package m_rnd.keingeldfuerdiemensa.ui.screen.settings.canteen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -17,8 +17,8 @@ import m_rnd.keingeldfuerdiemensa.presentation.settings.CanteenSettingsViewModel
 import m_rnd.keingeldfuerdiemensa.ui.components.banner.InfoBanner
 import m_rnd.keingeldfuerdiemensa.ui.components.systemui.NavigationBarType
 import m_rnd.keingeldfuerdiemensa.ui.components.systemui.SystemUiScaffold
-import m_rnd.keingeldfuerdiemensa.ui.components.toolbar.CanteenSettingsToolbar
 import m_rnd.keingeldfuerdiemensa.ui.screen.settings.canteen.components.AddCanteenFAB
+import m_rnd.keingeldfuerdiemensa.ui.screen.settings.canteen.components.CanteenSettingsToolbar
 import m_rnd.keingeldfuerdiemensa.ui.screen.settings.canteen.components.list.DismissibleCanteenList
 import m_rnd.keingeldfuerdiemensa.ui.screen.settings.canteen.components.list.ReorderableCanteenList
 import m_rnd.keingeldfuerdiemensa.ui.theme.AppTheme

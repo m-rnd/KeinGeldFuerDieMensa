@@ -1,12 +1,12 @@
 package m_rnd.keingeldfuerdiemensa.ui.screen.main
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.rememberPagerState
 import m_rnd.keingeldfuerdiemensa.entities.MealPlan
 import m_rnd.keingeldfuerdiemensa.entities.mock.PreviewEntity.MealPlanMock
 import m_rnd.keingeldfuerdiemensa.entities.util.FlowState
@@ -18,7 +18,6 @@ import m_rnd.keingeldfuerdiemensa.ui.screen.main.components.bottombar.DayBottomB
 import m_rnd.keingeldfuerdiemensa.ui.screen.main.components.mealplan.MealPlan
 import m_rnd.keingeldfuerdiemensa.ui.theme.AppTheme
 
-@ExperimentalPagerApi
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
     Content(
@@ -29,7 +28,7 @@ fun MainScreen(viewModel: MainViewModel) {
 
 }
 
-@ExperimentalPagerApi
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun Content(
     mealPlans: List<MealPlan>,
@@ -49,7 +48,11 @@ private fun Content(
             )
         }
     ) { contentPadding ->
-        HorizontalPager(state = pagerState, count = mealPlans.size) { page ->
+        HorizontalPager(
+            state = pagerState,
+            pageCount = mealPlans.size,
+            beyondBoundsPageCount = 1
+        ) { page ->
             MealPlan(
                 contentPadding = contentPadding,
                 canteenState = mealPlans[page].canteens.collectAsState(initial = FlowState.Loading).value,
@@ -59,7 +62,6 @@ private fun Content(
     }
 }
 
-@ExperimentalPagerApi
 @Preview
 @Composable
 fun MainScreenPreview() {

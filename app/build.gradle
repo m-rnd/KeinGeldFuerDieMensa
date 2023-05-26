@@ -1,24 +1,30 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.google.devtools.ksp'
 }
+
 apply plugin: 'kotlin-kapt'
-apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'com.google.dagger.hilt.android'
 
 android {
-    compileSdk 31
+    compileSdk 33
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "m_rnd.keingeldfuerdiemensa"
         minSdk 21
-        targetSdk 30
+        targetSdk 33
         versionCode 2
         versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
+        }
+
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas".toString())
         }
     }
 
@@ -29,6 +35,13 @@ android {
             versionNameSuffix "-debug"
             debuggable true
         }
+        profile {
+            initWith release
+            resValue "string", "app_label", "@string/app_label_release"
+            applicationIdSuffix '.profile'
+            versionNameSuffix "-profile"
+            signingConfig signingConfigs.debug
+        }
         release {
             resValue "string", "app_label", "@string/app_label_release"
             minifyEnabled true
@@ -37,55 +50,55 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
+
     kotlinOptions {
-        jvmTarget = '1.8'
-        useIR = true
+        jvmTarget = JavaVersion.VERSION_17
     }
+
     buildFeatures {
         compose true
     }
+
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
-        kotlinCompilerVersion '1.4.32'
     }
+
+    namespace 'm_rnd.keingeldfuerdiemensa'
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
+    implementation 'com.google.android.material:material:1.9.0'
 
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
+    implementation "androidx.compose.material3:material3:$compose_m3_version"
     implementation "androidx.compose.ui:ui-tooling:$compose_version"
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
-    implementation "androidx.navigation:navigation-compose:2.4.0-beta02"
-    implementation "androidx.profileinstaller:profileinstaller:1.1.0-rc01"
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+    implementation 'androidx.navigation:navigation-compose:2.6.0-rc01'
+    implementation 'androidx.profileinstaller:profileinstaller:1.3.1'
 
     //compose addons
-    implementation "com.google.accompanist:accompanist-insets:$accompanist_version"
-    implementation "com.google.accompanist:accompanist-insets-ui:$accompanist_version"
     implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanist_version"
-    implementation "com.google.accompanist:accompanist-pager:$accompanist_version"
-    implementation "com.google.accompanist:accompanist-pager-indicators:$accompanist_version"
-    implementation "org.burnoutcrew.composereorderable:reorderable:0.7.4"
+    implementation 'org.burnoutcrew.composereorderable:reorderable:0.9.6'
 
     // hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
-    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0-beta01'
+    implementation 'androidx.hilt:hilt-navigation-compose:1.1.0-alpha01'
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
     //room
     implementation "androidx.room:room-ktx:$room_version"
     implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
+    ksp "androidx.room:room-compiler:$room_version"
 
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     //logging

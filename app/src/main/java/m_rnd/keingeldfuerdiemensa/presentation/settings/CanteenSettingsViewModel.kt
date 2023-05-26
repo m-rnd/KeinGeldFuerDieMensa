@@ -6,7 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import m_rnd.keingeldfuerdiemensa.entities.Canteen
 import m_rnd.keingeldfuerdiemensa.entities.util.ErrorReason
@@ -17,7 +23,6 @@ import m_rnd.keingeldfuerdiemensa.usecase.DeleteCanteenUseCase
 import m_rnd.keingeldfuerdiemensa.usecase.GetCanteensUseCase
 import m_rnd.keingeldfuerdiemensa.usecase.SetCanteenPriorityUseCase
 import m_rnd.keingeldfuerdiemensa.usecase.SetCanteenVisibleUseCase
-import org.burnoutcrew.reorderable.move
 import javax.inject.Inject
 
 sealed class CanteenList {
@@ -25,7 +30,7 @@ sealed class CanteenList {
         val canteens: SnapshotStateList<Canteen>
     ) : CanteenList()
 
-    object EmptyList: CanteenList()
+    object EmptyList : CanteenList()
 
     class Dismissible(
         val canteens: List<Canteen>
@@ -60,17 +65,18 @@ class CanteenSettingsViewModel @Inject constructor(
     private val _isSortEnabled = MutableStateFlow(false)
     val isSortEnabled: StateFlow<Boolean> = _isSortEnabled
 
-    var canteensFlow = combine(dbCanteens, _isSortEnabled, sortedCanteens) { canteens, isSortEnabled, sorted ->
-        if (isSortEnabled) {
-            if (sorted.isNotEmpty()) CanteenList.Reorderable(sorted) else CanteenList.EmptyList
-        } else {
-            if (canteens.isNotEmpty()) CanteenList.Dismissible(canteens) else CanteenList.EmptyList
-        }
-    }.stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000L),
-        CanteenList.EmptyList
-    )
+    var canteensFlow =
+        combine(dbCanteens, _isSortEnabled, sortedCanteens) { canteens, isSortEnabled, sorted ->
+            if (isSortEnabled) {
+                if (sorted.isNotEmpty()) CanteenList.Reorderable(sorted) else CanteenList.EmptyList
+            } else {
+                if (canteens.isNotEmpty()) CanteenList.Dismissible(canteens) else CanteenList.EmptyList
+            }
+        }.stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000L),
+            CanteenList.EmptyList
+        )
 
 
     fun deleteCanteen(canteen: Canteen) = viewModelScope.launch {
@@ -99,7 +105,7 @@ class CanteenSettingsViewModel @Inject constructor(
 
     fun moveCanteen(from: Int, to: Int) = viewModelScope.launch {
         val current = sortedCanteens.value
-        current.move(from,to)
+        current.add(to, current.removeAt(from))
         sortedCanteens.emit(current)
     }
 

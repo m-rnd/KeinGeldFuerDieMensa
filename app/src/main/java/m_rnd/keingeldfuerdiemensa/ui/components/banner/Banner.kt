@@ -8,7 +8,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.End
 import androidx.compose.ui.Modifier
@@ -28,14 +33,15 @@ fun Banner(
     buttonText: String? = null,
     onButtonClick: () -> Unit = { }
 ) {
-    Card(
+    OutlinedCard(
         modifier
             .fillMaxWidth()
             .padding(CustomCornerRadius),
         shape = RoundedCornerShape(CustomCornerRadius),
-        backgroundColor = color.copy(alpha = 0.1f),
-        contentColor = color,
-        elevation = 0.dp,
+        colors = CardDefaults.cardColors(
+            contentColor = color,
+            containerColor = color.copy(alpha = 0.1f)
+        ),
         border = BorderStroke(1.dp, color)
     ) {
         Column(
@@ -45,17 +51,17 @@ fun Banner(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
 
-            Text(modifier = Modifier, style = Typography.caption, text = titleText.uppercase())
+            Text(style = Typography.labelMedium, text = titleText.uppercase())
             Text(contentText)
 
             buttonText?.let {
                 TextButton(
                     modifier = Modifier.align(End),
-                    colors = ButtonDefaults.outlinedButtonColors(
-                        backgroundColor = Color.Transparent,
+                    colors = ButtonDefaults.textButtonColors(
                         contentColor = color
                     ),
-                    onClick = onButtonClick) {
+                    onClick = onButtonClick
+                ) {
                     Text(it)
                 }
             }
@@ -77,7 +83,7 @@ fun BannerPreview() {
         Column {
             Banner(
                 Modifier,
-                MaterialTheme.colors.error,
+                MaterialTheme.colorScheme.error,
                 titleText = "Error",
                 contentText = "some error message",
                 buttonText = "Fix",
@@ -85,7 +91,7 @@ fun BannerPreview() {
             )
             Banner(
                 Modifier,
-                MaterialTheme.colors.primary,
+                MaterialTheme.colorScheme.primary,
                 titleText = "Error",
                 contentText = "some error message",
             )

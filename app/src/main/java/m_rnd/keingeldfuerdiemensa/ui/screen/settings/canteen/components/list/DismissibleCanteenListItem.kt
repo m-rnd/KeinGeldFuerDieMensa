@@ -5,8 +5,9 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -23,7 +24,7 @@ import m_rnd.keingeldfuerdiemensa.R
 import m_rnd.keingeldfuerdiemensa.entities.Canteen
 
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DismissibleCanteenListItem(
     canteen: Canteen,
@@ -31,7 +32,7 @@ fun DismissibleCanteenListItem(
     onCanteenVisibilityChange: (Canteen) -> Unit
 ) {
     val state = rememberDismissState(
-        confirmStateChange = {
+        confirmValueChange = {
             if (it == DismissValue.DismissedToStart) {
                 onCanteenDelete(canteen)
             }
@@ -45,16 +46,21 @@ fun DismissibleCanteenListItem(
         background = {
             val backgroundColor by animateColorAsState(
                 when (state.targetValue) {
-                    DismissValue.Default -> MaterialTheme.colors.primary.copy(alpha = 0.1f)
-                    DismissValue.DismissedToEnd -> MaterialTheme.colors.error
-                    DismissValue.DismissedToStart -> MaterialTheme.colors.error
+                    DismissValue.Default -> MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)
+                    DismissValue.DismissedToEnd -> MaterialTheme.colorScheme.error
+                    DismissValue.DismissedToStart -> MaterialTheme.colorScheme.error
                 }
             )
             val iconColor by animateColorAsState(
                 when (state.targetValue) {
-                    DismissValue.Default -> contentColorFor(MaterialTheme.colors.primary.copy(alpha = 0.1f))
-                    DismissValue.DismissedToEnd -> contentColorFor(MaterialTheme.colors.error)
-                    DismissValue.DismissedToStart -> contentColorFor(MaterialTheme.colors.error)
+                    DismissValue.Default -> contentColorFor(
+                        MaterialTheme.colorScheme.primary.copy(
+                            alpha = 0.1f
+                        )
+                    )
+
+                    DismissValue.DismissedToEnd -> contentColorFor(MaterialTheme.colorScheme.error)
+                    DismissValue.DismissedToStart -> contentColorFor(MaterialTheme.colorScheme.error)
                 }
             )
 
@@ -75,48 +81,59 @@ fun DismissibleCanteenListItem(
                     modifier = Modifier.scale(scale)
                 )
             }
-        }
-    ) {
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .zIndex(if (state.dismissDirection != null) 1f else 0f),
-            elevation = animateDpAsState(
-                if (state.dismissDirection != null) 4.dp else 0.dp
-            ).value,
-            shape = if (state.dismissDirection != null) RoundedCornerShape(4.dp) else RectangleShape
-        ) {
-            Row(
+        },
+        dismissContent = {
+            ElevatedCard(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 16.dp, end = 4.dp),
-                verticalAlignment = Alignment.CenterVertically
+                    .zIndex(if (state.dismissDirection != null) 1f else 0f)
+                    .selectable(
+                        selected = state.dismissDirection != null,
+                        enabled = true,
+                        role = null,
+                        onClick = {}),
+                elevation = CardDefaults.cardElevation(
+                    defaultElevation = animateDpAsState(
+                        if (state.dismissDirection != null) 4.dp else 0.dp
+                    ).value
+                ),
+                shape = if (state.dismissDirection != null) RoundedCornerShape(4.dp) else RectangleShape
             ) {
-
-                Text(
+                Row(
                     modifier = Modifier
-                        .padding(vertical = 16.dp)
-                        .weight(1f),
-                    style = MaterialTheme.typography.subtitle1,
-                    overflow = TextOverflow.Ellipsis,
-                    text = canteen.name
-                )
+                        .fillMaxWidth()
+                        .padding(start = 16.dp, end = 4.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
 
-                val icon = if (canteen.isVisible) {
-                    R.drawable.ic_visibility
-                } else {
-                    R.drawable.ic_visibility_off
-                }
+                    Text(
+                        modifier = Modifier
+                            .padding(vertical = 16.dp)
+                            .weight(1f),
+                        style = MaterialTheme.typography.titleSmall,
+                        overflow = TextOverflow.Ellipsis,
+                        text = canteen.name
+                    )
 
-                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-                    IconButton(onClick = { onCanteenVisibilityChange(canteen) }) {
-                        Icon(
-                            painter = painterResource(icon),
-                            contentDescription = stringResource(R.string.canteen_settings_content_description_toggle_visibility),
-                        )
+                    val icon = if (canteen.isVisible) {
+                        R.drawable.ic_visibility
+                    } else {
+                        R.drawable.ic_visibility_off
+                    }
+
+                    CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.onSurfaceVariant) {
+                        IconButton(onClick = {
+                            onCanteenVisibilityChange(
+                                canteen
+                            )
+                        }) {
+                            Icon(
+                                painter = painterResource(icon),
+                                contentDescription = stringResource(R.string.canteen_settings_content_description_toggle_visibility),
+                            )
+                        }
                     }
                 }
             }
-        }
-    }
+        })
 }

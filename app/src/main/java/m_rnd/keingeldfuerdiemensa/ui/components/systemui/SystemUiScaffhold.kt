@@ -4,17 +4,20 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.windowInsetsBottomHeight
+import androidx.compose.foundation.layout.windowInsetsTopHeight
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.zIndex
-import com.google.accompanist.insets.navigationBarsHeight
-import com.google.accompanist.insets.statusBarsHeight
-import com.google.accompanist.insets.ui.LocalScaffoldPadding
-import com.google.accompanist.insets.ui.Scaffold
 import m_rnd.keingeldfuerdiemensa.ui.components.util.coloroverrides.translucentBackgroundColor
 
 
@@ -31,24 +34,19 @@ enum class StatusBarType {
 @Composable
 fun SystemUiScaffold(
     modifier: Modifier = Modifier,
-    scaffoldState: ScaffoldState = rememberScaffoldState(),
     topBar: @Composable () -> Unit = {},
     bottomBar: @Composable () -> Unit = {},
-    snackbarHost: @Composable (SnackbarHostState) -> Unit = { SnackbarHost(it) },
     floatingActionButton: @Composable () -> Unit = {},
     floatingActionButtonPosition: FabPosition = FabPosition.End,
-    isFloatingActionButtonDocked: Boolean = false,
-    backgroundColor: Color = MaterialTheme.colors.background,
-    contentColor: Color = contentColorFor(backgroundColor),
-    contentPadding: PaddingValues = LocalScaffoldPadding.current,
     navigationBarType: NavigationBarType = NavigationBarType.TRANSPARENT,
     statusBarType: StatusBarType = StatusBarType.TRANSPARENT,
+    backgroundColor: Color = MaterialTheme.colorScheme.background,
+    contentColor: Color = contentColorFor(backgroundColor),
     content: @Composable (PaddingValues) -> Unit
 ) {
     Box {
-        Scaffold(
-            modifier = modifier.zIndex(0f),
-            scaffoldState = scaffoldState,
+        androidx.compose.material3.Scaffold(
+            modifier = modifier,
             topBar = {
                 val statusBarColor = when (statusBarType) {
                     StatusBarType.TRANSPARENT -> Color.Transparent
@@ -59,7 +57,7 @@ fun SystemUiScaffold(
                         .align(Alignment.TopCenter)
                         .zIndex(1f)
                         .background(statusBarColor)
-                        .statusBarsHeight()
+                        .windowInsetsTopHeight(WindowInsets.statusBars)
                         .fillMaxWidth()
                 )
                 topBar()
@@ -74,18 +72,15 @@ fun SystemUiScaffold(
                         .align(Alignment.BottomCenter)
                         .zIndex(1f)
                         .background(navigationBarColor)
-                        .navigationBarsHeight()
+                        .windowInsetsBottomHeight(WindowInsets.navigationBars)
                         .fillMaxWidth()
                 )
                 bottomBar()
             },
-            snackbarHost = snackbarHost,
+            contentColor = contentColor,
+            containerColor = backgroundColor,
             floatingActionButton = floatingActionButton,
             floatingActionButtonPosition = floatingActionButtonPosition,
-            isFloatingActionButtonDocked = isFloatingActionButtonDocked,
-            backgroundColor = backgroundColor,
-            contentColor = contentColor,
-            contentPadding = contentPadding,
             content = content
         )
     }

@@ -4,9 +4,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material.Text
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
@@ -22,6 +22,7 @@ import m_rnd.keingeldfuerdiemensa.ui.components.systemui.SystemUiScaffold
 import m_rnd.keingeldfuerdiemensa.ui.components.util.UriHandlerText
 import m_rnd.keingeldfuerdiemensa.ui.components.util.annotatedStringResource
 import m_rnd.keingeldfuerdiemensa.ui.theme.AppTheme
+import m_rnd.keingeldfuerdiemensa.ui.theme.Typography
 
 @Composable
 fun AboutScreen(viewModel: AboutViewModel) {
@@ -51,10 +52,11 @@ private fun Content(
                 text = annotatedStringResource(R.string.about_github)
             )
 
-            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+            CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.onSurfaceVariant) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center,
+                    style = Typography.labelSmall,
                     text = stringResource(
                         id = R.string.about_app_info,
                         BuildConfig.VERSION_NAME,
