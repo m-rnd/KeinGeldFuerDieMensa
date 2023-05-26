@@ -5,7 +5,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -45,7 +49,7 @@ private fun Content(
 ) {
     Surface(
         modifier = Modifier.fillMaxWidth(),
-        elevation = DialogElevation,
+        shadowElevation = DialogElevation,
         shape = RoundedCornerShape(cornerRadius)
     ) {
         Column(
@@ -54,7 +58,7 @@ private fun Content(
         ) {
             Text(
                 text = stringResource(R.string.dialog_canteen_name_header),
-                style = MaterialTheme.typography.h6
+                style = MaterialTheme.typography.titleLarge
             )
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),

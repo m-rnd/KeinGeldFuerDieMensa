@@ -4,8 +4,8 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.Divider
-import androidx.compose.material.Text
+import androidx.compose.material3.Divider
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,6 +19,8 @@ import m_rnd.keingeldfuerdiemensa.entities.util.ErrorReason
 import m_rnd.keingeldfuerdiemensa.entities.util.FlowState
 import m_rnd.keingeldfuerdiemensa.ui.components.banner.ErrorBanner
 import m_rnd.keingeldfuerdiemensa.ui.components.util.LoadingIndicator
+import m_rnd.keingeldfuerdiemensa.ui.screen.main.components.mealplan.item.MealPlanCanteenTitle
+import m_rnd.keingeldfuerdiemensa.ui.screen.main.components.mealplan.item.MealPlanItem
 import m_rnd.keingeldfuerdiemensa.ui.theme.AppTheme
 
 
@@ -43,9 +45,11 @@ fun MealPlan(
                     }
                 }
             }
+
             is FlowState.Loading -> {
                 LoadingIndicator()
             }
+
             is FlowState.Success -> {
                 LazyColumn(
                     contentPadding = contentPadding,
@@ -57,14 +61,20 @@ fun MealPlan(
                         val mealsByCategory = canteen.meals.groupBy { it.category }
 
                         if (mealsByCategory.isEmpty()) {
-                            item { Text(stringResource(R.string.main_info_no_meals_found_for_day)) }
+                            item {
+                                Text(
+                                    modifier = Modifier.padding(16.dp),
+                                    text = stringResource(R.string.main_info_no_meals_found_for_day)
+                                )
+                            }
                         } else {
                             mealsByCategory.forEach { (category, meals) ->
                                 item { MealPlanCategoryTitle(categoryName = category) }
                                 itemsIndexed(meals) { index, meal ->
                                     MealPlanItem(
                                         mealTitles = meal.names,
-                                        mealDescription = meal.notes.joinToString(" • "),
+                                        mealDescription = meal.notes.takeIf { it.isNotEmpty() }
+                                            ?.joinToString(" • "),
                                         mealPrice = meal.prices.students ?: 0f
                                     )
                                     if (index < meals.size - 1) {

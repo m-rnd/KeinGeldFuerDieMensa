@@ -10,7 +10,7 @@ import androidx.compose.ui.res.stringResource
 import m_rnd.keingeldfuerdiemensa.R
 import m_rnd.keingeldfuerdiemensa.presentation.settings.CanteenList
 import m_rnd.keingeldfuerdiemensa.ui.components.banner.InfoBanner
-import org.burnoutcrew.reorderable.rememberReorderState
+import org.burnoutcrew.reorderable.rememberReorderableLazyListState
 import org.burnoutcrew.reorderable.reorderable
 
 @Composable
@@ -19,15 +19,15 @@ fun ReorderableCanteenList(
     canteenResult: CanteenList.Reorderable,
     contentPadding: PaddingValues
 ) {
-    val reorderableState = rememberReorderState()
+    val reorderableState =
+        rememberReorderableLazyListState(onMove = { from, to -> moveCanteen(from.index, to.index) })
     LazyColumn(
         state = reorderableState.listState,
         contentPadding = contentPadding,
         modifier = Modifier
             .fillMaxWidth()
             .reorderable(
-                reorderableState,
-                { from, to -> moveCanteen(from.index, to.index) }
+                reorderableState
             ),
     ) {
         items(canteenResult.canteens, { it.id }) { canteen ->
