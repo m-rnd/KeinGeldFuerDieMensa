@@ -2,7 +2,7 @@ package m_rnd.keingeldfuerdiemensa.ui.components.banner
 
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -19,7 +19,7 @@ fun InfoBanner(
 ) {
     Banner(
         modifier = modifier,
-        color = MaterialTheme.colors.primary,
+        color = MaterialTheme.colorScheme.primary,
         titleText = stringResource(R.string.common_info),
         contentText = contentText,
         buttonText = buttonText,

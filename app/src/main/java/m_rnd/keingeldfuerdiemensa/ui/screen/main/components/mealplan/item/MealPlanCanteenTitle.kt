@@ -1,18 +1,17 @@
-package m_rnd.keingeldfuerdiemensa.ui.screen.main.components.mealplan
+package m_rnd.keingeldfuerdiemensa.ui.screen.main.components.mealplan.item
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.insets.statusBarsPadding
 import m_rnd.keingeldfuerdiemensa.ui.components.util.coloroverrides.translucentBackgroundColor
-import m_rnd.keingeldfuerdiemensa.ui.theme.Typography
 
 @Composable
 fun MealPlanCanteenTitle(modifier: Modifier = Modifier, canteenName: String) {
@@ -23,9 +22,9 @@ fun MealPlanCanteenTitle(modifier: Modifier = Modifier, canteenName: String) {
             modifier = modifier
                 .fillMaxWidth()
                 .background(translucentBackgroundColor())
-                .padding(bottom = 16.dp),
-            style = Typography.h5,
-            color = MaterialTheme.colors.primary,
+                .padding(vertical = 16.dp),
+            style = MaterialTheme.typography.headlineSmall,
+            color = MaterialTheme.colorScheme.primary,
             text = canteenName,
             textAlign = TextAlign.Center
         )

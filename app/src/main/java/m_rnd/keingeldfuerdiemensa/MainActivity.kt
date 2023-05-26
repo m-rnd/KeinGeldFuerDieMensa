@@ -3,11 +3,10 @@ package m_rnd.keingeldfuerdiemensa
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.MaterialTheme
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
-import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 import m_rnd.keingeldfuerdiemensa.ui.navigation.NavigationComponent
@@ -32,18 +31,16 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             AppTheme {
-                ProvideWindowInsets(windowInsetsAnimationsEnabled = true) {
-                    NavigationComponent(rememberNavController(), navigator)
+                NavigationComponent(rememberNavController(), navigator)
 
-                    val useDarkIcons = MaterialTheme.colors.isLight
-                    val systemUiController = rememberSystemUiController()
+                val useDarkIcons = !isSystemInDarkTheme()
+                val systemUiController = rememberSystemUiController()
 
-                    systemUiController.setSystemBarsColor(
-                        color = Color.Transparent,
-                        darkIcons = useDarkIcons,
-                        false
-                    )
-                }
+                systemUiController.setSystemBarsColor(
+                    color = Color.Transparent,
+                    darkIcons = useDarkIcons,
+                    false
+                )
             }
         }
     }

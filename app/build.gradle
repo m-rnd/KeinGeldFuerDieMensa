@@ -22,6 +22,10 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas".toString())
+        }
     }
 
     buildTypes {
@@ -30,6 +34,13 @@ android {
             applicationIdSuffix '.debug'
             versionNameSuffix "-debug"
             debuggable true
+        }
+        profile {
+            initWith release
+            resValue "string", "app_label", "@string/app_label_release"
+            applicationIdSuffix '.profile'
+            versionNameSuffix "-profile"
+            signingConfig signingConfigs.debug
         }
         release {
             resValue "string", "app_label", "@string/app_label_release"
@@ -65,17 +76,14 @@ dependencies {
 
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
+    implementation "androidx.compose.material3:material3:$compose_m3_version"
     implementation "androidx.compose.ui:ui-tooling:$compose_version"
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
     implementation 'androidx.navigation:navigation-compose:2.6.0-rc01'
     implementation 'androidx.profileinstaller:profileinstaller:1.3.1'
 
     //compose addons
-    implementation "com.google.accompanist:accompanist-insets:$accompanist_version"
-    implementation "com.google.accompanist:accompanist-insets-ui:$accompanist_version"
     implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanist_version"
-    implementation "com.google.accompanist:accompanist-pager:$accompanist_version"
-    implementation "com.google.accompanist:accompanist-pager-indicators:$accompanist_version"
     implementation 'org.burnoutcrew.composereorderable:reorderable:0.9.6'
 
     // hilt

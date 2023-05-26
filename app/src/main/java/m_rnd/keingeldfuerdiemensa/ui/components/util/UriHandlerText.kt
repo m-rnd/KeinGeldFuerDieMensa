@@ -1,9 +1,8 @@
 package m_rnd.keingeldfuerdiemensa.ui.components.util
 
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material.LocalContentColor
-import androidx.compose.material.LocalTextStyle
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.takeOrElse
@@ -28,7 +27,7 @@ fun UriHandlerText(
      * This is adapted from [androidx.compose.material.Text]
      */
     val textColor = style.color.takeOrElse {
-        LocalContentColor.current.copy(alpha = LocalContentAlpha.current)
+        LocalContentColor.current
     }
 
     val mergedStyle = style.merge(

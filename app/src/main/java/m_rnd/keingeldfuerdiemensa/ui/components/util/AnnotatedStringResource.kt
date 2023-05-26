@@ -4,9 +4,18 @@ import android.content.res.Resources
 import android.graphics.Typeface
 import android.text.Spanned
 import android.text.SpannedString
-import android.text.style.*
+import android.text.style.AbsoluteSizeSpan
+import android.text.style.BulletSpan
+import android.text.style.RelativeSizeSpan
+import android.text.style.StrikethroughSpan
+import android.text.style.StyleSpan
+import android.text.style.SubscriptSpan
+import android.text.style.SuperscriptSpan
+import android.text.style.TypefaceSpan
+import android.text.style.URLSpan
+import android.text.style.UnderlineSpan
 import androidx.annotation.StringRes
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.remember
@@ -44,7 +53,7 @@ private fun resources(): Resources {
 fun annotatedStringResource(@StringRes id: Int, vararg formatArgs: Any): AnnotatedString {
     val resources = resources()
     val density = LocalDensity.current
-    val linkColor = MaterialTheme.colors.primary
+    val linkColor = MaterialTheme.colorScheme.primary
     return remember(id, formatArgs) {
         val text = resources.getText(id, *formatArgs)
         spannableStringToAnnotatedString(text, density, linkColor)
@@ -55,7 +64,7 @@ fun annotatedStringResource(@StringRes id: Int, vararg formatArgs: Any): Annotat
 fun annotatedStringResource(@StringRes id: Int): AnnotatedString {
     val resources = resources()
     val density = LocalDensity.current
-    val linkColor = MaterialTheme.colors.primary
+    val linkColor = MaterialTheme.colorScheme.primary
     return remember(id) {
         val text = resources.getText(id)
         spannableStringToAnnotatedString(text, density, linkColor)

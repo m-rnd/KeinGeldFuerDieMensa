@@ -1,10 +1,14 @@
-package m_rnd.keingeldfuerdiemensa.ui.screen.main.components.mealplan
+package m_rnd.keingeldfuerdiemensa.ui.screen.main.components.mealplan.item
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment.Companion.CenterVertically
@@ -19,14 +23,15 @@ import m_rnd.keingeldfuerdiemensa.ui.theme.Typography
 fun MealPlanItem(
     modifier: Modifier = Modifier,
     mealTitles: List<String>,
-    mealDescription: String,
+    mealDescription: String?,
     mealPrice: Float,
 ) {
     Column(
         modifier = modifier.padding(16.dp)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Column(
                 modifier = Modifier
@@ -36,7 +41,7 @@ fun MealPlanItem(
             ) {
                 mealTitles.forEach {
                     Text(
-                        style = Typography.h6,
+                        style = Typography.titleMedium,
                         text = it
                     )
                 }
@@ -45,16 +50,18 @@ fun MealPlanItem(
             Text(
                 modifier = Modifier.align(CenterVertically),
                 textAlign = TextAlign.End,
-                style = Typography.caption,
+                style = Typography.labelLarge,
                 text = "%.2f".format(mealPrice) + "€"
             )
         }
-        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-            Text(
-                modifier = Modifier.padding(top = 4.dp),
-                style = Typography.body2,
-                text = mealDescription
-            )
+        mealDescription?.let {
+            CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.onSurfaceVariant) {
+                Text(
+                    modifier = Modifier.padding(top = 4.dp),
+                    style = Typography.bodyMedium,
+                    text = mealDescription
+                )
+            }
         }
     }
 }
@@ -64,9 +71,7 @@ fun MealPlanItem(
 @Preview(showBackground = true)
 fun MealPlanItemPreview() {
     AppTheme {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
+        Column {
             MealPlanItem(
                 mealTitles = listOf("Cevapcici"),
                 mealDescription = "Zusatzstoffe",

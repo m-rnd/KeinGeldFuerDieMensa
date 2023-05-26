@@ -3,11 +3,11 @@ package m_rnd.keingeldfuerdiemensa.ui.screen.main.components.bottombar
 import androidx.compose.animation.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.stringResource
@@ -24,7 +24,7 @@ fun DayItem(timestamp: Long, isSelected: Boolean) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            style = MaterialTheme.typography.subtitle1, text = timestamp.toVisualDay(
+            style = MaterialTheme.typography.titleSmall, text = timestamp.toVisualDay(
                 stringResource(id = R.string.common_today),
                 stringResource(id = R.string.common_tomorrow)
             )
@@ -34,7 +34,7 @@ fun DayItem(timestamp: Long, isSelected: Boolean) {
             enter = scaleIn() + expandVertically(),
             exit = scaleOut() + shrinkVertically()
         ) {
-            Text(style = MaterialTheme.typography.caption, text = timestamp.toVisualDate())
+            Text(style = MaterialTheme.typography.bodySmall, text = timestamp.toVisualDate())
         }
     }
 }

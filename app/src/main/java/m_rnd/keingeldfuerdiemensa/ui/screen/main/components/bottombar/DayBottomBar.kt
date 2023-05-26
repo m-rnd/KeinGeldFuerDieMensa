@@ -1,32 +1,37 @@
 package m_rnd.keingeldfuerdiemensa.ui.screen.main.components.bottombar
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ScrollableTabRow
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRowDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.insets.navigationBarsPadding
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.PagerState
-import com.google.accompanist.pager.pagerTabIndicatorOffset
-import com.google.accompanist.pager.rememberPagerState
+import androidx.compose.ui.zIndex
 import kotlinx.coroutines.launch
 import m_rnd.keingeldfuerdiemensa.entities.MealPlan
 import m_rnd.keingeldfuerdiemensa.entities.mock.PreviewEntity
 import m_rnd.keingeldfuerdiemensa.presentation.MainMenuItem
-import m_rnd.keingeldfuerdiemensa.ui.components.util.translucentSurfaceColor
+import m_rnd.keingeldfuerdiemensa.ui.components.util.pagerTabIndicatorOffset
+import m_rnd.keingeldfuerdiemensa.ui.theme.AppBarElevation
 import m_rnd.keingeldfuerdiemensa.ui.theme.AppTheme
-import m_rnd.keingeldfuerdiemensa.ui.theme.BottomBarElevation
 import m_rnd.keingeldfuerdiemensa.ui.theme.CustomCornerRadius
 import m_rnd.keingeldfuerdiemensa.ui.theme.MainScreenBottomBarHeight
+import m_rnd.keingeldfuerdiemensa.ui.theme.TranslucentSurfaceAlpha
 
-@OptIn(ExperimentalPagerApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DayBottomBar(
     meals: List<MealPlan>,
@@ -37,24 +42,24 @@ fun DayBottomBar(
     val coroutineScope = rememberCoroutineScope()
 
     Surface(
-        color = translucentSurfaceColor(BottomBarElevation),
-        elevation = BottomBarElevation
+        tonalElevation = AppBarElevation,
+        modifier = Modifier.alpha(TranslucentSurfaceAlpha)
     ) {
         ScrollableTabRow(
             modifier = Modifier
                 .navigationBarsPadding()
                 .height(MainScreenBottomBarHeight),
-            backgroundColor = Color.Transparent,
-            contentColor = MaterialTheme.colors.primary.copy(alpha = 0.1f),
             edgePadding = 8.dp,
             selectedTabIndex = pagerState.currentPage,
+            divider = {},
             indicator = { tabPositions ->
                 TabRowDefaults.Indicator(
                     modifier = Modifier
                         .pagerTabIndicatorOffset(pagerState, tabPositions)
-                        .padding(8.dp)
+                        .padding(4.dp)
                         .clip(RoundedCornerShape(CustomCornerRadius)),
-                    height = MainScreenBottomBarHeight
+                    height = MainScreenBottomBarHeight,
+                    color = MaterialTheme.colorScheme.secondaryContainer
                 )
             }
         ) {
@@ -92,22 +97,24 @@ private fun DayBottomBarTab(
     tabItem: @Composable (Boolean) -> Unit,
 ) {
     Tab(
-        modifier = Modifier.fillMaxHeight(),
+        modifier = Modifier
+            .fillMaxHeight()
+            .zIndex(1f),
         text = { tabItem(isSelected) },
         selected = isSelected,
-        selectedContentColor = MaterialTheme.colors.primary,
-        unselectedContentColor = MaterialTheme.colors.onSurface.copy(alpha = 0.8f),
         onClick = onClick,
+        selectedContentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+        unselectedContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
     )
 }
 
-@ExperimentalPagerApi
+@OptIn(ExperimentalFoundationApi::class)
 @Preview
 @Composable
 fun DayBottomBarPreview() {
     AppTheme {
         DayBottomBar(
-            meals = listOf(PreviewEntity.MealPlanMock()),
+            meals = listOf(PreviewEntity.MealPlanMock(), PreviewEntity.MealPlanMock()),
             pagerState = rememberPagerState(),
             onMenuItemClick = { },
         )

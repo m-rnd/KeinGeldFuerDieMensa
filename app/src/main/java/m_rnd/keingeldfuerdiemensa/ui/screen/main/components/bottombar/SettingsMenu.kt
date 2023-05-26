@@ -1,8 +1,8 @@
 package m_rnd.keingeldfuerdiemensa.ui.screen.main.components.bottombar
 
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.Text
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import m_rnd.keingeldfuerdiemensa.presentation.MainMenuItem
@@ -15,9 +15,12 @@ fun SettingsMenu(
 ) {
     DropdownMenu(expanded = isVisible, onDismissRequest = onDismiss) {
         MainMenuItem.values().forEach { menuItem ->
-            DropdownMenuItem(onClick = { onMenuItemClick(menuItem) }) {
-                Text(stringResource(id = menuItem.displayName))
-            }
+            DropdownMenuItem(
+                onClick = { onMenuItemClick(menuItem) },
+                text = {
+                    Text(stringResource(id = menuItem.displayName))
+                }
+            )
         }
     }
 }
