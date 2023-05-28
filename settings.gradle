@@ -7,3 +7,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Kein Geld für die Mensa"
 include ':app'
+include ':benchmark'

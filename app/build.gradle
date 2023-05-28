@@ -41,6 +41,7 @@ android {
             applicationIdSuffix '.profile'
             versionNameSuffix "-profile"
             signingConfig signingConfigs.debug
+            debuggable false
         }
         release {
             resValue "string", "app_label", "@string/app_label_release"
