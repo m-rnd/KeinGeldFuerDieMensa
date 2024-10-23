@@ -10,84 +10,72 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ScrollableTabRow
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRowDefaults
-import androidx.compose.runtime.*
+import androidx.compose.material3.TabRowDefaults.SecondaryIndicator
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import kotlinx.coroutines.launch
 import m_rnd.keingeldfuerdiemensa.entities.MealPlan
 import m_rnd.keingeldfuerdiemensa.entities.mock.PreviewEntity
-import m_rnd.keingeldfuerdiemensa.presentation.MainMenuItem
-import m_rnd.keingeldfuerdiemensa.ui.components.util.pagerTabIndicatorOffset
-import m_rnd.keingeldfuerdiemensa.ui.theme.AppBarElevation
+import m_rnd.keingeldfuerdiemensa.ui.components.util.modifier.pagerTabIndicatorOffset
 import m_rnd.keingeldfuerdiemensa.ui.theme.AppTheme
 import m_rnd.keingeldfuerdiemensa.ui.theme.CustomCornerRadius
 import m_rnd.keingeldfuerdiemensa.ui.theme.MainScreenBottomBarHeight
-import m_rnd.keingeldfuerdiemensa.ui.theme.TranslucentSurfaceAlpha
+
+
+val DayBottomBarTabPadding = 4.dp
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DayBottomBar(
+    tabEdgePadding: Dp = CustomCornerRadius,
     meals: List<MealPlan>,
-    pagerState: PagerState,
-    onMenuItemClick: (MainMenuItem) -> Unit
+    pagerState: PagerState
 ) {
-    var isMenuVisible by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
 
-    Surface(
-        tonalElevation = AppBarElevation,
-        modifier = Modifier.alpha(TranslucentSurfaceAlpha)
+
+    ScrollableTabRow(
+        modifier = Modifier
+            .navigationBarsPadding()
+            .height(MainScreenBottomBarHeight),
+        edgePadding = tabEdgePadding,
+        selectedTabIndex = pagerState.currentPage,
+        divider = {},
+        indicator = { tabPositions ->
+            SecondaryIndicator(
+                modifier = Modifier
+                    .pagerTabIndicatorOffset(
+                        pagerState,
+                        tabPositions,
+                        pageIndexMapping = { it })
+                    .padding(DayBottomBarTabPadding)
+                    .clip(RoundedCornerShape(CustomCornerRadius)),
+                height = MainScreenBottomBarHeight,
+                color = MaterialTheme.colorScheme.secondaryContainer
+            )
+        }
     ) {
-        ScrollableTabRow(
-            modifier = Modifier
-                .navigationBarsPadding()
-                .height(MainScreenBottomBarHeight),
-            edgePadding = 8.dp,
-            selectedTabIndex = pagerState.currentPage,
-            divider = {},
-            indicator = { tabPositions ->
-                TabRowDefaults.Indicator(
-                    modifier = Modifier
-                        .pagerTabIndicatorOffset(pagerState, tabPositions)
-                        .padding(4.dp)
-                        .clip(RoundedCornerShape(CustomCornerRadius)),
-                    height = MainScreenBottomBarHeight,
-                    color = MaterialTheme.colorScheme.secondaryContainer
-                )
-            }
-        ) {
-            meals.forEachIndexed { index, canteen ->
-                DayBottomBarTab(
-                    isSelected = pagerState.currentPage == index,
-                    onClick = {
-                        coroutineScope.launch {
-                            pagerState.animateScrollToPage(index)
-                        }
-                    }
-                ) { isSelected ->
-                    DayItem(canteen.day, isSelected)
-                }
-            }
+        meals.forEachIndexed { index, canteen ->
             DayBottomBarTab(
-                isSelected = pagerState.currentPage == meals.size,
-                onClick = { isMenuVisible = !isMenuVisible }
-            ) {
-                SettingsItem()
-                SettingsMenu(
-                    isVisible = isMenuVisible,
-                    onMenuItemClick = onMenuItemClick,
-                    onDismiss = { isMenuVisible = false }
-                )
+                isSelected = pagerState.currentPage == index,
+                onClick = {
+                    coroutineScope.launch {
+                        pagerState.animateScrollToPage(index)
+                    }
+                }
+            ) { isSelected ->
+                DayItem(canteen.day, isSelected)
             }
         }
     }
+
 }
 
 @Composable
@@ -115,8 +103,7 @@ fun DayBottomBarPreview() {
     AppTheme {
         DayBottomBar(
             meals = listOf(PreviewEntity.MealPlanMock(), PreviewEntity.MealPlanMock()),
-            pagerState = rememberPagerState(),
-            onMenuItemClick = { },
+            pagerState = rememberPagerState { 2 },
         )
     }
 }

@@ -9,7 +9,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import m_rnd.keingeldfuerdiemensa.entities.CanteenSearchResult
 import m_rnd.keingeldfuerdiemensa.entities.util.UiState
-import m_rnd.keingeldfuerdiemensa.presentation.AddCanteenViewModel
+import m_rnd.keingeldfuerdiemensa.presentation.addcanteen.AddCanteenViewModel
 import m_rnd.keingeldfuerdiemensa.ui.components.banner.ErrorBanner
 import m_rnd.keingeldfuerdiemensa.ui.components.systemui.StatusBarType
 import m_rnd.keingeldfuerdiemensa.ui.components.systemui.SystemUiScaffold

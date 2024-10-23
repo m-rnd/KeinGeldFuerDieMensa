@@ -11,8 +11,9 @@ val Shapes = Shapes(
 )
 val CustomCornerRadius = 16.dp
 
-val MainScreenBottomBarHeight = 72.dp
+val MainScreenBottomBarHeight = 64.dp
 val AppBarElevation = 4.dp
 val AppBarHeight = 64.dp
-val BottomBarElevation = 12.dp
 val DialogElevation = 16.dp
+
+val SettingsCanteenListMaxHeight = 500.dp

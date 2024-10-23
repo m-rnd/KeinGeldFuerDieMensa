@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import m_rnd.keingeldfuerdiemensa.BuildConfig
 import m_rnd.keingeldfuerdiemensa.R
-import m_rnd.keingeldfuerdiemensa.presentation.settings.AboutViewModel
+import m_rnd.keingeldfuerdiemensa.presentation.about.AboutViewModel
 import m_rnd.keingeldfuerdiemensa.ui.components.systemui.NavigationBarType
 import m_rnd.keingeldfuerdiemensa.ui.components.systemui.SystemUiScaffold
 import m_rnd.keingeldfuerdiemensa.ui.components.util.UriHandlerText

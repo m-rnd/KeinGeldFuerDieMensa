@@ -26,12 +26,11 @@ sealed class FlowState<out T> : Serializable {
     }
 }
 
-suspend fun <T, R> Flow<FlowState<T>>.onFirstSuccess(call: suspend (T) -> AppResult<R>): AppResult<R> {
-    val firstResult = this.filter { it !is FlowState.Loading }.first()
-    return when(firstResult) {
+suspend fun <T, R> Flow<FlowState<T>>.onFirstResult(call: suspend (T) -> AppResult<R>): AppResult<R> {
+    return when (val firstResult = this.filter { it !is FlowState.Loading }.first()) {
         is FlowState.Success -> call(firstResult.data)
         is FlowState.Loading -> error("invalid state")
-        is FlowState.Error -> AppResult.Error()
+        is FlowState.Error -> AppResult.Error(firstResult.reason)
     }
 }
 
@@ -64,6 +63,17 @@ fun <T, R> Flow<FlowState<T>>.mapSuccessTo(transform: suspend (T) -> FlowState<R
             is FlowState.Success -> transform(flowState.data)
             is FlowState.Error -> flowState
             is FlowState.Loading -> flowState
+        }
+    }
+}
+
+
+fun <T, R> Flow<FlowState<T>>.successOr(default: R, transform: suspend (T) -> R): Flow<R> {
+    return map { flowState ->
+        when (flowState) {
+            is FlowState.Success -> transform(flowState.data)
+            is FlowState.Error -> default
+            is FlowState.Loading -> default
         }
     }
 }

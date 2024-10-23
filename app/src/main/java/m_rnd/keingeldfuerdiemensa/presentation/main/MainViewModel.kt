@@ -1,4 +1,4 @@
-package m_rnd.keingeldfuerdiemensa.presentation
+package m_rnd.keingeldfuerdiemensa.presentation.main
 
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
@@ -41,11 +41,8 @@ class MainViewModel @Inject constructor(
         return plans
     }
 
-    fun navigateToMenuItemTarget(item: MainMenuItem) {
-        when (item) {
-            MainMenuItem.CANTEEN_SETTINGS -> navigator.navigateTo(NavigationTarget.Settings.Canteen)
-            MainMenuItem.ABOUT -> navigator.navigateTo(NavigationTarget.Settings.About)
-        }
+    fun navigateToSettings(mockMealPlan: MealPlan) {
+        navigator.navigateTo(NavigationTarget.Settings)
     }
 
     fun navigateToAddCanteenScreen() {

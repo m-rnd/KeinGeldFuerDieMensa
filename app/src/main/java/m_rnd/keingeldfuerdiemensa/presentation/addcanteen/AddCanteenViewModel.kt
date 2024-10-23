@@ -1,4 +1,4 @@
-package m_rnd.keingeldfuerdiemensa.presentation
+package m_rnd.keingeldfuerdiemensa.presentation.addcanteen
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

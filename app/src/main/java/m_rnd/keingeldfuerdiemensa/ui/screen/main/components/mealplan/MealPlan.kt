@@ -4,7 +4,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,6 +23,8 @@ import m_rnd.keingeldfuerdiemensa.ui.screen.main.components.mealplan.item.MealPl
 import m_rnd.keingeldfuerdiemensa.ui.screen.main.components.mealplan.item.MealPlanItem
 import m_rnd.keingeldfuerdiemensa.ui.theme.AppTheme
 
+
+val MealPlanTopPadding = 32.dp
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -55,6 +57,10 @@ fun MealPlan(
                     contentPadding = contentPadding,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+                    item {
+                        Spacer(modifier = Modifier.height(MealPlanTopPadding))
+                    }
+
                     canteenState.data.forEach { canteen ->
                         stickyHeader { MealPlanCanteenTitle(canteenName = canteen.name) }
 
@@ -78,7 +84,7 @@ fun MealPlan(
                                         mealPrice = meal.prices.students ?: 0f
                                     )
                                     if (index < meals.size - 1) {
-                                        Divider(
+                                        HorizontalDivider(
                                             modifier = Modifier
                                                 .align(Alignment.CenterHorizontally)
                                                 .width(144.dp)

@@ -1,4 +1,4 @@
-package m_rnd.keingeldfuerdiemensa.ui.components.util
+package m_rnd.keingeldfuerdiemensa.ui.components.util.modifier
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.pager.PagerState

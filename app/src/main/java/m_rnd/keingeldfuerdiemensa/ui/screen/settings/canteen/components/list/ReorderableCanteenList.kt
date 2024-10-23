@@ -6,10 +6,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import m_rnd.keingeldfuerdiemensa.R
+import androidx.compose.ui.unit.dp
 import m_rnd.keingeldfuerdiemensa.presentation.settings.CanteenList
-import m_rnd.keingeldfuerdiemensa.ui.components.banner.InfoBanner
+import org.burnoutcrew.reorderable.ReorderableItem
 import org.burnoutcrew.reorderable.rememberReorderableLazyListState
 import org.burnoutcrew.reorderable.reorderable
 
@@ -17,27 +16,27 @@ import org.burnoutcrew.reorderable.reorderable
 fun ReorderableCanteenList(
     moveCanteen: (Int, Int) -> Unit,
     canteenResult: CanteenList.Reorderable,
-    contentPadding: PaddingValues
+    modifier: Modifier = Modifier,
 ) {
     val reorderableState =
         rememberReorderableLazyListState(onMove = { from, to -> moveCanteen(from.index, to.index) })
     LazyColumn(
+        contentPadding = PaddingValues(vertical = 4.dp),
         state = reorderableState.listState,
-        contentPadding = contentPadding,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .reorderable(
                 reorderableState
             ),
     ) {
-        items(canteenResult.canteens, { it.id }) { canteen ->
-            ReorderableCanteenListItem(
-                canteen = canteen,
-                state = reorderableState
-            )
-        }
-        item {
-            InfoBanner(contentText = stringResource(R.string.canteen_settings_info_banner))
+        items(canteenResult.canteens, { it }) { canteen ->
+            ReorderableItem(reorderableState, key = canteen) { isDragging ->
+                ReorderableCanteenListItem(
+                    canteen = canteen,
+                    state = reorderableState,
+                    isDragging = isDragging
+                )
+            }
         }
     }
 }

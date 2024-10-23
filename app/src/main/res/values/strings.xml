@@ -15,14 +15,25 @@
     <string name="main_info_no_meals_found_for_day">(Kein Speiseplan für diesen Tag gefunden)</string>
     <string name="main_content_description_settings_icon">Zu Einstellungen navigieren</string>
 
+    <string name="settings_title">Einstellungen</string>
+    <string name="settings_content_description_info">App-Informationen anzeigen</string>
+
     <string name="canteen_settings_title">Mensen</string>
     <string name="canteen_settings_info_banner">Du kannst Mensen einzeln aus dem Speiseplan ein/ausblenden und neu sortieren. Lösche eine Mensa, indem du sie nach links wischst.</string>
     <string name="canteen_settings_info_banner_no_canteens">Füge eine Mensa hinzu, indem du auf den (+) Button klickst.</string>
+    <string name="canteen_settings_add_canteen_button">Weitere Mensa hinzufügen</string>
     <string name="canteen_settings_content_description_toggle_sort_mode">Sortiermodus umschalten</string>
     <string name="canteen_settings_content_description_add_canteen">Mensa hinzufügen</string>
     <string name="canteen_settings_content_description_delete_canteen">Mensa löschen</string>
     <string name="canteen_settings_content_description_toggle_visibility">Sichtbarkeit ändern</string>
     <string name="canteen_settings_content_description_sort_canteen">Mensa sortieren</string>
+
+    <string name="theme_settings_title">Farbe und Design</string>
+
+    <string name="theme_settings_mode_light">Hell</string>
+    <string name="theme_settings_mode_dark">Dunkel</string>
+    <string name="theme_settings_mode_system">System</string>
+    <string name="theme_settings_use_dynamic_colors">Dynamische Systemfarbe nutzen</string>
 
     <string name="add_canteen_search_text_field_placeholder">Suchtext eingeben</string>
     <string name="add_canteen_search_result_info_label">Du kannst Mensen anhand dessen Namen, Adresse oder Stadt suchen.</string>

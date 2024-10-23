@@ -13,7 +13,6 @@
     <string name="main_content_description_settings_icon">Navigate to settings</string>
     <string name="canteen_settings_title">Canteens</string>
     <string name="canteen_settings_info_banner">You can show/hide canteens from the meal plan and reorder them. Delete a canteen by swiping it to the left.</string>
-    <string name="canteen_settings_info_banner_no_canteens">Add a canteen by clicking on the (+) button.</string>
     <string name="canteen_settings_content_description_toggle_sort_mode">Toggle sort mode</string>
     <string name="canteen_settings_content_description_add_canteen">Add canteen</string>
     <string name="canteen_settings_content_description_delete_canteen">Delete canteen</string>
@@ -21,6 +20,10 @@
     <string name="canteen_settings_content_description_sort_canteen">Sort canteen</string>
     <string name="add_canteen_search_text_field_placeholder">Enter search text</string>
     <string name="add_canteen_search_result_info_label">You can search canteens by their name, address or city.</string>
+    <plurals name="add_canteen_search_result_amount">
+        <item quantity="one">%d canteen found</item>
+        <item quantity="other">%d canteens found</item>
+    </plurals>
     <string name="dialog_canteen_name_header">Change name</string>
     <string name="dialog_canteen_name_text_field_placeholder">Canteen name</string>
     <string name="about_title">About</string>
@@ -32,4 +35,13 @@
     <string name="error_reason_api_other">Network error: Unknown error</string>
     <string name="error_reason_api_no_connection">Network error: No connection</string>
     <string name="error_reason_api_error">Network error: Internal error</string>
+    <string name="settings_title">Settings</string>
+    <string name="settings_content_description_info">Show app information</string>
+    <string name="theme_settings_title">Color and design</string>
+    <string name="theme_settings_mode_light">Light</string>
+    <string name="theme_settings_mode_dark">Dark</string>
+    <string name="theme_settings_mode_system">System</string>
+    <string name="theme_settings_use_dynamic_colors">Use dynamic system color</string>
+    <string name="canteen_settings_info_banner_no_canteens">Add a canteen by pressing on the (+) Button.</string>
+    <string name="canteen_settings_add_canteen_button">Add another canteen</string>
 </resources>

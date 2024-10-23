@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option java_package = "m_rnd.keingeldfuerdiemensa.datasource.datastore";
+option java_multiple_files = true;
+
+message UserPreferences {
+  bool use_dynamic_colors = 1;
+  int32 theme_mode = 2;
+}
